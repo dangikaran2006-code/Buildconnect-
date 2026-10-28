@@ -40,30 +40,33 @@ unset($proj);
     <main class="bc-main-content">
         <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
             <div>
-                <h1 class="h2 fw-bold text-white mb-1">
+                <h1 class="h2 fw-bold text-dark mb-1">
                     <i class="fa-solid fa-building text-warning me-2"></i>My Construction Developments
                 </h1>
                 <p class="text-muted small mb-0">Real-time client monitoring of construction progress, milestone achievements, and contractor performance.</p>
             </div>
+            <a href="<?= BASE_URL ?>/client/create-project.php" class="btn btn-amber fw-bold btn-sm py-2 px-3">
+                <i class="fa-solid fa-plus me-1"></i> Post Construction Project (Compare Quotes)
+            </a>
         </div>
 
         <div class="bc-card p-4">
             <?php if (empty($projects)): ?>
                 <div class="bc-empty-state py-5 text-center">
                     <i class="fa-solid fa-building-circle-exclamation fs-1 text-muted mb-3"></i>
-                    <h3 class="h5 text-white fw-bold">No Projects Linked</h3>
+                    <h3 class="h5 text-dark fw-bold">No Projects Linked</h3>
                     <p class="text-muted small mb-0">No construction projects are currently linked to your client developer account.</p>
                 </div>
             <?php else: ?>
                 <div class="row g-4">
                     <?php foreach ($projects as $p): ?>
                         <div class="col-lg-6">
-                            <div class="bc-card p-4 h-100 d-flex flex-column justify-content-between border-secondary">
+                            <div class="bc-card p-4 h-100 d-flex flex-column justify-content-between">
                                 <div>
                                     <div class="d-flex justify-content-between align-items-start gap-2 mb-2">
                                         <div>
-                                            <h2 class="h5 text-white fw-bold mb-1">
-                                                <a href="<?= BASE_URL ?>/client/project-details.php?id=<?= $p['id'] ?>" class="text-white text-decoration-none hover-amber">
+                                            <h2 class="h5 fw-bold mb-1">
+                                                <a href="<?= BASE_URL ?>/client/project-details.php?id=<?= $p['id'] ?>" class="text-dark text-decoration-none hover-amber">
                                                     <?= e($p['title']) ?>
                                                 </a>
                                             </h2>
@@ -78,7 +81,7 @@ unset($proj);
                                         <i class="fa-solid fa-location-dot text-danger me-1"></i><?= e($p['location']) ?>
                                     </div>
 
-                                    <div class="p-3 bg-dark rounded-3 border border-secondary mb-3">
+                                    <div class="p-3 bg-light rounded-3 border mb-3">
                                         <div class="d-flex justify-content-between extra-small mb-1">
                                             <span class="text-muted">Overall Completion Progress</span>
                                             <span class="font-monospace text-warning fw-bold"><?= (int)$p['progress_percent'] ?>%</span>
@@ -90,16 +93,16 @@ unset($proj);
 
                                     <div class="row g-2 text-muted extra-small mb-3">
                                         <div class="col-6">
-                                            Milestones: <strong class="text-light"><?= (int)$p['completed_milestones'] ?> / <?= (int)$p['total_milestones'] ?> Done</strong>
+                                            Milestones: <strong class="text-dark"><?= (int)$p['completed_milestones'] ?> / <?= (int)$p['total_milestones'] ?> Done</strong>
                                         </div>
                                         <div class="col-6">
-                                            Tasks: <strong class="text-light"><?= (int)$p['completed_tasks'] ?> / <?= (int)$p['total_tasks'] ?> Completed</strong>
+                                            Tasks: <strong class="text-dark"><?= (int)$p['completed_tasks'] ?> / <?= (int)$p['total_tasks'] ?> Completed</strong>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="pt-3 border-top border-secondary d-flex justify-content-between align-items-center">
-                                    <span class="text-muted extra-small">Budget: <strong class="text-warning font-monospace"><?= format_currency($p['budget']) ?></strong></span>
+                                <div class="pt-3 border-top d-flex justify-content-between align-items-center">
+                                    <span class="text-muted extra-small">Budget: <strong class="text-dark font-monospace"><?= format_currency($p['budget']) ?></strong></span>
                                     <a href="<?= BASE_URL ?>/client/project-details.php?id=<?= $p['id'] ?>" class="btn btn-amber btn-sm fw-bold extra-small py-1 px-3">
                                         Project Monitoring <i class="fa-solid fa-arrow-right ms-1"></i>
                                     </a>

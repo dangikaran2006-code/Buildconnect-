@@ -122,7 +122,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     set_flash_message("Identity document uploaded successfully! It is now pending Admin verification.", "success");
                     redirect('worker/documents.php');
                 } catch (PDOException $e) {
-                    $errors[] = "Database insert error: " . $e->getMessage();
+                    error_log("Worker document insert error: " . $e->getMessage());
+                    $errors[] = "An unexpected error occurred while saving your document. Please try again.";
                 }
             } else {
                 $errors[] = "Failed to store uploaded document on server.";

@@ -12,13 +12,26 @@ define('APP_TAGLINE', 'Connect People. Build Projects. Grow Together.');
 $protocol = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https') ? 'https' : 'http';
 $host = $_SERVER['HTTP_HOST'] ?? 'localhost';
 
-// Determine root directory relative to DOCUMENT_ROOT
-$doc_root = isset($_SERVER['DOCUMENT_ROOT']) ? str_replace('\\', '/', realpath($_SERVER['DOCUMENT_ROOT'])) : '';
+// Determine root directory relative to DOCUMENT_ROOT or SCRIPT_NAME (supports symlinks/junctions)
 $app_root = str_replace('\\', '/', realpath(dirname(__DIR__)));
+$doc_root = isset($_SERVER['DOCUMENT_ROOT']) ? str_replace('\\', '/', realpath($_SERVER['DOCUMENT_ROOT'])) : '';
+
+$app_root_lower = strtolower($app_root);
+$doc_root_lower = strtolower($doc_root);
 
 $web_root = '';
-if (!empty($doc_root) && !empty($app_root) && strpos($app_root, $doc_root) === 0) {
+if (!empty($doc_root_lower) && !empty($app_root_lower) && strpos($app_root_lower, $doc_root_lower) === 0) {
     $web_root = substr($app_root, strlen($doc_root));
+} elseif (isset($_SERVER['SCRIPT_NAME']) && isset($_SERVER['SCRIPT_FILENAME'])) {
+    $script_filename_lower = strtolower(str_replace('\\', '/', realpath($_SERVER['SCRIPT_FILENAME']) ?: $_SERVER['SCRIPT_FILENAME']));
+    if ($app_root_lower !== '' && strpos($script_filename_lower, $app_root_lower) === 0) {
+        $sub_path_lower = substr($script_filename_lower, strlen($app_root_lower));
+        $script_name = str_replace('\\', '/', $_SERVER['SCRIPT_NAME']);
+        $script_name_lower = strtolower($script_name);
+        if ($sub_path_lower !== '' && substr($script_name_lower, -strlen($sub_path_lower)) === $sub_path_lower) {
+            $web_root = substr($script_name, 0, strlen($script_name) - strlen($sub_path_lower));
+        }
+    }
 }
 
 $base_url = rtrim($protocol . '://' . $host . '/' . ltrim($web_root, '/'), '/');

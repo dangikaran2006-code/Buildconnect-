@@ -122,19 +122,19 @@ $activities = $act_stmt->fetchAll();
         <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
             <div>
                 <div class="d-flex align-items-center gap-2 mb-1">
-                    <h1 class="h2 fw-bold text-white mb-0"><?= e($project['title']) ?></h1>
+                    <h1 class="h2 fw-bold text-dark mb-0"><?= e($project['title']) ?></h1>
                     <span class="badge <?= get_status_badge_class($project['status']) ?> fs-6"><?= e(ucfirst(str_replace('_', ' ', $project['status']))) ?></span>
                 </div>
                 <p class="text-muted small mb-0">
                     <i class="fa-solid fa-location-dot text-danger me-1"></i><?= e($project['location']) ?>
-                    • Client: <strong class="text-info"><?= e($project['client_name'] ? ($project['client_company'] ?: $project['client_name']) : 'Internal Developer') ?></strong>
+                    • Client: <strong class="text-primary"><?= e($project['client_name'] ? ($project['client_company'] ?: $project['client_name']) : 'Internal Developer') ?></strong>
                 </p>
             </div>
             <div class="d-flex gap-2">
-                <a href="<?= BASE_URL ?>/contractor/projects.php" class="btn btn-outline-light btn-sm fw-bold">
+                <a href="<?= BASE_URL ?>/contractor/projects.php" class="btn btn-outline-secondary btn-sm fw-bold">
                     <i class="fa-solid fa-arrow-left me-1"></i> Back to Projects
                 </a>
-                <a href="<?= BASE_URL ?>/contractor/edit-project.php?id=<?= $proj_id ?>" class="btn btn-warning btn-sm fw-bold">
+                <a href="<?= BASE_URL ?>/contractor/edit-project.php?id=<?= $proj_id ?>" class="btn btn-amber btn-sm fw-bold">
                     <i class="fa-solid fa-pen me-1"></i> Edit Project
                 </a>
             </div>
@@ -151,31 +151,31 @@ $activities = $act_stmt->fetchAll();
         <div class="row g-3 mb-4">
             <div class="col-md-3 col-6">
                 <div class="bc-card p-3">
-                    <div class="text-muted extra-small uppercase">Overall Progress</div>
-                    <div class="display-6 font-monospace text-warning fw-bold my-1"><?= (int)$project['progress_percent'] ?>%</div>
-                    <div class="progress" style="height: 4px;">
+                    <div class="text-muted extra-small uppercase fw-semibold">Overall Progress</div>
+                    <div class="display-6 font-monospace text-amber fw-bold my-1"><?= (int)$project['progress_percent'] ?>%</div>
+                    <div class="progress" style="height: 6px;">
                         <div class="progress-bar bg-amber" style="width: <?= (int)$project['progress_percent'] ?>%"></div>
                     </div>
                 </div>
             </div>
             <div class="col-md-3 col-6">
                 <div class="bc-card p-3">
-                    <div class="text-muted extra-small uppercase">Total Budget</div>
+                    <div class="text-muted extra-small uppercase fw-semibold">Total Budget</div>
                     <div class="display-6 font-monospace text-success fw-bold my-1" style="font-size: 1.5rem;"><?= format_currency($project['budget']) ?></div>
                     <div class="extra-small text-muted">Allocated Funds</div>
                 </div>
             </div>
             <div class="col-md-3 col-6">
                 <div class="bc-card p-3">
-                    <div class="text-muted extra-small uppercase">Project Timeline</div>
-                    <div class="fw-bold text-light my-1" style="font-size: 0.95rem;"><?= format_date($project['start_date']) ?></div>
+                    <div class="text-muted extra-small uppercase fw-semibold">Project Timeline</div>
+                    <div class="fw-bold text-dark my-1" style="font-size: 0.95rem;"><?= format_date($project['start_date']) ?></div>
                     <div class="extra-small text-muted">Exp: <?= format_date($project['end_date']) ?></div>
                 </div>
             </div>
             <div class="col-md-3 col-6">
                 <div class="bc-card p-3">
-                    <div class="text-muted extra-small uppercase">Workforce & Tasks</div>
-                    <div class="fw-bold text-info my-1" style="font-size: 0.95rem;"><?= count($members) ?> Members</div>
+                    <div class="text-muted extra-small uppercase fw-semibold">Workforce & Tasks</div>
+                    <div class="fw-bold text-primary my-1" style="font-size: 0.95rem;"><?= count($members) ?> Members</div>
                     <div class="extra-small text-muted"><?= count($tasks) ?> Total Tasks</div>
                 </div>
             </div>
@@ -187,8 +187,8 @@ $activities = $act_stmt->fetchAll();
                 <!-- Milestones Section -->
                 <div class="bc-card p-4 mb-4">
                     <div class="d-flex justify-content-between align-items-center mb-3">
-                        <h2 class="h5 text-white fw-bold mb-0">
-                            <i class="fa-solid fa-flag-checkered text-warning me-2"></i>Project Milestones (<?= count($milestones) ?>)
+                        <h2 class="h5 text-dark fw-bold mb-0">
+                            <i class="fa-solid fa-flag-checkered text-amber me-2"></i>Project Milestones (<?= count($milestones) ?>)
                         </h2>
                         <a href="<?= BASE_URL ?>/contractor/milestones.php?project_id=<?= $proj_id ?>" class="btn btn-amber btn-sm fw-bold extra-small py-1 px-3">
                             <i class="fa-solid fa-plus me-1"></i> Manage Milestones
@@ -203,10 +203,10 @@ $activities = $act_stmt->fetchAll();
                         <div class="vstack gap-3">
                             <?php foreach ($milestones as $ms): ?>
                                 <?php $deadline = get_deadline_status($ms['target_date'], $ms['status']); ?>
-                                <div class="p-3 bg-dark rounded-3 border border-secondary">
+                                <div class="p-3 bg-light rounded-3 border">
                                     <div class="d-flex justify-content-between align-items-start mb-1">
                                         <div>
-                                            <h3 class="h6 text-white fw-bold mb-0"><?= e($ms['title']) ?></h3>
+                                            <h3 class="h6 text-dark fw-bold mb-0"><?= e($ms['title']) ?></h3>
                                             <span class="text-muted extra-small"><?= e($ms['description']) ?></span>
                                         </div>
                                         <span class="badge <?= get_status_badge_class($ms['status']) ?>"><?= e(ucfirst($ms['status'])) ?></span>
@@ -215,9 +215,9 @@ $activities = $act_stmt->fetchAll();
                                         <div class="flex-grow-1">
                                             <div class="d-flex justify-content-between text-muted mb-1">
                                                 <span>Progress</span>
-                                                <span class="text-warning font-monospace fw-bold"><?= (int)$ms['progress_percent'] ?>%</span>
+                                                <span class="text-dark font-monospace fw-bold"><?= (int)$ms['progress_percent'] ?>%</span>
                                             </div>
-                                            <div class="progress" style="height: 5px;">
+                                            <div class="progress" style="height: 6px;">
                                                 <div class="progress-bar bg-amber" style="width: <?= (int)$ms['progress_percent'] ?>%"></div>
                                             </div>
                                         </div>
@@ -234,8 +234,8 @@ $activities = $act_stmt->fetchAll();
                 <!-- Tasks Section -->
                 <div class="bc-card p-4">
                     <div class="d-flex justify-content-between align-items-center mb-3">
-                        <h2 class="h5 text-white fw-bold mb-0">
-                            <i class="fa-solid fa-list-check text-info me-2"></i>Workforce Tasks (<?= count($tasks) ?>)
+                        <h2 class="h5 text-dark fw-bold mb-0">
+                            <i class="fa-solid fa-list-check text-primary me-2"></i>Workforce Tasks (<?= count($tasks) ?>)
                         </h2>
                         <a href="<?= BASE_URL ?>/contractor/create-task.php?project_id=<?= $proj_id ?>" class="btn btn-amber btn-sm fw-bold extra-small py-1 px-3">
                             <i class="fa-solid fa-plus me-1"></i> Create Task
@@ -248,29 +248,29 @@ $activities = $act_stmt->fetchAll();
                         </div>
                     <?php else: ?>
                         <div class="table-responsive">
-                            <table class="table table-custom align-middle mb-0">
-                                <thead>
+                            <table class="table align-middle mb-0">
+                                <thead class="table-light">
                                     <tr>
-                                        <th>Task Title</th>
-                                        <th>Assigned Worker</th>
-                                        <th>Priority</th>
-                                        <th>Status</th>
-                                        <th>Progress</th>
-                                        <th class="text-end">Action</th>
+                                        <th class="text-muted small text-uppercase fw-semibold">Task Title</th>
+                                        <th class="text-muted small text-uppercase fw-semibold">Assigned Worker</th>
+                                        <th class="text-muted small text-uppercase fw-semibold">Priority</th>
+                                        <th class="text-muted small text-uppercase fw-semibold">Status</th>
+                                        <th class="text-muted small text-uppercase fw-semibold">Progress</th>
+                                        <th class="text-end text-muted small text-uppercase fw-semibold">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php foreach ($tasks as $t): ?>
                                         <tr>
                                             <td>
-                                                <a href="<?= BASE_URL ?>/contractor/task-details.php?id=<?= $t['id'] ?>" class="fw-bold text-white text-decoration-none hover-amber">
+                                                <a href="<?= BASE_URL ?>/contractor/task-details.php?id=<?= $t['id'] ?>" class="fw-bold text-dark text-decoration-none hover-amber">
                                                     <?= e($t['title']) ?>
                                                 </a>
                                                 <?php if (!empty($t['milestone_title'])): ?>
                                                     <div class="extra-small text-muted"><i class="fa-solid fa-flag me-1"></i><?= e($t['milestone_title']) ?></div>
                                                 <?php endif; ?>
                                             </td>
-                                            <td class="small text-light">
+                                            <td class="small text-secondary">
                                                 <?= e($t['assigned_worker_name'] ?: 'Unassigned') ?>
                                             </td>
                                             <td>
@@ -280,10 +280,10 @@ $activities = $act_stmt->fetchAll();
                                                 <span class="badge <?= get_status_badge_class($t['status']) ?>"><?= e(ucfirst(str_replace('_', ' ', $t['status']))) ?></span>
                                             </td>
                                             <td>
-                                                <span class="font-monospace text-warning small"><?= (int)$t['progress_percent'] ?>%</span>
+                                                <span class="font-monospace text-dark fw-semibold small"><?= (int)$t['progress_percent'] ?>%</span>
                                             </td>
                                             <td class="text-end">
-                                                <a href="<?= BASE_URL ?>/contractor/task-details.php?id=<?= $t['id'] ?>" class="btn btn-outline-light btn-sm extra-small py-1 px-2">
+                                                <a href="<?= BASE_URL ?>/contractor/task-details.php?id=<?= $t['id'] ?>" class="btn btn-outline-secondary btn-sm extra-small py-1 px-2">
                                                     Manage
                                                 </a>
                                             </td>
@@ -301,7 +301,7 @@ $activities = $act_stmt->fetchAll();
                 <!-- Project Site Map Card -->
                 <div class="bc-card p-4 mb-4">
                     <div class="d-flex justify-content-between align-items-center mb-3">
-                        <h3 class="h6 text-white fw-bold mb-0"><i class="fa-solid fa-map-location-dot text-warning me-2"></i>Project Site Map</h3>
+                        <h3 class="h6 text-dark fw-bold mb-0"><i class="fa-solid fa-map-location-dot text-amber me-2"></i>Project Site Map</h3>
                         <?php if ($project['location_lat'] && $project['location_lng']): ?>
                             <a href="https://www.google.com/maps/dir/?api=1&destination=<?= $project['location_lat'] ?>,<?= $project['location_lng'] ?>" target="_blank" rel="noopener" class="btn btn-outline-warning btn-sm extra-small">
                                 <i class="fa-solid fa-route me-1"></i> Directions
@@ -310,11 +310,11 @@ $activities = $act_stmt->fetchAll();
                     </div>
                     
                     <div class="text-muted extra-small mb-2">
-                        <i class="fa-solid fa-location-dot me-1 text-warning"></i><?= e($project['location']) ?>
+                        <i class="fa-solid fa-location-dot me-1 text-danger"></i><?= e($project['location']) ?>
                     </div>
 
                     <?php if ($project['location_lat'] && $project['location_lng']): ?>
-                        <div id="projectDetailMap" style="height: 220px; width: 100%;" class="rounded border border-secondary bg-dark mb-2"></div>
+                        <div id="projectDetailMap" style="height: 220px; width: 100%;" class="rounded border mb-2"></div>
                         <script>
                         document.addEventListener('DOMContentLoaded', function () {
                             if (window.BC_Maps) {
@@ -326,9 +326,9 @@ $activities = $act_stmt->fetchAll();
                         });
                         </script>
                     <?php else: ?>
-                        <div class="p-3 bg-dark rounded text-center text-muted extra-small border border-secondary">
+                        <div class="p-3 bg-light rounded text-center text-muted extra-small border">
                             Project location has not been mapped yet.
-                            <a href="<?= BASE_URL ?>/contractor/edit-project.php?id=<?= $proj_id ?>" class="d-block text-warning mt-1">Set Coordinates</a>
+                            <a href="<?= BASE_URL ?>/contractor/edit-project.php?id=<?= $proj_id ?>" class="d-block text-amber fw-semibold mt-1">Set Coordinates</a>
                         </div>
                     <?php endif; ?>
                 </div>
@@ -336,8 +336,8 @@ $activities = $act_stmt->fetchAll();
                 <!-- Workforce Members Card -->
                 <div class="bc-card p-4 mb-4">
                     <div class="d-flex justify-content-between align-items-center mb-3">
-                        <h3 class="h6 text-white fw-bold mb-0"><i class="fa-solid fa-users text-amber me-2"></i>Assigned Workforce</h3>
-                        <a href="<?= BASE_URL ?>/contractor/workers.php?project_id=<?= $proj_id ?>" class="extra-small text-info text-decoration-none">View All</a>
+                        <h3 class="h6 text-dark fw-bold mb-0"><i class="fa-solid fa-users text-amber me-2"></i>Assigned Workforce</h3>
+                        <a href="<?= BASE_URL ?>/contractor/workers.php?project_id=<?= $proj_id ?>" class="extra-small text-primary text-decoration-none fw-semibold">View All</a>
                     </div>
 
                     <?php if (empty($members)): ?>
@@ -345,17 +345,17 @@ $activities = $act_stmt->fetchAll();
                     <?php else: ?>
                         <div class="vstack gap-2">
                             <?php foreach ($members as $m): ?>
-                                <div class="d-flex align-items-center justify-content-between p-2 bg-dark rounded-3 border border-secondary">
+                                <div class="d-flex align-items-center justify-content-between p-2 bg-light rounded-3 border">
                                     <div class="d-flex align-items-center gap-2">
-                                        <div class="rounded-circle bg-secondary text-white fw-bold d-flex align-items-center justify-content-center" style="width: 32px; height: 32px; font-size: 0.75rem;">
+                                        <div class="rounded-circle bg-primary-subtle text-primary fw-bold d-flex align-items-center justify-content-center" style="width: 32px; height: 32px; font-size: 0.75rem;">
                                             <?= strtoupper(substr($m['worker_name'], 0, 2)) ?>
                                         </div>
                                         <div>
-                                            <div class="fw-bold text-white extra-small"><?= e($m['worker_name']) ?></div>
+                                            <div class="fw-bold text-dark extra-small"><?= e($m['worker_name']) ?></div>
                                             <div class="text-muted" style="font-size: 0.7rem;"><?= e($m['role_in_project']) ?></div>
                                         </div>
                                     </div>
-                                    <span class="badge bg-secondary extra-small"><?= (int)$m['active_tasks'] ?> Tasks</span>
+                                    <span class="badge bg-secondary-subtle text-secondary border extra-small"><?= (int)$m['active_tasks'] ?> Tasks</span>
                                 </div>
                             <?php endforeach; ?>
                         </div>
@@ -364,18 +364,18 @@ $activities = $act_stmt->fetchAll();
 
                 <!-- Documents Card -->
                 <div class="bc-card p-4 mb-4">
-                    <h3 class="h6 text-white fw-bold mb-3"><i class="fa-solid fa-file-pdf text-danger me-2"></i>Project Documents</h3>
+                    <h3 class="h6 text-dark fw-bold mb-3"><i class="fa-solid fa-file-pdf text-danger me-2"></i>Project Documents</h3>
                     <?php if (empty($documents)): ?>
                         <p class="text-muted small mb-0">No documents uploaded.</p>
                     <?php else: ?>
                         <div class="vstack gap-2">
                             <?php foreach ($documents as $doc): ?>
-                                <div class="p-2 bg-dark rounded-3 border border-secondary d-flex justify-content-between align-items-center extra-small">
+                                <div class="p-2 bg-light rounded-3 border d-flex justify-content-between align-items-center extra-small">
                                     <div>
-                                        <div class="fw-bold text-light"><?= e($doc['title']) ?></div>
+                                        <div class="fw-bold text-dark"><?= e($doc['title']) ?></div>
                                         <div class="text-muted"><?= format_date($doc['created_at']) ?></div>
                                     </div>
-                                    <span class="badge bg-secondary"><?= e($doc['file_type']) ?></span>
+                                    <span class="badge bg-light text-secondary border"><?= e($doc['file_type']) ?></span>
                                 </div>
                             <?php endforeach; ?>
                         </div>
@@ -384,14 +384,14 @@ $activities = $act_stmt->fetchAll();
 
                 <!-- Recent Activity Logs -->
                 <div class="bc-card p-4">
-                    <h3 class="h6 text-white fw-bold mb-3"><i class="fa-solid fa-clock-rotate-left text-warning me-2"></i>Recent Activity</h3>
+                    <h3 class="h6 text-dark fw-bold mb-3"><i class="fa-solid fa-clock-rotate-left text-amber me-2"></i>Recent Activity</h3>
                     <?php if (empty($activities)): ?>
                         <p class="text-muted small mb-0">No activity recorded yet.</p>
                     <?php else: ?>
                         <div class="vstack gap-2 extra-small">
                             <?php foreach ($activities as $act): ?>
-                                <div class="border-bottom border-secondary pb-2">
-                                    <div class="fw-bold text-light"><?= e($act['action']) ?></div>
+                                <div class="border-bottom pb-2">
+                                    <div class="fw-bold text-dark"><?= e($act['action']) ?></div>
                                     <div class="text-muted"><?= e($act['details']) ?></div>
                                     <div class="text-muted" style="font-size: 0.7rem;"><?= format_datetime($act['created_at']) ?></div>
                                 </div>

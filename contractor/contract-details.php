@@ -71,7 +71,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             set_flash_message("Contract successfully sent to worker for signature.", "success");
         } catch (Exception $e) {
             $db->rollBack();
-            set_flash_message("Failed to send contract: " . $e->getMessage(), "danger");
+            error_log("Contractor send contract error: " . $e->getMessage());
+            set_flash_message("An unexpected error occurred while sending this contract. Please try again.", "danger");
         }
         redirect("contractor/contract-details.php?id=" . $contract_id);
     }
@@ -97,7 +98,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             set_flash_message("Contract successfully cancelled.", "info");
         } catch (Exception $e) {
             $db->rollBack();
-            set_flash_message("Failed to cancel contract: " . $e->getMessage(), "danger");
+            error_log("Contractor cancel contract error: " . $e->getMessage());
+            set_flash_message("An unexpected error occurred while cancelling this contract. Please try again.", "danger");
         }
         redirect("contractor/contract-details.php?id=" . $contract_id);
     }
@@ -123,7 +125,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             set_flash_message("Contract marked as Completed! You can now submit a worker review.", "success");
         } catch (Exception $e) {
             $db->rollBack();
-            set_flash_message("Failed to complete contract: " . $e->getMessage(), "danger");
+            error_log("Contractor complete contract error: " . $e->getMessage());
+            set_flash_message("An unexpected error occurred while completing this contract. Please try again.", "danger");
         }
         redirect("contractor/contract-details.php?id=" . $contract_id);
     }

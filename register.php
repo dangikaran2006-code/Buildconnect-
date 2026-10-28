@@ -94,186 +94,166 @@ require_once __DIR__ . '/includes/header.php';
 require_once __DIR__ . '/includes/navbar.php';
 ?>
 
-<div class="bc-login-wrapper">
-    <div class="bc-login-card bc-register-card">
-        <div class="text-center mb-4">
-            <div class="bc-login-header-icon">
-                <img src="<?= BASE_URL ?>/assets/images/logo.png" alt="BuildConnect Logo">
+<div class="bc-auth-wrapper">
+    <div class="bc-auth-card bc-register-card">
+        <div class="text-center mb-3">
+            <div class="bc-auth-icon-wrapper">
+                <i class="fa-solid fa-user-plus bc-auth-icon"></i>
             </div>
 
-            <h1 class="h3 text-white fw-bold brand-font mb-1">Create BuildConnect Account</h1>
-            <p class="text-slate-400 small mb-0">Join the construction network and build a better tomorrow.</p>
+            <h1 class="bc-auth-title mb-1"><?= __('auth.create_account_brand', ['brand' => '<span class="text-amber">BuildConnect</span>']) ?></h1>
+            <p class="bc-auth-subtitle mb-3"><?= __('auth.register_subtitle') ?></p>
         </div>
 
         <?php if ($flash): ?>
-            <div class="alert alert-<?= sanitize($flash['type']) ?> alert-dismissible fade show py-2.5 px-3 small border-0 shadow-sm mb-3" role="alert">
+            <div class="alert alert-<?= sanitize($flash['type']) ?> bc-auth-alert mb-3" role="alert">
                 <i class="fa-solid <?= $flash['type'] === 'success' ? 'fa-circle-check text-success' : 'fa-circle-info text-warning' ?> me-2"></i>
                 <?= sanitize($flash['message']) ?>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+                <button type="button" class="btn-close btn-close-white ms-auto" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         <?php endif; ?>
 
         <?php if ($error): ?>
-            <div class="alert alert-danger py-2.5 px-3 small rounded-3 mb-3 border-0 bg-danger bg-opacity-25 text-danger-emphasis">
-                <i class="fa-solid fa-triangle-exclamation me-1.5"></i> <?= sanitize($error) ?>
+            <div class="alert alert-danger bc-auth-alert mb-3" role="alert">
+                <i class="fa-solid fa-triangle-exclamation me-2"></i> <?= sanitize($error) ?>
             </div>
         <?php endif; ?>
 
         <form action="<?= BASE_URL ?>/register.php" method="POST" data-loading="true" id="registerForm">
             <?= csrf_field() ?>
 
-            <!-- Role Selector Buttons -->
-            <div class="mb-4">
-                <label class="form-label text-slate-300 small fw-semibold d-block mb-2 text-center">Select Account Role *</label>
-                <div class="row g-2">
-                    <div class="col-4">
-                        <input type="radio" class="btn-check" name="role" id="role-worker" value="worker" <?= (!isset($_POST['role']) || $_POST['role'] === 'worker') ? 'checked' : '' ?> onchange="handleRoleChange('worker')">
-                        <label class="btn bc-role-btn w-100 py-2.5 text-center" for="role-worker">
-                            <i class="fa-solid fa-helmet-safety d-block fs-5 mb-1"></i>
-                            <span class="small fw-bold">Worker</span>
-                        </label>
-                    </div>
-                    <div class="col-4">
-                        <input type="radio" class="btn-check" name="role" id="role-contractor" value="contractor" <?= (isset($_POST['role']) && $_POST['role'] === 'contractor') ? 'checked' : '' ?> onchange="handleRoleChange('contractor')">
-                        <label class="btn bc-role-btn w-100 py-2.5 text-center" for="role-contractor">
-                            <i class="fa-solid fa-building d-block fs-5 mb-1"></i>
-                            <span class="small fw-bold">Contractor</span>
-                        </label>
-                    </div>
-                    <div class="col-4">
-                        <input type="radio" class="btn-check" name="role" id="role-client" value="client" <?= (isset($_POST['role']) && $_POST['role'] === 'client') ? 'checked' : '' ?> onchange="handleRoleChange('client')">
-                        <label class="btn bc-role-btn w-100 py-2.5 text-center" for="role-client">
-                            <i class="fa-solid fa-user-tie d-block fs-5 mb-1"></i>
-                            <span class="small fw-bold">Client</span>
-                        </label>
-                    </div>
-                </div>
+            <!-- Segmented 3-Role Tab Selector (Matching Reference) -->
+            <div class="bc-role-tabs mb-3">
+                <label class="bc-role-tab <?= (!isset($_POST['role']) || $_POST['role'] === 'worker') ? 'active' : '' ?>" id="tab-worker" onclick="selectRole('worker')">
+                    <input type="radio" class="d-none" name="role" id="role-worker" value="worker" <?= (!isset($_POST['role']) || $_POST['role'] === 'worker') ? 'checked' : '' ?>>
+                    <i class="fa-solid fa-helmet-safety me-2"></i> <?= __('auth.worker_role') ?>
+                </label>
+                <label class="bc-role-tab <?= (isset($_POST['role']) && $_POST['role'] === 'contractor') ? 'active' : '' ?>" id="tab-contractor" onclick="selectRole('contractor')">
+                    <input type="radio" class="d-none" name="role" id="role-contractor" value="contractor" <?= (isset($_POST['role']) && $_POST['role'] === 'contractor') ? 'checked' : '' ?>>
+                    <i class="fa-solid fa-building me-2"></i> <?= __('auth.contractor_role') ?>
+                </label>
+                <label class="bc-role-tab <?= (isset($_POST['role']) && $_POST['role'] === 'client') ? 'active' : '' ?>" id="tab-client" onclick="selectRole('client')">
+                    <input type="radio" class="d-none" name="role" id="role-client" value="client" <?= (isset($_POST['role']) && $_POST['role'] === 'client') ? 'checked' : '' ?>>
+                    <i class="fa-solid fa-user me-2"></i> <?= __('auth.client_role') ?>
+                </label>
             </div>
 
             <!-- Full Name -->
             <div class="mb-3">
-                <label for="name" class="form-label text-slate-300 small fw-semibold mb-1">Full Name *</label>
-                <div class="input-group">
-                    <span class="input-group-text bc-input-group-text"><i class="fa-solid fa-user"></i></span>
-                    <input type="text" class="form-control bc-input" id="name" name="name" required placeholder="John Doe" value="<?= isset($_POST['name']) ? sanitize($_POST['name']) : '' ?>">
+                <div class="bc-auth-input-group">
+                    <span class="bc-auth-input-icon"><i class="fa-solid fa-user"></i></span>
+                    <input type="text" class="bc-auth-input" id="name" name="name" required placeholder="<?= e(__('auth.full_name_placeholder')) ?>" value="<?= isset($_POST['name']) ? sanitize($_POST['name']) : '' ?>" autocomplete="name">
                 </div>
             </div>
 
-            <!-- Email & Phone -->
-            <div class="row g-3 mb-3">
+            <!-- Email Address & Phone Number (Side-by-Side) -->
+            <div class="row g-2.5 mb-3">
                 <div class="col-sm-6">
-                    <label for="email" class="form-label text-slate-300 small fw-semibold mb-1">Email Address *</label>
-                    <div class="input-group">
-                        <span class="input-group-text bc-input-group-text"><i class="fa-solid fa-envelope"></i></span>
-                        <input type="email" class="form-control bc-input" id="email" name="email" required placeholder="name@company.com" value="<?= isset($_POST['email']) ? sanitize($_POST['email']) : ($prefilled_email ? sanitize($prefilled_email) : '') ?>">
+                    <div class="bc-auth-input-group">
+                        <span class="bc-auth-input-icon"><i class="fa-solid fa-envelope"></i></span>
+                        <input type="email" class="bc-auth-input" id="email" name="email" required placeholder="<?= e(__('auth.email_placeholder')) ?>" value="<?= isset($_POST['email']) ? sanitize($_POST['email']) : ($prefilled_email ? sanitize($prefilled_email) : '') ?>" autocomplete="email">
                     </div>
                 </div>
                 <div class="col-sm-6">
-                    <label for="phone" class="form-label text-slate-300 small fw-semibold mb-1">Phone Number *</label>
-                    <div class="input-group">
-                        <span class="input-group-text bc-input-group-text"><i class="fa-solid fa-phone"></i></span>
-                        <input type="tel" class="form-control bc-input" id="phone" name="phone" required placeholder="+91 98765 43210" value="<?= isset($_POST['phone']) ? sanitize($_POST['phone']) : '' ?>">
+                    <div class="bc-auth-input-group">
+                        <span class="bc-auth-input-icon"><i class="fa-solid fa-phone"></i></span>
+                        <input type="tel" class="bc-auth-input" id="phone" name="phone" required placeholder="<?= e(__('auth.phone_placeholder')) ?>" value="<?= isset($_POST['phone']) ? sanitize($_POST['phone']) : '' ?>" autocomplete="tel">
                     </div>
                 </div>
             </div>
 
-            <!-- Location / City -->
-            <div class="mb-3">
-                <label for="location" class="form-label text-slate-300 small fw-semibold mb-1">Location / City</label>
-                <div class="input-group">
-                    <span class="input-group-text bc-input-group-text"><i class="fa-solid fa-location-dot"></i></span>
-                    <input type="text" class="form-control bc-input" id="location" name="location" placeholder="e.g. Ahmedabad, Gujarat" value="<?= isset($_POST['location']) ? sanitize($_POST['location']) : '' ?>">
-                </div>
-            </div>
-
-            <!-- Company Field (Contractor & Client) -->
-            <div id="company-field-group" class="mb-3 <?= (isset($_POST['role']) && in_array($_POST['role'], ['contractor', 'client'])) ? '' : 'd-none' ?>">
-                <label for="company_name" class="form-label text-slate-300 small fw-semibold mb-1">Company / Organization Name</label>
-                <div class="input-group">
-                    <span class="input-group-text bc-input-group-text"><i class="fa-solid fa-building"></i></span>
-                    <input type="text" class="form-control bc-input" id="company_name" name="company_name" placeholder="Apex BuildTech Pvt. Ltd." value="<?= isset($_POST['company_name']) ? sanitize($_POST['company_name']) : '' ?>">
-                </div>
-            </div>
-
-            <!-- Worker Dynamic Fields (Skill & Experience) -->
-            <div id="worker-fields-group" class="row g-3 mb-3 <?= (!isset($_POST['role']) || $_POST['role'] === 'worker') ? '' : 'd-none' ?>">
-                <div class="col-sm-7">
-                    <label for="trade_title" class="form-label text-slate-300 small fw-semibold mb-1">Skill / Trade Specialization</label>
-                    <div class="input-group">
-                        <span class="input-group-text bc-input-group-text"><i class="fa-solid fa-toolbox"></i></span>
-                        <input type="text" class="form-control bc-input" id="trade_title" name="trade_title" placeholder="e.g. Mason, Electrician" value="<?= isset($_POST['trade_title']) ? sanitize($_POST['trade_title']) : '' ?>">
-                    </div>
-                </div>
-                <div class="col-sm-5">
-                    <label for="experience_years" class="form-label text-slate-300 small fw-semibold mb-1">Experience (Years)</label>
-                    <div class="input-group">
-                        <span class="input-group-text bc-input-group-text"><i class="fa-solid fa-calendar"></i></span>
-                        <input type="number" class="form-control bc-input" id="experience_years" name="experience_years" min="0" max="50" placeholder="e.g. 5" value="<?= isset($_POST['experience_years']) ? (int)$_POST['experience_years'] : '' ?>">
-                    </div>
-                </div>
-            </div>
-
-            <!-- Passwords -->
-            <div class="row g-3 mb-4">
+            <!-- Password & Confirm Password (Side-by-Side with Eye Icons) -->
+            <div class="row g-2.5 mb-3">
                 <div class="col-sm-6">
-                    <label for="password" class="form-label text-slate-300 small fw-semibold mb-1">Password *</label>
-                    <div class="input-group">
-                        <span class="input-group-text bc-input-group-text"><i class="fa-solid fa-lock"></i></span>
-                        <input type="password" class="form-control bc-input" id="password" name="password" required placeholder="Min 6 characters">
-                        <button class="btn bc-input-btn-eye" type="button" onclick="togglePasswordVisibility('password', 'toggleIcon1')" aria-label="Toggle password visibility">
+                    <div class="bc-auth-input-group">
+                        <span class="bc-auth-input-icon"><i class="fa-solid fa-lock"></i></span>
+                        <input type="password" class="bc-auth-input" id="password" name="password" required placeholder="<?= e(__('auth.password_placeholder')) ?>" autocomplete="new-password">
+                        <button class="bc-auth-eye-btn" type="button" onclick="togglePasswordVisibility('password', 'toggleIcon1')" aria-label="Toggle password visibility">
                             <i class="fa-solid fa-eye" id="toggleIcon1"></i>
                         </button>
                     </div>
                 </div>
                 <div class="col-sm-6">
-                    <label for="confirm_password" class="form-label text-slate-300 small fw-semibold mb-1">Confirm Password *</label>
-                    <div class="input-group">
-                        <span class="input-group-text bc-input-group-text"><i class="fa-solid fa-lock"></i></span>
-                        <input type="password" class="form-control bc-input" id="confirm_password" name="confirm_password" required placeholder="Repeat password">
-                        <button class="btn bc-input-btn-eye" type="button" onclick="togglePasswordVisibility('confirm_password', 'toggleIcon2')" aria-label="Toggle confirm password visibility">
+                    <div class="bc-auth-input-group">
+                        <span class="bc-auth-input-icon"><i class="fa-solid fa-lock"></i></span>
+                        <input type="password" class="bc-auth-input" id="confirm_password" name="confirm_password" required placeholder="<?= e(__('auth.confirm_password_placeholder')) ?>" autocomplete="new-password">
+                        <button class="bc-auth-eye-btn" type="button" onclick="togglePasswordVisibility('confirm_password', 'toggleIcon2')" aria-label="Toggle confirm password visibility">
                             <i class="fa-solid fa-eye" id="toggleIcon2"></i>
                         </button>
                     </div>
                 </div>
             </div>
 
-            <button type="submit" id="submitBtn" class="btn btn-amber-glow w-100 py-3 fw-bold text-uppercase tracking-wider">
-                <i class="fa-solid fa-user-plus me-2"></i> CREATE ACCOUNT
+            <!-- Location -->
+            <div class="mb-3">
+                <div class="bc-auth-input-group">
+                    <span class="bc-auth-input-icon"><i class="fa-solid fa-location-dot"></i></span>
+                    <input type="text" class="bc-auth-input" id="location" name="location" placeholder="<?= e(__('auth.location_placeholder')) ?>" value="<?= isset($_POST['location']) ? sanitize($_POST['location']) : '' ?>">
+                </div>
+            </div>
+
+            <!-- Worker Dynamic Fields: Skill / Trade -->
+            <div id="worker-trade-group" class="mb-3 <?= (!isset($_POST['role']) || $_POST['role'] === 'worker') ? '' : 'd-none' ?>">
+                <div class="bc-auth-input-group">
+                    <span class="bc-auth-input-icon"><i class="fa-solid fa-briefcase"></i></span>
+                    <input type="text" class="bc-auth-input" id="trade_title" name="trade_title" placeholder="<?= e(__('auth.trade_placeholder')) ?>" value="<?= isset($_POST['trade_title']) ? sanitize($_POST['trade_title']) : '' ?>">
+                </div>
+            </div>
+
+            <!-- Worker Dynamic Fields: Experience (Years) -->
+            <div id="worker-exp-group" class="mb-3 <?= (!isset($_POST['role']) || $_POST['role'] === 'worker') ? '' : 'd-none' ?>">
+                <div class="bc-auth-input-group">
+                    <span class="bc-auth-input-icon"><i class="fa-solid fa-calendar"></i></span>
+                    <input type="number" class="bc-auth-input" id="experience_years" name="experience_years" min="0" max="50" placeholder="<?= e(__('auth.experience_placeholder')) ?>" value="<?= isset($_POST['experience_years']) ? (int)$_POST['experience_years'] : '' ?>">
+                </div>
+            </div>
+
+            <!-- Contractor & Client Dynamic Field: Company / Organization Name -->
+            <div id="company-field-group" class="mb-3 <?= (isset($_POST['role']) && in_array($_POST['role'], ['contractor', 'client'])) ? '' : 'd-none' ?>">
+                <div class="bc-auth-input-group">
+                    <span class="bc-auth-input-icon"><i class="fa-solid fa-building"></i></span>
+                    <input type="text" class="bc-auth-input" id="company_name" name="company_name" placeholder="<?= e(__('auth.company_placeholder')) ?>" value="<?= isset($_POST['company_name']) ? sanitize($_POST['company_name']) : '' ?>">
+                </div>
+            </div>
+
+            <!-- Primary Orange Register Account Button -->
+            <button type="submit" id="submitBtn" class="bc-auth-btn-primary w-100 mt-2 mb-4">
+                <i class="fa-solid fa-user-plus me-2"></i> <?= __('auth.register_account_btn') ?>
             </button>
         </form>
 
-        <div class="bc-auth-divider my-4">
-            <span>OR</span>
+        <div class="bc-auth-footer-divider mb-3">
+            <span><?= __('auth.already_have_account') ?></span>
         </div>
 
-        <a href="<?= BASE_URL ?>/auth/google-login.php" class="btn btn-google-oauth w-100 py-2.5 fw-semibold d-flex align-items-center justify-content-center gap-2">
-            <svg width="18" height="18" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
-                <path fill="#4285F4" d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844a4.14 4.14 0 0 1-1.796 2.716v2.259h2.908c1.702-1.567 2.684-3.875 2.684-6.616z"/>
-                <path fill="#34A853" d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 0 0 9 18z"/>
-                <path fill="#FBBC05" d="M3.964 10.71A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.042l3.007-2.332z"/>
-                <path fill="#EA4335" d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.958L3.964 7.29C4.672 5.163 6.656 3.58 9 3.58z"/>
-            </svg>
-            <span>Continue with Google</span>
-        </a>
-
-        <div class="text-center mt-4 pt-3 border-top border-secondary border-opacity-25">
-            <span class="text-slate-400 small">Already have an account? </span>
-            <a href="<?= BASE_URL ?>/login.php" class="text-warning fw-semibold small text-decoration-none ms-1">Sign In</a>
+        <div class="text-center">
+            <a href="<?= BASE_URL ?>/login.php" class="bc-auth-link"><?= __('auth.sign_in') ?></a>
         </div>
     </div>
 </div>
 
 <script>
-function handleRoleChange(role) {
-    const companyGroup = document.getElementById('company-field-group');
-    const workerGroup = document.getElementById('worker-fields-group');
+function selectRole(role) {
+    document.querySelectorAll('.bc-role-tab').forEach(tab => tab.classList.remove('active'));
+    const activeTab = document.getElementById('tab-' + role);
+    if (activeTab) {
+        activeTab.classList.add('active');
+        const radio = activeTab.querySelector('input[type="radio"]');
+        if (radio) radio.checked = true;
+    }
 
-    if (role === 'contractor' || role === 'client') {
-        companyGroup?.classList.remove('d-none');
-        workerGroup?.classList.add('d-none');
-    } else {
+    const tradeGroup = document.getElementById('worker-trade-group');
+    const expGroup = document.getElementById('worker-exp-group');
+    const companyGroup = document.getElementById('company-field-group');
+
+    if (role === 'worker') {
+        tradeGroup?.classList.remove('d-none');
+        expGroup?.classList.remove('d-none');
         companyGroup?.classList.add('d-none');
-        workerGroup?.classList.remove('d-none');
+    } else {
+        tradeGroup?.classList.add('d-none');
+        expGroup?.classList.add('d-none');
+        companyGroup?.classList.remove('d-none');
     }
 }
 
@@ -295,9 +275,11 @@ document.getElementById('registerForm')?.addEventListener('submit', function() {
     const btn = document.getElementById('submitBtn');
     if (btn) {
         btn.disabled = true;
-        btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin me-2"></i> CREATING ACCOUNT...';
+        const regText = window.__ ? window.__('auth.registering_account', 'Registering Account...') : 'Registering Account...';
+        btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin me-2"></i> ' + regText;
     }
 });
 </script>
 
 <?php require_once __DIR__ . '/includes/footer.php'; ?>
+

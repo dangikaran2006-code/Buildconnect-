@@ -84,7 +84,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             set_flash_message("Project '{$title}' created successfully.", 'success');
         } catch (Exception $e) {
             error_log("Add Project Error: " . $e->getMessage());
-            set_flash_message("Failed to create project: " . $e->getMessage(), 'danger');
+            set_flash_message("An unexpected error occurred while creating the project. Please check the logs.", 'danger');
         }
         redirect('admin/projects.php');
     }
@@ -142,7 +142,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             set_flash_message("Project #{$project_id} updated successfully.", 'success');
         } catch (Exception $e) {
             error_log("Edit Project Error: " . $e->getMessage());
-            set_flash_message("Failed to update project: " . $e->getMessage(), 'danger');
+            set_flash_message("An unexpected error occurred while updating the project. Please check the logs.", 'danger');
         }
         redirect('admin/projects.php');
     }
@@ -160,7 +160,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 log_activity($current_user['id'], 'Project Status Change', "Changed Project #{$project_id} status to {$new_status}", 'project', $project_id);
                 set_flash_message("Project #{$project_id} status changed to '{$new_status}'.", 'success');
             } catch (Exception $e) {
-                set_flash_message("Error updating status: " . $e->getMessage(), 'danger');
+                error_log("Update Project Status Error: " . $e->getMessage());
+                set_flash_message("An unexpected error occurred while updating the project status.", 'danger');
             }
         }
         redirect('admin/projects.php');
@@ -197,7 +198,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $db->rollBack();
                 }
                 error_log("Delete Project Error: " . $e->getMessage());
-                set_flash_message("Failed to delete project: " . $e->getMessage(), 'danger');
+                set_flash_message("An unexpected error occurred while deleting the project.", 'danger');
             }
         }
         redirect('admin/projects.php');
@@ -352,37 +353,37 @@ $flash = get_flash_message();
         <!-- KPI SUMMARY CARDS -->
         <div class="row g-3 mb-4">
             <div class="col-6 col-md-4 col-xl-2">
-                <div class="bc-card p-3 border-0 bg-dark rounded-3 shadow-sm h-100">
+                <div class="bc-card p-3 rounded-3 shadow-sm h-100">
                     <div class="text-muted extra-small text-uppercase fw-bold mb-1">Total Projects</div>
-                    <div class="h3 fw-bold text-white mb-0"><?= $total_projects ?></div>
+                    <div class="h3 fw-bold text-dark mb-0"><?= $total_projects ?></div>
                 </div>
             </div>
             <div class="col-6 col-md-4 col-xl-2">
-                <div class="bc-card p-3 border-0 bg-dark rounded-3 shadow-sm h-100">
+                <div class="bc-card p-3 rounded-3 shadow-sm h-100">
                     <div class="text-muted extra-small text-uppercase fw-bold mb-1">Active Sites</div>
                     <div class="h3 fw-bold text-success mb-0"><?= $active_projects ?></div>
                 </div>
             </div>
             <div class="col-6 col-md-4 col-xl-2">
-                <div class="bc-card p-3 border-0 bg-dark rounded-3 shadow-sm h-100">
+                <div class="bc-card p-3 rounded-3 shadow-sm h-100">
                     <div class="text-muted extra-small text-uppercase fw-bold mb-1">Completed</div>
                     <div class="h3 fw-bold text-info mb-0"><?= $completed_projects ?></div>
                 </div>
             </div>
             <div class="col-6 col-md-4 col-xl-2">
-                <div class="bc-card p-3 border-0 bg-dark rounded-3 shadow-sm h-100">
+                <div class="bc-card p-3 rounded-3 shadow-sm h-100">
                     <div class="text-muted extra-small text-uppercase fw-bold mb-1">Pending / Hold</div>
                     <div class="h3 fw-bold text-warning mb-0"><?= $pending_projects ?></div>
                 </div>
             </div>
             <div class="col-6 col-md-4 col-xl-2">
-                <div class="bc-card p-3 border-0 bg-dark rounded-3 shadow-sm h-100">
+                <div class="bc-card p-3 rounded-3 shadow-sm h-100">
                     <div class="text-muted extra-small text-uppercase fw-bold mb-1">Total Valuation</div>
-                    <div class="h3 fw-bold text-warning mb-0" style="font-size: 1.1rem;"><?= format_currency($total_budget, '₹') ?></div>
+                    <div class="h3 fw-bold text-dark mb-0" style="font-size: 1.1rem;"><?= format_currency($total_budget, '₹') ?></div>
                 </div>
             </div>
             <div class="col-6 col-md-4 col-xl-2">
-                <div class="bc-card p-3 border-0 bg-dark rounded-3 shadow-sm h-100">
+                <div class="bc-card p-3 rounded-3 shadow-sm h-100">
                     <div class="text-muted extra-small text-uppercase fw-bold mb-1">Avg Progress</div>
                     <div class="h3 fw-bold text-primary mb-0"><?= number_format($avg_progress, 1) ?>%</div>
                 </div>
@@ -439,7 +440,7 @@ $flash = get_flash_message();
         </div>
 
         <!-- PROJECTS TABLE CARD -->
-        <div class="bc-card p-4 rounded-3 border-secondary">
+        <div class="bc-card p-4 rounded-3">
             <div class="table-responsive">
                 <table class="table table-custom align-middle mb-0">
                     <thead>
@@ -471,35 +472,35 @@ $flash = get_flash_message();
                                 ?>
                                 <tr>
                                     <td>
-                                        <div class="fw-bold text-white"><?= e($p['title']) ?></div>
+                                        <div class="fw-bold text-dark"><?= e($p['title']) ?></div>
                                         <div class="text-muted extra-small">
-                                            Token: <span class="font-monospace text-info"><?= e($p['qr_code_token'] ?: 'N/A') ?></span>
+                                            Token: <span class="font-monospace text-primary"><?= e($p['qr_code_token'] ?: 'N/A') ?></span>
                                         </div>
                                     </td>
                                     <td>
-                                        <div class="small fw-semibold text-light"><?= e($client_display) ?></div>
+                                        <div class="small fw-semibold text-dark"><?= e($client_display) ?></div>
                                         <div class="extra-small text-muted"><?= e($p['client_user_name'] ?: '') ?></div>
                                     </td>
                                     <td>
-                                        <div class="small fw-semibold text-light"><?= e($contractor_display) ?></div>
+                                        <div class="small fw-semibold text-dark"><?= e($contractor_display) ?></div>
                                         <div class="extra-small text-muted"><?= e($p['contractor_user_name'] ?: '') ?></div>
                                     </td>
                                     <td>
-                                        <div class="small text-light"><i class="fa-solid fa-location-dot text-danger me-1"></i><?= e($p['city'] ?: $p['location']) ?></div>
+                                        <div class="small text-dark"><i class="fa-solid fa-location-dot text-danger me-1"></i><?= e($p['city'] ?: $p['location']) ?></div>
                                         <div class="extra-small text-muted"><?= e($p['location']) ?></div>
                                     </td>
-                                    <td class="fw-bold text-warning">
+                                    <td class="fw-bold text-dark">
                                         <?= format_currency($p['budget'], '₹') ?>
                                     </td>
                                     <td class="extra-small text-muted">
-                                        <div><span class="text-light">Start:</span> <?= format_date($p['start_date']) ?></div>
-                                        <div><span class="text-light">End:</span> <?= format_date($p['end_date']) ?></div>
+                                        <div><span class="text-secondary">Start:</span> <?= format_date($p['start_date']) ?></div>
+                                        <div><span class="text-secondary">End:</span> <?= format_date($p['end_date']) ?></div>
                                     </td>
                                     <td style="min-width: 130px;">
                                         <div class="d-flex justify-content-between align-items-center extra-small mb-1">
-                                            <span class="fw-bold text-white"><?= (int)$p['progress_percent'] ?>%</span>
+                                            <span class="fw-bold text-dark"><?= (int)$p['progress_percent'] ?>%</span>
                                         </div>
-                                        <div class="progress bg-dark border border-secondary" style="height: 6px;">
+                                        <div class="progress" style="height: 6px;">
                                             <div class="progress-bar bg-warning" role="progressbar" style="width: <?= (int)$p['progress_percent'] ?>%;"></div>
                                         </div>
                                     </td>
@@ -508,7 +509,7 @@ $flash = get_flash_message();
                                             <?= csrf_field() ?>
                                             <input type="hidden" name="action" value="update_status">
                                             <input type="hidden" name="project_id" value="<?= $p['id'] ?>">
-                                            <select name="status" class="form-select form-select-sm bg-dark border-secondary text-light py-0 px-1 extra-small" onchange="this.form.submit()">
+                                            <select name="status" class="form-select form-select-sm py-0 px-2 extra-small" onchange="this.form.submit()">
                                                 <option value="pending" <?= $p['status'] === 'pending' ? 'selected' : '' ?>>Pending</option>
                                                 <option value="planning" <?= $p['status'] === 'planning' ? 'selected' : '' ?>>Planning</option>
                                                 <option value="active" <?= $p['status'] === 'active' ? 'selected' : '' ?>>Active</option>

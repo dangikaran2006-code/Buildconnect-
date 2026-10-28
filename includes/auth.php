@@ -87,6 +87,14 @@ function requireLogin() {
     require_login();
 }
 
+function require_auth() {
+    require_login();
+}
+
+function requireAuth() {
+    require_login();
+}
+
 /**
  * Require role guard
  */
@@ -96,9 +104,12 @@ function require_role($allowed_roles) {
     if (is_string($allowed_roles)) {
         $allowed_roles = [$allowed_roles];
     }
+    $allowed_roles = array_map('strtolower', array_map('trim', (array)$allowed_roles));
     
     $user = get_logged_user();
-    if (!$user || !in_array($user['role'], $allowed_roles)) {
+    $user_role = strtolower(trim((string)($user['role'] ?? '')));
+    
+    if (!$user || empty($user_role) || !in_array($user_role, $allowed_roles, true)) {
         redirect('unauthorized.php');
     }
 }
@@ -132,7 +143,28 @@ function attempt_login($email, $password) {
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['user_name'] = $user['name'];
             $_SESSION['user_role'] = $user['role'];
+            $_SESSION['role'] = $user['role'];
             $_SESSION['user_email'] = $user['email'];
+            $_SESSION['user'] = $user;
+
+            // Preserve current active session language preference across login, or restore user DB preference
+            $active_lang = $_SESSION['bc_lang'] ?? $_SESSION['lang'] ?? null;
+            if ($active_lang && in_array($active_lang, ['en', 'hi', 'gu'], true)) {
+                // User already selected a language; persist to database
+                try {
+                    $up = $db->prepare("UPDATE users SET preferred_lang = ? WHERE id = ?");
+                    $up->execute([$active_lang, $user['id']]);
+                } catch (Exception $e) {}
+            } elseif (!empty($user['preferred_lang']) && in_array($user['preferred_lang'], ['en', 'hi', 'gu'], true)) {
+                // User has stored preference in DB; restore into session and cookies
+                $_SESSION['bc_lang'] = $user['preferred_lang'];
+                $_SESSION['lang'] = $user['preferred_lang'];
+                $_COOKIE['bc_lang'] = $user['preferred_lang'];
+                $_COOKIE['lang'] = $user['preferred_lang'];
+                $is_https = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on';
+                @setcookie('bc_lang', $user['preferred_lang'], time() + (86400 * 30), '/', '', $is_https, false);
+                @setcookie('lang', $user['preferred_lang'], time() + (86400 * 30), '/', '', $is_https, false);
+            }
 
             // Log activity for successful login
             if (function_exists('log_activity')) {
@@ -157,13 +189,18 @@ function attempt_login($email, $password) {
  * Get role redirect path
  */
 function get_role_redirect_url($role) {
-    switch ($role) {
+    $normalized_role = strtolower(trim((string)$role));
+    switch ($normalized_role) {
+        case 'admin':
         case ROLE_ADMIN:
             return 'admin/index.php';
+        case 'contractor':
         case ROLE_CONTRACTOR:
             return 'contractor/index.php';
+        case 'worker':
         case ROLE_WORKER:
             return 'worker/index.php';
+        case 'client':
         case ROLE_CLIENT:
             return 'client/index.php';
         default:

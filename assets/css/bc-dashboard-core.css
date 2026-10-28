@@ -1,63 +1,225 @@
 /* ==========================================================================
-   BuildConnect Dashboard Core Design System
+   BuildConnect Premium Construction SaaS Design System
    File: assets/css/bc-dashboard-core.css
-   Scope: Shared Dashboard Foundation for Admin, Worker, and Client
+   Scope: Unified Core Dashboard System for Admin, Client, Worker & Contractor
+   Inspired by Procore, Linear, Asana, Stripe
    ========================================================================== */
 
 :root {
-    --bc-bg: #071525;
-    --bc-bg-deep: #04111F;
-    --bc-sidebar: #081B30;
-    --bc-header: #081A2E;
-    --bc-surface: #0B2743;
-    --bc-surface-2: #0E3151;
+    /* Main Content Canvas (Clean Off-White / Light Grey) */
+    --bc-bg: #F8FAFC;
+    --bc-bg-subtle: #F1F5F9;
+    --bc-bg-white: #FFFFFF;
 
-    --bc-border: #1A405F;
-    --bc-border-light: #24516F;
+    /* Dark Navy Sidebar & Header Navigation */
+    --bc-sidebar: #0B192C;
+    --bc-sidebar-subtle: #071221;
+    --bc-sidebar-border: rgba(255, 255, 255, 0.08);
+    --bc-sidebar-hover: rgba(255, 255, 255, 0.06);
+    --bc-sidebar-active: rgba(249, 115, 22, 0.14);
+    --bc-sidebar-text: #94A3B8;
+    --bc-sidebar-text-active: #F97316;
+    --bc-sidebar-text-hover: #FFFFFF;
 
-    --bc-orange: #FFAA16;
-    --bc-orange-hover: #FFC247;
+    --bc-header: #0B192C;
+    --bc-header-border: #1E293B;
 
-    --bc-blue: #1684F8;
-    --bc-blue-hover: #2994FF;
+    /* Crisp White SaaS Surface Cards */
+    --bc-surface: #FFFFFF;
+    --bc-surface-card: #FFFFFF;
+    --bc-surface-hover: #F8FAFC;
+    --bc-card-bg: #FFFFFF;
+    --bc-border: #E2E8F0;
+    --bc-border-subtle: #F1F5F9;
+    --bc-border-hover: #CBD5E1;
 
-    --bc-success: #18C889;
-    --bc-warning: #F5B942;
-    --bc-danger: #F05470;
-    --bc-info: #28B8E8;
+    /* Primary Accent: Construction Orange */
+    --bc-orange: #F97316;
+    --bc-orange-hover: #EA580C;
+    --bc-orange-subtle: #FFF7ED;
+    --bc-orange-border: #FDBA74;
 
-    --bc-white: #F7FAFF;
-    --bc-text: #EAF1FA;
-    --bc-muted: #9DB0C8;
+    /* Restrained Secondary Accents */
+    --bc-blue: #0284C7;
+    --bc-blue-hover: #0369A1;
+    --bc-blue-subtle: #F0F9FF;
 
-    --bc-radius: 14px;
-    --bc-radius-sm: 10px;
-    --bc-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+    --bc-teal: #0D9488;
+    --bc-teal-hover: #0F766E;
+    --bc-teal-subtle: #F0FDFA;
+
+    --bc-success: #10B981;
+    --bc-success-subtle: #ECFDF5;
+    --bc-success-text: #047857;
+
+    --bc-warning: #F59E0B;
+    --bc-warning-subtle: #FFFBEB;
+    --bc-warning-text: #B45309;
+
+    --bc-danger: #EF4444;
+    --bc-danger-subtle: #FEF2F2;
+    --bc-danger-text: #B91C1C;
+
+    --bc-info: #0284C7;
+    --bc-info-subtle: #F0F9FF;
+    --bc-info-text: #0369A1;
+
+    /* High-Contrast Crisp Typography */
+    --bc-heading: #0F172A;
+    --bc-body: #334155;
+    --bc-secondary: #64748B;
+    --bc-muted: #94A3B8;
+    --bc-metric-value: #0F172A;
+    --bc-table-heading: #475569;
+    --bc-table-body: #1E293B;
+    --bc-link: #EA580C;
+
+    /* Metrics and Borders */
+    --bc-radius-sm: 8px;
+    --bc-radius: 12px;
+    --bc-radius-lg: 16px;
+    --bc-radius-pill: 50rem;
+
+    /* Refined Shadows */
+    --bc-shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --bc-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.06), 0 1px 2px -1px rgba(0, 0, 0, 0.04);
+    --bc-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.04);
+    --bc-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.03);
 }
 
-/* Base Reset inside Dashboard Apps */
+/* ==========================================================================
+   1. Base Dashboard App Foundations & Reset
+   ========================================================================== */
 .dashboard-app {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     background-color: var(--bc-bg) !important;
-    color: var(--bc-text) !important;
+    color: var(--bc-body) !important;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
 }
 
-.dashboard-app h1, .dashboard-app h2, .dashboard-app h3, 
-.dashboard-app h4, .dashboard-app h5, .dashboard-app h6 {
-    color: var(--bc-white);
-    font-family: 'Outfit', 'Inter', sans-serif;
+/* Typography Hierarchy */
+.dashboard-app h1, 
+.dashboard-app h2, 
+.dashboard-app h3, 
+.dashboard-app h4, 
+.dashboard-app h5, 
+.dashboard-app h6,
+.dashboard-app .bc-heading,
+.dashboard-app .bc-page-title,
+.dashboard-app .bc-card-title,
+.dashboard-app .bc-section-title {
+    color: var(--bc-heading) !important;
+    font-family: 'Outfit', 'Plus Jakarta Sans', 'Inter', sans-serif;
     letter-spacing: -0.02em;
+    font-weight: 700;
 }
 
-.dashboard-app .text-muted {
-    color: var(--bc-muted) !important;
+.dashboard-app p,
+.dashboard-app .bc-body-text {
+    color: var(--bc-body);
 }
 
-/* Master Layout Grid */
-.dashboard-app .dashboard-layout {
+.dashboard-app .text-muted,
+.dashboard-app .bc-secondary-text {
+    color: var(--bc-secondary) !important;
+}
+
+/* Text Visibility Overrides in Main Content Area (for white canvas) */
+.dashboard-app .dashboard-content h1.text-white:not(.bc-header-banner *):not(.bc-greeting-banner *):not(.bg-dark *):not([class*="bg-navy"] *),
+.dashboard-app .dashboard-content h2.text-white:not(.bc-header-banner *):not(.bc-greeting-banner *):not(.bg-dark *):not([class*="bg-navy"] *),
+.dashboard-app .dashboard-content h3.text-white:not(.bc-header-banner *):not(.bc-greeting-banner *):not(.bg-dark *):not([class*="bg-navy"] *),
+.dashboard-app .dashboard-content h4.text-white:not(.bc-header-banner *):not(.bc-greeting-banner *):not(.bg-dark *):not([class*="bg-navy"] *),
+.dashboard-app .dashboard-content h5.text-white:not(.bc-header-banner *):not(.bc-greeting-banner *):not(.bg-dark *):not([class*="bg-navy"] *),
+.dashboard-app .dashboard-content h6.text-white:not(.bc-header-banner *):not(.bc-greeting-banner *):not(.bg-dark *):not([class*="bg-navy"] *),
+.dashboard-app .bc-main-content h1.text-white:not(.bc-header-banner *):not(.bc-greeting-banner *):not(.bg-dark *):not([class*="bg-navy"] *),
+.dashboard-app .bc-main-content h2.text-white:not(.bc-header-banner *):not(.bc-greeting-banner *):not(.bg-dark *):not([class*="bg-navy"] *),
+.dashboard-app .bc-main-content h3.text-white:not(.bc-header-banner *):not(.bc-greeting-banner *):not(.bg-dark *):not([class*="bg-navy"] *),
+.dashboard-app .bc-main-content h4.text-white:not(.bc-header-banner *):not(.bc-greeting-banner *):not(.bg-dark *):not([class*="bg-navy"] *),
+.dashboard-app .bc-main-content h5.text-white:not(.bc-header-banner *):not(.bc-greeting-banner *):not(.bg-dark *):not([class*="bg-navy"] *),
+.dashboard-app .bc-main-content h6.text-white:not(.bc-header-banner *):not(.bc-greeting-banner *):not(.bg-dark *):not([class*="bg-navy"] *) {
+    color: var(--bc-heading) !important;
+}
+
+/* Explicit high-contrast preservation for dark navy greeting banners across all roles */
+.dashboard-app .bc-header-banner h1,
+.dashboard-app .bc-header-banner h2,
+.dashboard-app .bc-header-banner h3,
+.dashboard-app .bc-header-banner .bc-greeting-title,
+.dashboard-app .bc-greeting-banner h1,
+.dashboard-app .bc-greeting-banner h2,
+.dashboard-app .bc-greeting-banner h3,
+.dashboard-app .bc-banner-dark h1,
+.dashboard-app .bc-banner-dark h2,
+.dashboard-app .bg-dark h1,
+.dashboard-app .bg-dark h2,
+.dashboard-app .bg-dark h3,
+.dashboard-app [class*="bg-navy"] h1,
+.dashboard-app [class*="bg-navy"] h2,
+.dashboard-app [class*="bg-navy"] h3 {
+    color: #FFFFFF !important;
+}
+
+.dashboard-app .bc-header-banner p,
+.dashboard-app .bc-header-banner .bc-greeting-subtitle,
+.dashboard-app .bc-greeting-banner p,
+.dashboard-app .bc-banner-dark p,
+.dashboard-app .bg-dark p.text-light,
+.dashboard-app [class*="bg-navy"] p.text-light {
+    color: #E2E8F0 !important;
+}
+
+.dashboard-app .dashboard-content .text-slate-400,
+.dashboard-app .dashboard-content .text-slate-500,
+.dashboard-app .bc-main-content .text-slate-400,
+.dashboard-app .bc-main-content .text-slate-500 {
+    color: var(--bc-secondary) !important;
+}
+
+.dashboard-app .dashboard-content .text-slate-300,
+.dashboard-app .bc-main-content .text-slate-300 {
+    color: var(--bc-body) !important;
+}
+
+/* Metric Values & Counter Legibility */
+.dashboard-app .bc-metric-value,
+.dashboard-app .bc-card-metric,
+.dashboard-app .stat-value {
+    color: var(--bc-metric-value) !important;
+    font-weight: 800;
+    font-family: 'Outfit', 'Plus Jakarta Sans', sans-serif;
+    letter-spacing: -0.03em;
+}
+
+.dashboard-app .bc-metric-title,
+.dashboard-app .stat-title {
+    color: var(--bc-secondary) !important;
+    font-size: 0.825rem;
+    font-weight: 600;
+}
+
+/* Link Styling */
+.dashboard-app a.text-primary,
+.dashboard-app .text-primary {
+    color: var(--bc-blue) !important;
+}
+
+.dashboard-app a.text-primary:hover {
+    color: var(--bc-blue-hover) !important;
+}
+
+/* Status Text Helpers */
+.dashboard-app .text-success { color: var(--bc-success) !important; }
+.dashboard-app .text-warning { color: var(--bc-warning) !important; }
+.dashboard-app .text-danger  { color: var(--bc-danger) !important; }
+.dashboard-app .text-info    { color: var(--bc-info) !important; }
+
+/* ==========================================================================
+   2. Master Layout Framework
+   ========================================================================== */
+.dashboard-app .dashboard-layout,
+.dashboard-app .bc-layout {
     display: flex;
     min-height: calc(100vh - 68px);
     width: 100%;
@@ -65,21 +227,24 @@
     background: var(--bc-bg);
 }
 
-.dashboard-app .dashboard-content {
+.dashboard-app .dashboard-content,
+.dashboard-app .bc-main-content {
     flex: 1;
     min-width: 0;
     padding: 2rem 2.25rem;
-    background: transparent;
+    background: var(--bc-bg);
 }
 
-/* Shared Master Dashboard Header (Admin, Worker & Client) */
+/* ==========================================================================
+   3. Header / Navbar System (Dark Navy Brand Anchor)
+   ========================================================================== */
 .dashboard-app .bc-navbar,
 .dashboard-app .bc-navbar-modern,
 .dashboard-app .dashboard-header {
-    background-color: #061A31 !important;
-    border-bottom: 1px solid #163B5B !important;
-    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.4) !important;
-    padding: 0.85rem 1.75rem !important;
+    background-color: var(--bc-header) !important;
+    border-bottom: 1px solid var(--bc-header-border) !important;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25) !important;
+    padding: 0.75rem 1.75rem !important;
     min-height: 68px !important;
     position: sticky !important;
     top: 0 !important;
@@ -97,139 +262,76 @@
     flex-shrink: 0 !important;
 }
 
+.dashboard-app .bc-brand-logo-img {
+    height: 34px;
+    width: auto;
+    object-fit: contain;
+}
+
 .dashboard-app .bc-brand-text {
     font-weight: 800 !important;
     font-size: 1.35rem !important;
     display: inline-flex !important;
     align-items: center !important;
+    font-family: 'Outfit', sans-serif;
+    letter-spacing: -0.02em;
 }
 
 .dashboard-app .bc-brand-build {
-    color: #F5F8FF !important;
+    color: #FFFFFF !important;
     font-weight: 800 !important;
 }
 
 .dashboard-app .bc-brand-connect {
-    color: #FFAA16 !important;
+    color: var(--bc-orange) !important;
     font-weight: 800 !important;
 }
 
 .dashboard-app .bc-nav-link {
-    color: #DCE7F5 !important;
+    color: #94A3B8 !important;
     font-weight: 500 !important;
     font-size: 0.885rem !important;
     text-decoration: none !important;
-    padding: 0.25rem 0.4rem !important;
-    transition: all 0.2s ease !important;
-    opacity: 1 !important;
+    padding: 0.35rem 0.65rem !important;
+    border-radius: var(--bc-radius-sm);
+    transition: all 0.18s ease !important;
 }
 
 .dashboard-app .bc-nav-link:hover {
-    color: #FFAA16 !important;
-    opacity: 1 !important;
+    color: #FFFFFF !important;
+    background: rgba(255, 255, 255, 0.06);
 }
 
 .dashboard-app .bc-nav-link.active {
-    color: #FFAA16 !important;
+    color: var(--bc-orange) !important;
     font-weight: 700 !important;
-    border-bottom: 2px solid #FFAA16 !important;
-    opacity: 1 !important;
-}
-
-.dashboard-app .bc-global-search-input {
-    background-color: #0A2744 !important;
-    border: 1px solid #1B4668 !important;
-    color: #F5F8FF !important;
-    border-radius: 10px !important;
-    padding-left: 2.4rem !important;
-    font-size: 0.875rem !important;
-}
-
-.dashboard-app .bc-global-search-input::placeholder {
-    color: #91A7BF !important;
-}
-
-.dashboard-app .bc-kbd-shortcut {
-    font-size: 0.7rem !important;
-    padding: 2px 6px !important;
-    border-radius: 4px !important;
-    background: #E8EEF5 !important;
-    color: #334155 !important;
-    font-weight: 600 !important;
-    border: 1px solid #CBD5E1 !important;
-}
-
-.dashboard-app .btn-outline-danger {
-    background: transparent !important;
-    border: 1px solid #F05270 !important;
-    color: #F05270 !important;
-    font-weight: 600 !important;
-    border-radius: var(--bc-radius-sm) !important;
-    padding: 0.35rem 0.85rem !important;
-    transition: all 0.2s ease !important;
-}
-
-.dashboard-app .btn-outline-danger:hover {
-    background: rgba(240, 82, 112, 0.12) !important;
-    color: #FF7187 !important;
-    border-color: #F05270 !important;
+    background: rgba(249, 115, 22, 0.1);
 }
 
 .dashboard-app .profile-name,
 .dashboard-app .bc-user-name {
     color: #FFFFFF !important;
     font-weight: 700 !important;
-    font-size: 0.9rem !important;
-    opacity: 1 !important;
+    font-size: 0.885rem !important;
+    line-height: 1.2;
 }
 
 .dashboard-app .profile-role,
 .dashboard-app .bc-user-role {
-    color: #AFC0D5 !important;
-    font-size: 0.75rem !important;
+    color: #94A3B8 !important;
+    font-size: 0.735rem !important;
     font-weight: 500 !important;
-    opacity: 1 !important;
 }
 
-/* Search Box */
-.dashboard-app .dashboard-search-box {
-    position: relative;
-    max-width: 420px;
-    width: 100%;
-}
-
-.dashboard-app .dashboard-search-input {
-    background: var(--bc-surface) !important;
-    border: 1px solid var(--bc-border) !important;
-    border-radius: 10px !important;
-    color: var(--bc-white) !important;
-    padding: 0.6rem 2.5rem 0.6rem 2.4rem;
-    font-size: 0.88rem;
-    width: 100%;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
-}
-
-.dashboard-app .dashboard-search-input:focus {
-    border-color: var(--bc-blue) !important;
-    box-shadow: 0 0 0 3px rgba(22, 132, 248, 0.15) !important;
-    outline: none;
-}
-
-.dashboard-app .dashboard-search-icon {
-    position: absolute;
-    left: 14px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: var(--bc-muted);
-    font-size: 0.9rem;
-}
-
-/* Sidebar Styling */
-.dashboard-app .dashboard-sidebar {
+/* ==========================================================================
+   4. Dark Navy Collapsible Dropdown Sidebar Navigation System
+   ========================================================================== */
+.dashboard-app .dashboard-sidebar,
+.dashboard-app .bc-sidebar {
     width: 270px;
     background-color: var(--bc-sidebar) !important;
-    border-right: 1px solid var(--bc-border) !important;
-    padding: 1.5rem 1rem;
+    border-right: 1px solid var(--bc-sidebar-border) !important;
+    padding: 1.25rem 0.85rem;
     flex-shrink: 0;
     position: sticky !important;
     top: 68px !important;
@@ -238,251 +340,904 @@
     overflow-y: auto !important;
     overflow-x: hidden !important;
     overscroll-behavior: contain;
+    z-index: 1020;
 }
 
-.dashboard-app .dashboard-sidebar-nav {
+.dashboard-app .dashboard-sidebar-nav,
+.dashboard-app .bc-sidebar-nav {
     list-style: none;
     padding: 0;
     margin: 0;
 }
 
-.dashboard-app .dashboard-nav-section-title {
-    color: var(--bc-muted) !important;
-    font-size: 0.65rem !important;
-    font-weight: 700 !important;
-    letter-spacing: 0.1em !important;
-    text-transform: uppercase !important;
-    margin-top: 1.25rem !important;
-    margin-bottom: 0.45rem !important;
-    padding-left: 0.75rem !important;
-    display: block;
-    opacity: 0.85;
+/* Section Tag Title in Sidebar */
+.dashboard-app .bc-sidebar .text-muted.extra-small {
+    color: #64748B !important;
+    font-size: 0.7rem !important;
+    letter-spacing: 0.08em;
+    font-weight: 700;
 }
 
+/* Direct Nav Item */
+.dashboard-app .bc-nav-item,
 .dashboard-app .dashboard-nav-item {
-    margin-bottom: 0.35rem;
+    margin-bottom: 0.25rem;
 }
 
+.dashboard-app .bc-nav-item a,
 .dashboard-app .dashboard-nav-item a {
     display: flex;
     align-items: center;
-    gap: 0.8rem;
-    padding: 0.7rem 0.9rem;
-    color: var(--bc-muted);
-    font-size: 0.885rem;
+    gap: 0.75rem;
+    padding: 0.65rem 0.85rem;
+    color: var(--bc-sidebar-text);
+    font-size: 0.875rem;
     font-weight: 500;
     text-decoration: none;
-    border-radius: 10px;
-    transition: all 0.2s ease;
+    border-radius: var(--bc-radius-sm);
+    transition: all 0.18s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
 }
 
+.dashboard-app .bc-nav-item a:hover,
 .dashboard-app .dashboard-nav-item a:hover {
-    background: rgba(22, 132, 248, 0.12);
-    color: var(--bc-white);
-    transform: translateX(3px);
+    background: var(--bc-sidebar-hover);
+    color: var(--bc-sidebar-text-hover);
+    transform: translateX(2px);
 }
 
+.dashboard-app .bc-nav-item.active a,
 .dashboard-app .dashboard-nav-item.active a {
-    background: var(--bc-surface-2);
-    color: var(--bc-white);
+    background: var(--bc-sidebar-active) !important;
+    color: var(--bc-sidebar-text-active) !important;
     font-weight: 700;
-    border-left: 4px solid var(--bc-orange);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    border-left: 3px solid var(--bc-orange);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 
-/* Scoped Card System */
+/* Dropdown Parent Item */
+.dashboard-app .bc-nav-dropdown {
+    margin-bottom: 0.25rem;
+    position: relative;
+    border-radius: var(--bc-radius-sm);
+}
+
+/* Dropdown Toggle Button */
+.dashboard-app .bc-dropdown-toggle {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: transparent;
+    border: 1px solid transparent;
+    padding: 0.65rem 0.85rem;
+    color: var(--bc-sidebar-text);
+    font-size: 0.865rem;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: var(--bc-radius-sm);
+    cursor: pointer;
+    transition: all 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+    outline: none;
+    user-select: none;
+}
+
+.dashboard-app .bc-dropdown-toggle:hover,
+.dashboard-app .bc-dropdown-toggle:focus-visible {
+    background: var(--bc-sidebar-hover);
+    color: var(--bc-sidebar-text-hover);
+}
+
+.dashboard-app .bc-dropdown-toggle-left {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.dashboard-app .bc-dropdown-toggle-left i {
+    width: 20px;
+    text-align: center;
+    font-size: 0.95rem;
+    flex-shrink: 0;
+}
+
+.dashboard-app .bc-dropdown-title {
+    font-size: 0.865rem;
+    letter-spacing: 0.01em;
+}
+
+.dashboard-app .bc-dropdown-toggle-right {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    flex-shrink: 0;
+}
+
+.dashboard-app .bc-dropdown-chevron {
+    font-size: 0.72rem;
+    color: #64748B;
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), color 0.18s ease;
+}
+
+/* When Dropdown is Open */
+.dashboard-app .bc-nav-dropdown.is-open > .bc-dropdown-toggle {
+    background: rgba(255, 255, 255, 0.04);
+    color: #FFFFFF;
+}
+
+.dashboard-app .bc-nav-dropdown.is-open > .bc-dropdown-toggle .bc-dropdown-chevron {
+    transform: rotate(180deg);
+    color: var(--bc-orange);
+}
+
+/* When Parent Dropdown has an Active Child */
+.dashboard-app .bc-nav-dropdown.active-group > .bc-dropdown-toggle {
+    background: var(--bc-sidebar-active);
+    color: var(--bc-orange);
+    font-weight: 700;
+    border-left: 3px solid var(--bc-orange);
+}
+
+.dashboard-app .bc-nav-dropdown.active-group > .bc-dropdown-toggle .bc-dropdown-chevron {
+    color: var(--bc-orange);
+}
+
+/* Submenu Container (Smooth Accordion Animation) */
+.dashboard-app .bc-dropdown-menu {
+    list-style: none;
+    margin: 0;
+    padding: 0.2rem 0 0.35rem 0.75rem;
+    margin-left: 1rem;
+    border-left: 1.5px solid rgba(255, 255, 255, 0.1);
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+    transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s ease, visibility 0.2s;
+}
+
+.dashboard-app .bc-nav-dropdown.is-open > .bc-dropdown-menu {
+    max-height: 600px;
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Submenu Items */
+.dashboard-app .bc-subnav-item {
+    margin: 0.2rem 0;
+}
+
+.dashboard-app .bc-subnav-item a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.65rem;
+    padding: 0.45rem 0.75rem;
+    color: #94A3B8;
+    font-size: 0.825rem;
+    font-weight: 500;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: all 0.18s ease;
+}
+
+.dashboard-app .bc-subnav-item a:hover {
+    background: rgba(249, 115, 22, 0.08);
+    color: var(--bc-orange);
+    transform: translateX(2px);
+}
+
+.dashboard-app .bc-subnav-item.active a {
+    background: rgba(249, 115, 22, 0.14);
+    color: var(--bc-orange);
+    font-weight: 700;
+    border-left: 3px solid var(--bc-orange);
+}
+
+.dashboard-app .bc-subnav-item a i {
+    width: 18px;
+    text-align: center;
+    font-size: 0.85rem;
+    flex-shrink: 0;
+}
+
+/* ==========================================================================
+   5. Clean White SaaS Cards & Metric Cards
+   ========================================================================== */
 .dashboard-app .card,
 .dashboard-app .bc-card,
 .dashboard-app .bc-surface-card {
-    background: var(--bc-surface) !important;
+    background: var(--bc-card-bg) !important;
     border: 1px solid var(--bc-border) !important;
     border-radius: var(--bc-radius) !important;
-    padding: 20px !important;
+    padding: 1.35rem 1.5rem !important;
     box-shadow: var(--bc-shadow);
-    color: var(--bc-text) !important;
-    transition: all 0.25s ease;
+    color: var(--bc-body) !important;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.dashboard-app .card.interactive:hover,
-.dashboard-app .bc-card.interactive:hover {
-    background: var(--bc-surface-2) !important;
-    border-color: var(--bc-border-light) !important;
+.dashboard-app .card:hover,
+.dashboard-app .bc-card:hover,
+.dashboard-app .bc-surface-card:hover {
+    border-color: var(--bc-border-hover) !important;
+    box-shadow: var(--bc-shadow-md);
 }
 
-/* Scoped Button System */
-.dashboard-app .btn-primary,
-.dashboard-app .btn-orange {
-    background: var(--bc-orange) !important;
-    color: #07182B !important;
-    font-weight: 700 !important;
-    border: none !important;
-    height: 42px;
-    border-radius: var(--bc-radius-sm) !important;
-    padding: 0 1.35rem;
+/* Metric KPI Card (Header Counters) */
+.dashboard-app .bc-metric-card {
+    background: #FFFFFF !important;
+    border: 1px solid var(--bc-border) !important;
+    border-radius: var(--bc-radius) !important;
+    padding: 1.25rem 1.35rem !important;
+    box-shadow: var(--bc-shadow);
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.dashboard-app .bc-metric-card:hover {
+    border-color: var(--bc-border-hover) !important;
+    box-shadow: var(--bc-shadow-md);
+    transform: translateY(-2px);
+}
+
+/* Stat Icons in Cards */
+.dashboard-app .stat-icon,
+.dashboard-app .bc-metric-badge-blue,
+.dashboard-app .bc-metric-icon-blue {
+    width: 44px;
+    height: 44px;
     display: inline-flex;
     align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    background: var(--bc-blue-subtle) !important;
+    color: var(--bc-blue) !important;
+    border: 1px solid rgba(2, 132, 199, 0.2);
+}
+
+.dashboard-app .bc-metric-icon-orange,
+.dashboard-app .stat-icon.amber {
+    background: var(--bc-orange-subtle) !important;
+    color: var(--bc-orange) !important;
+    border: 1px solid var(--bc-orange-border);
+}
+
+.dashboard-app .bc-metric-icon-green,
+.dashboard-app .stat-icon.green {
+    background: var(--bc-success-subtle) !important;
+    color: var(--bc-success) !important;
+    border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+.dashboard-app .bc-metric-icon-red,
+.dashboard-app .stat-icon.red {
+    background: var(--bc-danger-subtle) !important;
+    color: var(--bc-danger) !important;
+    border: 1px solid rgba(239, 68, 68, 0.2);
+}
+
+.dashboard-app .bc-metric-icon-amber {
+    background: var(--bc-warning-subtle) !important;
+    color: var(--bc-warning) !important;
+    border: 1px solid rgba(245, 158, 11, 0.2);
+}
+
+/* Trend Badges */
+.dashboard-app .bc-trend-badge-up {
+    color: var(--bc-success-text);
+    background: var(--bc-success-subtle);
+    padding: 2px 8px;
+    border-radius: var(--bc-radius-pill);
+    font-size: 0.725rem;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+}
+
+.dashboard-app .bc-trend-badge-down {
+    color: var(--bc-danger-text);
+    background: var(--bc-danger-subtle);
+    padding: 2px 8px;
+    border-radius: var(--bc-radius-pill);
+    font-size: 0.725rem;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+}
+
+/* Card Headers & Footers */
+.dashboard-app .card-header,
+.dashboard-app .bc-card-header {
+    background: transparent !important;
+    border-bottom: 1px solid var(--bc-border) !important;
+    color: var(--bc-heading) !important;
+    padding: 1rem 1.25rem;
+    font-weight: 700;
+}
+
+.dashboard-app .card-footer {
+    background: var(--bc-bg-subtle) !important;
+    border-top: 1px solid var(--bc-border) !important;
+    color: var(--bc-secondary) !important;
+}
+
+/* Quick Action Items */
+.dashboard-app .bc-quick-action-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.9rem 1.1rem;
+    background: #FFFFFF !important;
+    border: 1px solid var(--bc-border) !important;
+    border-radius: var(--bc-radius-sm) !important;
+    text-decoration: none !important;
+    margin-bottom: 0.75rem;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: var(--bc-shadow-xs);
+}
+
+.dashboard-app .bc-quick-action-item:hover {
+    border-color: var(--bc-orange) !important;
+    background: var(--bc-orange-subtle) !important;
+    transform: translateX(3px);
+    box-shadow: var(--bc-shadow);
+}
+
+.dashboard-app .bc-quick-action-item .fw-bold {
+    color: var(--bc-heading) !important;
+}
+
+.dashboard-app .bc-quick-action-item .extra-small {
+    color: var(--bc-secondary) !important;
+}
+
+.dashboard-app .bc-quick-action-item i.fa-chevron-right {
+    color: var(--bc-secondary) !important;
+    transition: transform 0.18s ease;
+}
+
+.dashboard-app .bc-quick-action-item:hover i.fa-chevron-right {
+    color: var(--bc-orange) !important;
+    transform: translateX(2px);
+}
+
+/* ==========================================================================
+   6. Premium Button System
+   ========================================================================== */
+.dashboard-app .btn-primary,
+.dashboard-app .btn-orange,
+.dashboard-app .btn-amber {
+    background: var(--bc-orange) !important;
+    border-color: var(--bc-orange) !important;
+    color: #FFFFFF !important;
+    font-weight: 600 !important;
+    border-radius: var(--bc-radius-sm) !important;
+    padding: 0.5rem 1.25rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     gap: 8px;
-    transition: all 0.2s ease;
-    box-shadow: 0 4px 15px rgba(255, 170, 22, 0.25);
+    box-shadow: 0 1px 2px 0 rgba(249, 115, 22, 0.35);
+    transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .dashboard-app .btn-primary:hover,
-.dashboard-app .btn-orange:hover {
+.dashboard-app .btn-orange:hover,
+.dashboard-app .btn-amber:hover {
     background: var(--bc-orange-hover) !important;
-    color: #000000 !important;
-    box-shadow: 0 6px 20px rgba(255, 170, 22, 0.4);
+    border-color: var(--bc-orange-hover) !important;
+    color: #FFFFFF !important;
+    box-shadow: 0 4px 12px rgba(249, 115, 22, 0.35);
     transform: translateY(-1px);
 }
 
 .dashboard-app .btn-secondary,
-.dashboard-app .btn-outline-blue {
-    background: transparent !important;
-    border: 1px solid var(--bc-blue) !important;
-    color: var(--bc-white) !important;
+.dashboard-app .btn-outline-secondary,
+.dashboard-app .btn-outline-light {
+    background: #FFFFFF !important;
+    border: 1px solid var(--bc-border) !important;
+    color: var(--bc-body) !important;
     font-weight: 600 !important;
-    height: 42px;
     border-radius: var(--bc-radius-sm) !important;
-    padding: 0 1.35rem;
+    padding: 0.5rem 1.15rem;
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 8px;
-    transition: all 0.2s ease;
+    box-shadow: var(--bc-shadow-xs);
+    transition: all 0.18s ease;
 }
 
 .dashboard-app .btn-secondary:hover,
-.dashboard-app .btn-outline-blue:hover {
-    background: var(--bc-blue) !important;
-    color: var(--bc-white) !important;
-    box-shadow: 0 4px 15px rgba(22, 132, 248, 0.35);
+.dashboard-app .btn-outline-secondary:hover,
+.dashboard-app .btn-outline-light:hover {
+    background: var(--bc-bg-subtle) !important;
+    border-color: var(--bc-border-hover) !important;
+    color: var(--bc-heading) !important;
 }
 
-.dashboard-app .btn-danger {
-    background: var(--bc-danger) !important;
-    color: var(--bc-white) !important;
+.dashboard-app .btn-outline-warning,
+.dashboard-app .btn-outline-amber {
+    background: transparent !important;
+    border: 1px solid var(--bc-orange) !important;
+    color: var(--bc-orange) !important;
     font-weight: 600 !important;
-    border: none !important;
-    height: 42px;
     border-radius: var(--bc-radius-sm) !important;
-    padding: 0 1.35rem;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    transition: all 0.2s ease;
+    transition: all 0.18s ease;
 }
 
-.dashboard-app .btn-danger:hover {
-    background: #e03f5c !important;
-    box-shadow: 0 4px 15px rgba(240, 84, 112, 0.4);
+.dashboard-app .btn-outline-warning:hover,
+.dashboard-app .btn-outline-amber:hover {
+    background: var(--bc-orange) !important;
+    color: #FFFFFF !important;
+    box-shadow: 0 4px 12px rgba(249, 115, 22, 0.25);
 }
 
-/* Scoped Form Controls */
+.dashboard-app .btn-outline-danger {
+    background: transparent !important;
+    border: 1px solid #FECACA !important;
+    color: var(--bc-danger-text) !important;
+    font-weight: 600 !important;
+    border-radius: var(--bc-radius-sm) !important;
+    transition: all 0.18s ease;
+}
+
+.dashboard-app .btn-outline-danger:hover {
+    background: var(--bc-danger-subtle) !important;
+    border-color: var(--bc-danger) !important;
+    color: var(--bc-danger) !important;
+}
+
+.dashboard-app .btn-sm {
+    padding: 0.35rem 0.85rem !important;
+    font-size: 0.8125rem !important;
+}
+
+/* ==========================================================================
+   7. Form Controls & Filters
+   ========================================================================== */
 .dashboard-app .form-control,
 .dashboard-app .form-select {
-    background-color: #081F37 !important;
-    border: 1px solid #1A405F !important;
-    color: var(--bc-white) !important;
-    border-radius: 10px !important;
-    padding: 0.65rem 1rem;
-    transition: all 0.2s ease;
+    background-color: #FFFFFF !important;
+    border: 1px solid #CBD5E1 !important;
+    color: var(--bc-heading) !important;
+    border-radius: var(--bc-radius-sm) !important;
+    padding: 0.6rem 0.95rem;
+    font-size: 0.885rem;
+    transition: all 0.18s ease;
 }
 
 .dashboard-app .form-control:focus,
 .dashboard-app .form-select:focus {
-    background-color: var(--bc-surface) !important;
-    border-color: var(--bc-blue) !important;
-    color: var(--bc-white) !important;
-    box-shadow: 0 0 0 3px rgba(22, 132, 248, 0.12) !important;
+    background-color: #FFFFFF !important;
+    border-color: var(--bc-orange) !important;
+    color: var(--bc-heading) !important;
+    box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.18) !important;
     outline: none;
 }
 
-.dashboard-app .form-label {
-    color: var(--bc-muted) !important;
-    font-weight: 600;
-    margin-bottom: 0.4rem;
+.dashboard-app .form-control::placeholder {
+    color: #94A3B8 !important;
 }
 
-/* Scoped Tables */
+.dashboard-app .input-group-text {
+    background-color: var(--bc-bg-subtle) !important;
+    border: 1px solid #CBD5E1 !important;
+    color: var(--bc-secondary) !important;
+}
+
+.dashboard-app .form-label {
+    color: #334155 !important;
+    font-weight: 600;
+    font-size: 0.825rem;
+    margin-bottom: 0.35rem;
+}
+
+/* ==========================================================================
+   8. High-Contrast SaaS Tables
+   ========================================================================== */
 .dashboard-app .table {
-    color: var(--bc-text) !important;
-    --bs-table-color: var(--bc-text);
+    color: var(--bc-table-body) !important;
+    --bs-table-color: var(--bc-table-body);
     --bs-table-bg: transparent;
     --bs-table-border-color: var(--bc-border);
+    margin-bottom: 0;
 }
 
-.dashboard-app .table th {
-    background: var(--bc-bg-deep) !important;
+.dashboard-app .table th,
+.dashboard-app thead.table-light th,
+.dashboard-app .table-light th {
+    background-color: var(--bc-bg-subtle) !important;
     border-bottom: 1px solid var(--bc-border) !important;
-    color: var(--bc-muted) !important;
+    color: var(--bc-table-heading) !important;
     font-weight: 700;
     text-transform: uppercase;
     font-size: 0.725rem;
-    letter-spacing: 0.05em;
-    padding: 0.9rem 0.85rem;
+    letter-spacing: 0.06em;
+    padding: 0.85rem 1rem;
+    white-space: nowrap;
 }
 
 .dashboard-app .table td {
-    padding: 0.9rem 0.85rem;
-    border-bottom: 1px solid var(--bc-border) !important;
+    padding: 0.9rem 1rem;
+    border-bottom: 1px solid #F1F5F9 !important;
     vertical-align: middle;
-    color: var(--bc-text) !important;
+    color: var(--bc-table-body) !important;
+    font-size: 0.875rem;
+    background-color: #FFFFFF;
 }
 
-.dashboard-app .table tbody tr:hover {
-    background-color: rgba(22, 132, 248, 0.06) !important;
+.dashboard-app .table tbody tr:hover td {
+    background-color: #F8FAFC !important;
 }
 
-/* Pill Status Badges */
-.badge-pill {
+/* Table Card Container */
+.dashboard-app .table-responsive {
+    border-radius: var(--bc-radius-sm);
+    border: 1px solid var(--bc-border);
+    background: #FFFFFF;
+}
+
+/* ==========================================================================
+   9. Badges & Status Indicators
+   ========================================================================== */
+.badge-pill,
+.dashboard-app .badge {
     padding: 0.4em 0.8em;
-    font-weight: 700;
-    font-size: 0.725rem;
-    border-radius: 50rem;
-    letter-spacing: 0.03em;
+    font-weight: 600;
+    font-size: 0.735rem;
+    border-radius: var(--bc-radius-pill);
+    letter-spacing: 0.02em;
     display: inline-flex;
     align-items: center;
-    gap: 4px;
+    gap: 5px;
 }
 
-.badge-verified, .badge-completed {
-    background: rgba(24, 200, 137, 0.18) !important;
-    color: var(--bc-success) !important;
-    border: 1px solid rgba(24, 200, 137, 0.4);
+.badge-verified,
+.badge-completed,
+.dashboard-app .badge.bg-success,
+.dashboard-app .badge.bg-success-subtle,
+.dashboard-app .badge.bg-success.bg-opacity-10 {
+    background: var(--bc-success-subtle) !important;
+    color: var(--bc-success-text) !important;
+    border: 1px solid #A7F3D0 !important;
 }
 
-.badge-pending {
-    background: rgba(245, 185, 66, 0.18) !important;
-    color: var(--bc-warning) !important;
-    border: 1px solid rgba(245, 185, 66, 0.4);
+.badge-pending,
+.dashboard-app .badge.bg-warning-subtle,
+.dashboard-app .badge.bg-warning.bg-opacity-10 {
+    background: var(--bc-warning-subtle) !important;
+    color: var(--bc-warning-text) !important;
+    border: 1px solid #FDE68A !important;
 }
 
-.badge-rejected, .badge-suspended {
-    background: rgba(240, 84, 112, 0.18) !important;
-    color: var(--bc-danger) !important;
-    border: 1px solid rgba(240, 84, 112, 0.4);
+.badge-rejected,
+.badge-suspended,
+.dashboard-app .badge.bg-danger,
+.dashboard-app .badge.bg-danger-subtle,
+.dashboard-app .badge.bg-danger.bg-opacity-10 {
+    background: var(--bc-danger-subtle) !important;
+    color: var(--bc-danger-text) !important;
+    border: 1px solid #FECACA !important;
 }
 
-.badge-active {
-    background: rgba(22, 132, 248, 0.18) !important;
-    color: var(--bc-blue) !important;
-    border: 1px solid rgba(22, 132, 248, 0.4);
+.badge-active,
+.dashboard-app .badge.bg-primary-subtle,
+.dashboard-app .badge.bg-primary.bg-opacity-10,
+.dashboard-app .badge.bg-info-subtle,
+.dashboard-app .badge.bg-info.bg-opacity-10 {
+    background: var(--bc-blue-subtle) !important;
+    color: var(--bc-info-text) !important;
+    border: 1px solid #BFDBFE !important;
 }
 
-/* Modals */
-.dashboard-app .modal-content {
-    background: var(--bc-surface) !important;
+.dashboard-app .badge.bg-secondary-subtle,
+.dashboard-app .badge.bg-secondary.bg-opacity-10 {
+    background: var(--bc-bg-subtle) !important;
+    color: var(--bc-secondary) !important;
     border: 1px solid var(--bc-border) !important;
-    color: var(--bc-white) !important;
-    border-radius: var(--bc-radius) !important;
-    box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.85);
+}
+
+.dashboard-app .badge.bg-warning,
+.dashboard-app .badge.bg-amber {
+    background-color: var(--bc-orange) !important;
+    color: #FFFFFF !important;
+    border: none;
+}
+
+/* ==========================================================================
+   10. Modals & Dialogs
+   ========================================================================== */
+.dashboard-app .modal-content {
+    background: #FFFFFF !important;
+    border: 1px solid var(--bc-border) !important;
+    color: var(--bc-body) !important;
+    border-radius: var(--bc-radius-lg) !important;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
 }
 
 .dashboard-app .modal-header {
-    background: var(--bc-header) !important;
+    background: var(--bc-bg-subtle) !important;
     border-bottom: 1px solid var(--bc-border) !important;
+    color: var(--bc-heading) !important;
+    padding: 1.15rem 1.5rem;
+}
+
+.dashboard-app .modal-header .modal-title {
+    color: var(--bc-heading) !important;
+    font-weight: 700;
+}
+
+.dashboard-app .modal-body {
+    padding: 1.5rem;
 }
 
 .dashboard-app .modal-footer {
-    background: var(--bc-header) !important;
+    background: var(--bc-bg-subtle) !important;
     border-top: 1px solid var(--bc-border) !important;
+    padding: 1rem 1.5rem;
 }
+
+/* ==========================================================================
+   11. Alerts & Notices
+   ========================================================================== */
+.dashboard-app .alert {
+    border-radius: var(--bc-radius);
+    padding: 0.95rem 1.25rem;
+    font-size: 0.885rem;
+}
+
+.dashboard-app .alert-warning {
+    background: var(--bc-warning-subtle) !important;
+    border: 1px solid #FDE68A !important;
+    color: #92400E !important;
+}
+
+.dashboard-app .alert-danger {
+    background: var(--bc-danger-subtle) !important;
+    border: 1px solid #FECACA !important;
+    color: #991B1B !important;
+}
+
+.dashboard-app .alert-success {
+    background: var(--bc-success-subtle) !important;
+    border: 1px solid #A7F3D0 !important;
+    color: #065F46 !important;
+}
+
+.dashboard-app .alert-info {
+    background: var(--bc-blue-subtle) !important;
+    border: 1px solid #BAE6FD !important;
+    color: #075985 !important;
+}
+
+/* Light Background Fallback Helper */
+.dashboard-app .bg-light {
+    background-color: var(--bc-bg-subtle) !important;
+    border-color: var(--bc-border) !important;
+    color: var(--bc-body) !important;
+}
+
+/* Date Range and Filter Box Helper */
+.dashboard-app .bc-date-range-control {
+    background: #FFFFFF !important;
+    border: 1px solid var(--bc-border) !important;
+    color: var(--bc-body) !important;
+    border-radius: var(--bc-radius-sm);
+    box-shadow: var(--bc-shadow-xs);
+}
+
+/* Progress Bars */
+.dashboard-app .progress {
+    background-color: var(--bc-bg-subtle);
+    border-radius: var(--bc-radius-pill);
+    overflow: hidden;
+    height: 8px;
+}
+
+.dashboard-app .progress-bar {
+    background-color: var(--bc-orange);
+    border-radius: var(--bc-radius-pill);
+}
+
+.dashboard-app .progress-bar.bg-info {
+    background-color: var(--bc-blue) !important;
+}
+
+.dashboard-app .progress-bar.bg-success {
+    background-color: var(--bc-success) !important;
+}
+
+/* ==========================================================================
+   12. Universal Dashboard Tables: Dark Headers with Light Text, White Body with Dark Text
+   ========================================================================== */
+.dashboard-app .table {
+    --bs-table-bg: transparent;
+    border-collapse: separate;
+    border-spacing: 0;
+    width: 100%;
+}
+
+.dashboard-app .table thead,
+.dashboard-app .table thead tr,
+.dashboard-app .table thead th,
+.dashboard-app thead.table-light th,
+.dashboard-app .table th {
+    background-color: #0B192C !important;
+    background: #0B192C !important;
+    color: #F8FAFC !important;
+    border-bottom: 2px solid #1E293B !important;
+    font-weight: 700 !important;
+    font-size: 0.75rem !important;
+    letter-spacing: 0.05em !important;
+    text-transform: uppercase !important;
+    padding: 0.75rem 1rem !important;
+}
+
+.dashboard-app .table tbody,
+.dashboard-app .table tbody tr {
+    background-color: #FFFFFF !important;
+    background: #FFFFFF !important;
+}
+
+.dashboard-app .table tbody td {
+    background-color: #FFFFFF !important;
+    background: #FFFFFF !important;
+    color: #0F172A !important;
+    border-bottom: 1px solid #E2E8F0 !important;
+    padding: 0.85rem 1rem !important;
+    vertical-align: middle !important;
+    font-size: 0.85rem;
+}
+
+.dashboard-app .table tbody tr:hover td {
+    background-color: #F8FAFC !important;
+}
+
+.dashboard-app .table tbody .text-dark,
+.dashboard-app .table tbody .fw-bold,
+.dashboard-app .table tbody strong,
+.dashboard-app .table tbody b {
+    color: #0F172A !important;
+}
+
+.dashboard-app .table tbody .text-muted,
+.dashboard-app .table tbody .text-secondary,
+.dashboard-app .table tbody small {
+    color: #475569 !important;
+}
+
+/* ==========================================================================
+   13. Focus & Accessibility Ring
+   ========================================================================== */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+    outline: 2px solid var(--bc-orange) !important;
+    outline-offset: 2px;
+}
+
+/* ==========================================================================
+   GLOBAL MULTILINGUAL LANGUAGE SELECTOR COMPONENT (DASHBOARD CORE)
+   ========================================================================== */
+.bc-lang-dropdown {
+    position: relative !important;
+    display: inline-block !important;
+    z-index: 1060 !important;
+}
+
+.dashboard-app .bc-lang-selector-btn {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 7px !important;
+    background: rgba(255, 255, 255, 0.14) !important;
+    color: #FFFFFF !important;
+    border: 1.5px solid rgba(255, 170, 22, 0.65) !important;
+    padding: 0.38rem 0.85rem !important;
+    border-radius: 50px !important;
+    font-size: 0.84rem !important;
+    font-weight: 700 !important;
+    cursor: pointer !important;
+    text-decoration: none !important;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    white-space: nowrap !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2) !important;
+}
+
+.dashboard-app .bc-lang-selector-btn:hover,
+.dashboard-app .bc-lang-selector-btn:focus,
+.dashboard-app .bc-lang-selector-btn[aria-expanded="true"] {
+    background: rgba(255, 170, 22, 0.25) !important;
+    border-color: #FFAA16 !important;
+    color: #FFAA16 !important;
+    box-shadow: 0 0 14px rgba(255, 170, 22, 0.5) !important;
+    transform: translateY(-1px) !important;
+}
+
+.dashboard-app .bc-lang-dropdown .dropdown-menu {
+    z-index: 1090 !important;
+    min-width: 220px !important;
+    background: #FFFFFF !important;
+    border: 1px solid #CBD5E1 !important;
+    border-radius: 12px !important;
+    box-shadow: 0 14px 35px rgba(0, 0, 0, 0.25) !important;
+    padding: 0.5rem 0 !important;
+    margin-top: 8px !important;
+}
+
+.dashboard-app .bc-lang-dropdown .dropdown-header {
+    font-size: 0.7rem !important;
+    letter-spacing: 0.06em !important;
+    font-weight: 700 !important;
+    color: #64748B !important;
+}
+
+.dashboard-app .bc-lang-dropdown .dropdown-item {
+    font-size: 0.875rem !important;
+    color: #1E293B !important;
+    font-weight: 600 !important;
+    padding: 0.6rem 1rem !important;
+    transition: all 0.15s ease !important;
+}
+
+.dashboard-app .bc-lang-dropdown .dropdown-item:hover,
+.dashboard-app .bc-lang-dropdown .dropdown-item:focus {
+    background: #FFF7ED !important;
+    color: #D97706 !important;
+}
+
+.dashboard-app .bc-lang-dropdown .dropdown-item.active {
+    background: #FEF3C7 !important;
+    color: #92400E !important;
+    font-weight: 700 !important;
+}
+
+/* Multilingual Native Script Font Optimization (Devanagari & Gujarati) */
+html[lang="hi"] body,
+html[lang="hi"] button,
+html[lang="hi"] input,
+html[lang="hi"] select,
+html[lang="hi"] textarea,
+html[lang="hi"] .bc-nav-link,
+html[lang="hi"] .bc-sidebar-link,
+html[lang="hi"] .bc-page-title,
+html[lang="hi"] .bc-metric-title {
+    font-family: 'Noto Sans Devanagari', 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif !important;
+}
+
+html[lang="gu"] body,
+html[lang="gu"] button,
+html[lang="gu"] input,
+html[lang="gu"] select,
+html[lang="gu"] textarea,
+html[lang="gu"] .bc-nav-link,
+html[lang="gu"] .bc-sidebar-link,
+html[lang="gu"] .bc-page-title,
+html[lang="gu"] .bc-metric-title {
+    font-family: 'Noto Sans Gujarati', 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif !important;
+}
+
+/* Mobile Responsiveness for Dashboard Language Selector */
+@media (max-width: 576px) {
+    .dashboard-app .bc-lang-label {
+        display: none !important;
+    }
+    .dashboard-app .bc-lang-selector-btn {
+        padding: 0.3rem 0.55rem !important;
+        font-size: 0.78rem !important;
+        gap: 4px !important;
+    }
+    .dashboard-app .bc-lang-badge {
+        font-size: 0.68rem !important;
+        padding: 0.15rem 0.45rem !important;
+    }
+}
+
+

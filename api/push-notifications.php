@@ -41,7 +41,8 @@ if ($method === 'GET') {
                 'server_time' => time()
             ]);
         } catch (Exception $e) {
-            echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+            error_log("Push poll error: " . $e->getMessage());
+            echo json_encode(['success' => false, 'message' => 'Failed to poll notifications.']);
         }
         exit;
     }
@@ -84,7 +85,8 @@ if ($method === 'POST') {
                 'endpoint' => $endpoint
             ]);
         } catch (Exception $e) {
-            echo json_encode(['success' => false, 'message' => 'Database error: ' . $e->getMessage()]);
+            error_log("Push subscribe error: " . $e->getMessage());
+            echo json_encode(['success' => false, 'message' => 'Failed to save push subscription.']);
         }
         exit;
     }
@@ -109,7 +111,8 @@ if ($method === 'POST') {
                 ]
             ]);
         } catch (Exception $e) {
-            echo json_encode(['success' => false, 'message' => 'Push creation failed: ' . $e->getMessage()]);
+            error_log("Push test error: " . $e->getMessage());
+            echo json_encode(['success' => false, 'message' => 'Failed to dispatch test notification.']);
         }
         exit;
     }

@@ -73,7 +73,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             redirect('contractor/profile.php');
         } catch (PDOException $e) {
             $db->rollBack();
-            $errors[] = "Database error updating profile: " . $e->getMessage();
+            error_log("Contractor edit profile error: " . $e->getMessage());
+            $errors[] = "An unexpected error occurred while updating your profile. Please try again.";
         }
     }
 }

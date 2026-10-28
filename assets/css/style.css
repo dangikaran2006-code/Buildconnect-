@@ -262,11 +262,12 @@ h1, h2, h3, h4, h5, h6, .brand-font {
     box-shadow: 4px 0 20px rgba(0, 0, 0, 0.2);
 }
 
-/* Worker, Admin & Client Sidebar Fixed Positioning & Independent Scrolling */
+/* Worker, Admin, Client & Contractor Sidebar Fixed Positioning & Independent Scrolling */
 @media (min-width: 992px) {
     .bc-sidebar-worker,
     .bc-sidebar-admin,
-    .bc-sidebar-client {
+    .bc-sidebar-client,
+    .bc-sidebar-contractor {
         position: sticky !important;
         top: 65px !important;
         height: calc(100vh - 65px) !important;
@@ -281,7 +282,8 @@ h1, h2, h3, h4, h5, h6, .brand-font {
 @media (max-width: 991.98px) {
     .bc-sidebar-worker,
     .bc-sidebar-admin,
-    .bc-sidebar-client {
+    .bc-sidebar-client,
+    .bc-sidebar-contractor {
         width: 100% !important;
         height: auto !important;
         position: relative !important;
@@ -350,6 +352,164 @@ h1, h2, h3, h4, h5, h6, .brand-font {
 .bc-nav-item a.text-danger:hover {
     background: rgba(239, 68, 68, 0.15);
     color: #ef4444 !important;
+}
+
+/* ==========================================================================
+   Collapsible Dropdown Sidebar Navigation System
+   Applies to Admin, Worker, Client, and Contractor Dashboards
+   ========================================================================== */
+
+/* Dropdown Parent Item */
+.bc-nav-dropdown {
+    margin-bottom: 0.35rem;
+    position: relative;
+    border-radius: var(--bc-radius-sm, 10px);
+    transition: background-color 0.2s ease;
+}
+
+/* Dropdown Toggle Button */
+.bc-dropdown-toggle {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: transparent;
+    border: 1px solid transparent;
+    padding: 0.65rem 0.85rem;
+    color: var(--bc-text-muted, #9DB0C8);
+    font-size: 0.865rem;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: var(--bc-radius-sm, 10px);
+    cursor: pointer;
+    transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+    outline: none;
+    user-select: none;
+}
+
+.bc-dropdown-toggle:hover,
+.bc-dropdown-toggle:focus-visible {
+    background: rgba(255, 255, 255, 0.05);
+    color: #F5F8FF;
+}
+
+.bc-dropdown-toggle-left {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.bc-dropdown-toggle-left i {
+    width: 20px;
+    text-align: center;
+    font-size: 0.95rem;
+    flex-shrink: 0;
+}
+
+.bc-dropdown-title {
+    font-size: 0.865rem;
+    letter-spacing: 0.01em;
+}
+
+.bc-dropdown-toggle-right {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    flex-shrink: 0;
+}
+
+/* Chevron Icon & Rotation */
+.bc-dropdown-chevron {
+    font-size: 0.72rem;
+    color: #64748b;
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), color 0.2s ease;
+}
+
+/* When Dropdown is Open */
+.bc-nav-dropdown.is-open > .bc-dropdown-toggle {
+    background: rgba(14, 49, 81, 0.45);
+    color: #F5F8FF;
+    border-color: rgba(255, 170, 22, 0.15);
+}
+
+.bc-nav-dropdown.is-open > .bc-dropdown-toggle .bc-dropdown-chevron {
+    transform: rotate(180deg);
+    color: var(--bc-primary, #FFAA16);
+}
+
+/* When Parent Dropdown has an Active Child */
+.bc-nav-dropdown.active-group > .bc-dropdown-toggle {
+    background: linear-gradient(90deg, rgba(255, 170, 22, 0.16) 0%, rgba(255, 170, 22, 0.04) 100%);
+    color: #FFAA16;
+    font-weight: 700;
+    border-left: 3px solid #FFAA16;
+}
+
+.bc-nav-dropdown.active-group > .bc-dropdown-toggle .bc-dropdown-chevron {
+    color: #FFAA16;
+}
+
+/* Submenu Container (Smooth Accordion Animation) */
+.bc-dropdown-menu {
+    list-style: none;
+    margin: 0;
+    padding: 0.2rem 0 0.35rem 0.75rem;
+    margin-left: 1.15rem;
+    border-left: 1.5px solid rgba(255, 255, 255, 0.08);
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+    transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s ease, visibility 0.2s;
+}
+
+.bc-nav-dropdown.is-open > .bc-dropdown-menu {
+    max-height: 600px;
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Submenu Items */
+.bc-subnav-item {
+    margin: 0.2rem 0;
+}
+
+.bc-subnav-item a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.65rem;
+    padding: 0.48rem 0.75rem;
+    color: #AFC0D5;
+    font-size: 0.825rem;
+    font-weight: 500;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: all 0.18s ease;
+}
+
+.bc-subnav-item a:hover {
+    background: rgba(255, 170, 22, 0.1);
+    color: #FFAA16;
+    transform: translateX(3px);
+}
+
+.bc-subnav-item.active a {
+    background: linear-gradient(90deg, rgba(255, 170, 22, 0.2) 0%, rgba(255, 170, 22, 0.05) 100%);
+    color: #FFAA16;
+    font-weight: 700;
+    border-left: 3px solid #FFAA16;
+    box-shadow: 0 2px 10px rgba(255, 170, 22, 0.1);
+}
+
+.bc-subnav-item a i {
+    width: 18px;
+    text-align: center;
+    font-size: 0.85rem;
+    flex-shrink: 0;
 }
 
 /* Glowing Stat Icons */
@@ -512,36 +672,37 @@ h1, h2, h3, h4, h5, h6, .brand-font {
 
 /* Tables */
 .table {
-    --bs-table-color: var(--bc-text);
+    --bs-table-color: #334155;
     --bs-table-bg: transparent;
-    --bs-table-border-color: var(--bc-border);
-    color: var(--bc-text) !important;
+    --bs-table-border-color: #E2E8F0;
+    color: #334155;
 }
 
 .table-custom {
-    color: var(--bc-text) !important;
+    color: #334155;
 }
 
 .table-custom th, .table th {
-    border-bottom: 1px solid var(--bc-border) !important;
-    color: var(--bc-text-muted) !important;
-    background: linear-gradient(180deg, rgba(30, 41, 59, 0.9) 0%, rgba(17, 24, 39, 0.95) 100%) !important;
+    border-bottom: 1px solid #1E293B !important;
+    color: #F8FAFC !important;
+    background: #0B192C !important;
     font-weight: 700;
     text-transform: uppercase;
     font-size: 0.75rem;
     letter-spacing: 0.06em;
-    padding: 1.1rem 1rem;
+    padding: 0.85rem 1rem;
 }
 
 .table-custom td, .table td {
-    padding: 1.1rem 1rem;
-    border-bottom: 1px solid var(--bc-border) !important;
+    padding: 0.85rem 1rem;
+    border-bottom: 1px solid #E2E8F0 !important;
     vertical-align: middle;
-    color: var(--bc-text) !important;
+    color: #334155 !important;
+    background-color: #FFFFFF;
 }
 
-.table-custom tbody tr:hover, .table tbody tr:hover {
-    background-color: rgba(245, 158, 11, 0.08) !important;
+.table-custom tbody tr:hover td, .table tbody tr:hover td {
+    background-color: #F8FAFC !important;
 }
 
 /* Badges */
@@ -613,11 +774,118 @@ h1, h2, h3, h4, h5, h6, .brand-font {
     }
 }
 
-/* Redesigned BuildConnect Auth & Login Styles */
+/* ==========================================================================
+   BuildConnect Premium Construction Dark Theme for Auth Pages (Login & Register)
+   Matches Official Design Reference Screenshot
+   ========================================================================== */
+
+/* Dark Navbar Overrides for Auth Pages */
+body.bc-auth-page-dark {
+    background-color: #040e1f !important;
+    color: #ffffff !important;
+    min-height: 100vh;
+}
+
+body.bc-auth-page-dark .bc-navbar,
+body.bc-auth-page-dark .bc-navbar-modern {
+    background: rgba(4, 14, 30, 0.95) !important;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(22, 54, 100, 0.6) !important;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5) !important;
+}
+
+body.bc-auth-page-dark .bc-brand-build {
+    color: #ffffff !important;
+    font-weight: 800 !important;
+}
+
+body.bc-auth-page-dark .bc-brand-connect {
+    color: #FFAA16 !important;
+    font-weight: 800 !important;
+}
+
+body.bc-auth-page-dark .bc-nav-link {
+    color: #cbd5e1 !important;
+    font-weight: 500 !important;
+    padding: 0.35rem 0.6rem !important;
+    font-size: 0.9rem !important;
+    transition: all 0.2s ease !important;
+}
+
+body.bc-auth-page-dark .bc-nav-link:hover {
+    color: #FFAA16 !important;
+}
+
+body.bc-auth-page-dark .bc-nav-link.active {
+    color: #ffffff !important;
+    font-weight: 700 !important;
+    border-bottom: 2px solid #ffffff !important;
+}
+
+body.bc-auth-page-dark .bc-theme-toggle-btn {
+    display: none !important;
+}
+
+/* Navbar Auth Action Buttons matching reference */
+body.bc-auth-page-dark .bc-auth-nav-login {
+    background: #091a33 !important;
+    border: 1.5px solid #1e3a66 !important;
+    color: #ffffff !important;
+    border-radius: 8px !important;
+    font-weight: 600 !important;
+    padding: 0.38rem 1.15rem !important;
+    font-size: 0.875rem !important;
+    transition: all 0.2s ease !important;
+}
+
+body.bc-auth-page-dark .bc-auth-nav-login:hover,
+body.bc-auth-page-dark .bc-auth-nav-login.active {
+    border-color: #FFAA16 !important;
+    color: #FFAA16 !important;
+    background: #0c2448 !important;
+}
+
+body.bc-auth-page-dark .bc-auth-nav-register {
+    background: #FFAA16 !important;
+    border: 1.5px solid #FFAA16 !important;
+    color: #081225 !important;
+    border-radius: 8px !important;
+    font-weight: 700 !important;
+    padding: 0.38rem 1.25rem !important;
+    font-size: 0.875rem !important;
+    transition: all 0.2s ease !important;
+    box-shadow: 0 2px 10px rgba(255, 170, 22, 0.25) !important;
+}
+
+body.bc-auth-page-dark .bc-auth-nav-register:hover,
+body.bc-auth-page-dark .bc-auth-nav-register.active {
+    background: #FFB82E !important;
+    border-color: #FFB82E !important;
+    color: #000000 !important;
+    box-shadow: 0 4px 16px rgba(255, 170, 22, 0.45) !important;
+}
+
+/* Language dropdown button on dark auth navbar */
+body.bc-auth-page-dark .bc-lang-selector-btn {
+    background: #091a33 !important;
+    border: 1.5px solid #1e3a66 !important;
+    color: #ffffff !important;
+}
+
+body.bc-auth-page-dark .bc-lang-selector-btn:hover,
+body.bc-auth-page-dark .bc-lang-selector-btn[aria-expanded="true"] {
+    background: #0c2448 !important;
+    border-color: #FFAA16 !important;
+    color: #FFAA16 !important;
+}
+
+/* Auth Page Wrapper with Construction Site Sunset Background & Dark Overlay */
+.bc-auth-wrapper,
 .bc-login-wrapper {
     min-height: calc(100vh - 65px);
-    background: linear-gradient(135deg, rgba(11, 15, 23, 0.98) 0%, rgba(17, 24, 39, 0.95) 100%),
-                url('../images/construction-bg.jpg') center/cover no-repeat;
+    background: linear-gradient(135deg, rgba(3, 13, 29, 0.84) 0%, rgba(4, 18, 38, 0.89) 50%, rgba(3, 14, 30, 0.94) 100%),
+                url('../images/hero-workers-sunset.jpg') center center / cover no-repeat fixed;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -625,150 +893,304 @@ h1, h2, h3, h4, h5, h6, .brand-font {
     position: relative;
 }
 
+/* Centered Form Card */
+.bc-auth-card,
 .bc-login-card {
     width: 100%;
-    max-width: 490px;
-    background: rgba(30, 41, 59, 0.94);
-    backdrop-filter: blur(25px);
-    -webkit-backdrop-filter: blur(25px);
-    border: 1px solid rgba(245, 158, 11, 0.35);
-    border-radius: 24px;
-    box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.85), 0 0 35px rgba(245, 158, 11, 0.15);
-    padding: 2.75rem 2.5rem;
-    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    max-width: 530px;
+    background: linear-gradient(180deg, rgba(10, 27, 54, 0.96) 0%, rgba(7, 21, 43, 0.98) 100%);
+    border: 1.5px solid rgba(41, 98, 175, 0.45);
+    border-radius: 22px;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.75), 0 0 35px rgba(23, 70, 138, 0.25);
+    padding: 2.6rem 2.4rem;
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    position: relative;
+    z-index: 10;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.bc-login-card:hover {
-    border-color: rgba(245, 158, 11, 0.6);
-    box-shadow: 0 35px 70px -15px rgba(0, 0, 0, 0.9), 0 0 45px rgba(245, 158, 11, 0.25);
+.bc-login-card-size {
+    max-width: 480px;
 }
 
-.bc-login-header-icon {
-    width: 68px;
-    height: 68px;
-    display: inline-flex;
+/* Top Orange Icon */
+.bc-auth-icon-wrapper {
+    text-align: center;
+    margin-bottom: 0.85rem;
+}
+
+.bc-auth-icon {
+    font-size: 2.75rem;
+    color: #FFAA16;
+    filter: drop-shadow(0 0 16px rgba(255, 170, 22, 0.5));
+}
+
+/* Typography */
+.bc-auth-title {
+    color: #ffffff;
+    font-weight: 800;
+    font-size: 1.72rem;
+    text-align: center;
+    margin-bottom: 0.35rem;
+    letter-spacing: -0.01em;
+}
+
+.bc-auth-subtitle {
+    color: #94a3b8;
+    font-size: 0.885rem;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    line-height: 1.45;
+}
+
+/* Segmented 3-Role Tab Selector */
+.bc-role-tabs {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    background: #06152b;
+    border: 1.5px solid #163664;
+    border-radius: 12px;
+    padding: 4px;
+    gap: 4px;
+    margin-bottom: 1.35rem;
+}
+
+.bc-role-tab {
+    display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, rgba(245, 158, 11, 0.25) 0%, rgba(245, 158, 11, 0.08) 100%);
-    border: 1px solid rgba(245, 158, 11, 0.45);
-    border-radius: 50%;
-    color: var(--bc-primary);
-    font-size: 1.85rem;
-    margin-bottom: 1.25rem;
-    box-shadow: 0 0 25px rgba(245, 158, 11, 0.3);
-}
-
-.bc-input-group-text {
-    background-color: var(--bc-bg-secondary) !important;
-    border: 1px solid var(--bc-border) !important;
-    border-right: none !important;
-    color: var(--bc-text-muted) !important;
-    border-top-left-radius: var(--bc-radius-sm) !important;
-    border-bottom-left-radius: var(--bc-radius-sm) !important;
-}
-
-.bc-input {
-    background-color: var(--bc-bg-secondary) !important;
-    border: 1px solid var(--bc-border) !important;
-    color: #ffffff !important;
-    font-size: 0.925rem;
-    padding: 0.75rem 1rem;
-    border-radius: var(--bc-radius-sm);
+    padding: 0.65rem 0.5rem;
+    border-radius: 8px;
+    cursor: pointer;
+    color: #cbd5e1;
+    font-weight: 600;
+    font-size: 0.885rem;
     transition: all 0.2s ease;
+    user-select: none;
+    margin-bottom: 0;
 }
 
-.bc-input-group-text + .bc-input {
-    border-left: none !important;
+.bc-role-tab:hover {
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.04);
 }
 
-.bc-input::placeholder {
-    color: #64748B !important;
+.bc-role-tab.active {
+    background: #FFAA16 !important;
+    color: #07152b !important;
+    font-weight: 700 !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
-.bc-input:focus {
-    background-color: #1E293B !important;
-    border-color: var(--bc-primary) !important;
-    box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.25) !important;
+/* Custom Input Groups */
+.bc-auth-input-group {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background: #06152b;
+    border: 1.5px solid #163664;
+    border-radius: 10px;
+    height: 48px;
+    transition: all 0.2s ease;
+    overflow: hidden;
 }
 
-.bc-input-btn-eye {
-    background-color: var(--bc-bg-secondary) !important;
-    border: 1px solid var(--bc-border) !important;
-    border-left: none !important;
-    color: var(--bc-text-muted) !important;
-    transition: color 0.2s ease, border-color 0.2s ease;
+.bc-auth-input-group:focus-within {
+    border-color: #FFAA16 !important;
+    box-shadow: 0 0 0 3px rgba(255, 170, 22, 0.25) !important;
 }
 
-.bc-input-btn-eye:hover {
-    color: var(--bc-primary) !important;
-    background-color: #092c4b !important;
+.bc-auth-input-icon {
+    color: #94a3b8;
+    font-size: 0.95rem;
+    padding-left: 1rem;
+    padding-right: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    flex-shrink: 0;
 }
 
-.bc-auth-divider {
+.bc-auth-input {
+    background: transparent !important;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    color: #ffffff !important;
+    font-size: 0.915rem;
+    width: 100%;
+    height: 100%;
+    padding: 0 0.75rem;
+}
+
+.bc-auth-input::placeholder {
+    color: #94a3b8 !important;
+    opacity: 0.85;
+}
+
+.bc-auth-eye-btn {
+    background: transparent;
+    border: none;
+    color: #94a3b8;
+    padding: 0 1rem;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: color 0.15s ease;
+    flex-shrink: 0;
+}
+
+.bc-auth-eye-btn:hover {
+    color: #FFAA16;
+}
+
+.bc-auth-checkbox {
+    background-color: #06152b !important;
+    border-color: #163664 !important;
+}
+
+.bc-auth-checkbox:checked {
+    background-color: #FFAA16 !important;
+    border-color: #FFAA16 !important;
+}
+
+/* Primary Orange Action Button */
+.bc-auth-btn-primary {
+    background: #FFAA16 !important;
+    color: #07152b !important;
+    border: none !important;
+    border-radius: 10px !important;
+    height: 50px !important;
+    font-size: 1rem !important;
+    font-weight: 700 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    cursor: pointer !important;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    box-shadow: 0 4px 14px rgba(255, 170, 22, 0.3) !important;
+    text-transform: none !important;
+}
+
+.bc-auth-btn-primary:hover {
+    background: #FFB82E !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 6px 22px rgba(255, 170, 22, 0.45) !important;
+    color: #000000 !important;
+}
+
+.bc-auth-btn-primary:active {
+    transform: translateY(0) !important;
+}
+
+/* Google OAuth Button with dark styling */
+.bc-auth-btn-google {
+    background: #06152b !important;
+    border: 1.5px solid #163664 !important;
+    color: #ffffff !important;
+    border-radius: 10px !important;
+    height: 48px !important;
+    font-weight: 600 !important;
+    font-size: 0.915rem !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-decoration: none !important;
+    transition: all 0.2s ease !important;
+}
+
+.bc-auth-btn-google:hover {
+    background: #091c38 !important;
+    border-color: #255394 !important;
+    color: #ffffff !important;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Divider & Sub-links */
+.bc-auth-footer-divider {
     display: flex;
     align-items: center;
     text-align: center;
-    color: var(--bc-text-muted);
-    font-size: 0.78rem;
-    font-weight: 600;
-    letter-spacing: 0.05em;
+    color: #94a3b8;
+    font-size: 0.825rem;
 }
 
-.bc-auth-divider::before,
-.bc-auth-divider::after {
+.bc-auth-footer-divider::before,
+.bc-auth-footer-divider::after {
     content: '';
     flex: 1;
-    border-bottom: 1px solid var(--bc-border);
+    border-bottom: 1px solid #163664;
 }
 
-.bc-auth-divider span {
+.bc-auth-footer-divider span {
     padding: 0 1rem;
 }
 
-.btn-google-oauth {
-    background-color: #ffffff;
-    color: #1f2937;
-    border: 1px solid #e5e7eb;
-    border-radius: var(--bc-radius-sm);
-    font-weight: 600;
-    font-size: 0.925rem;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-    transition: all 0.2s ease;
-    text-decoration: none;
+.bc-auth-link {
+    color: #FFAA16 !important;
+    font-weight: 700 !important;
+    font-size: 0.95rem !important;
+    text-decoration: none !important;
+    transition: all 0.15s ease !important;
 }
 
-.btn-google-oauth:hover {
-    background-color: #f9fafb;
-    color: #111827;
-    border-color: #d1d5db;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    transform: translateY(-1px);
+.bc-auth-link:hover {
+    color: #FFC107 !important;
+    text-decoration: underline !important;
 }
 
-.bc-register-card {
-    max-width: 600px;
+.bc-auth-link-subtle {
+    color: #FFAA16 !important;
+    font-weight: 600 !important;
+    text-decoration: none !important;
+    transition: all 0.15s ease !important;
 }
 
-.bc-role-btn {
-    background-color: var(--bc-bg-secondary) !important;
-    border: 1px solid var(--bc-border) !important;
-    color: var(--bc-text-muted) !important;
-    border-radius: var(--bc-radius-sm);
-    transition: all 0.25s ease;
+.bc-auth-link-subtle:hover {
+    text-decoration: underline !important;
 }
 
-.bc-role-btn:hover {
-    border-color: rgba(255, 170, 22, 0.45) !important;
-    color: var(--bc-primary) !important;
-    background-color: #092c4b !important;
+/* Alerts */
+.bc-auth-alert {
+    border-radius: 10px;
+    padding: 0.75rem 1rem;
+    font-size: 0.875rem;
+    display: flex;
+    align-items: center;
 }
 
-.btn-check:checked + .bc-role-btn {
-    background-color: rgba(255, 170, 22, 0.18) !important;
-    border-color: var(--bc-primary) !important;
-    color: var(--bc-primary) !important;
-    box-shadow: 0 0 20px rgba(255, 170, 22, 0.3);
+.bc-auth-alert.alert-danger {
+    background: rgba(220, 38, 38, 0.2) !important;
+    border: 1px solid rgba(220, 38, 38, 0.5) !important;
+    color: #fca5a5 !important;
 }
+
+.bc-auth-alert.alert-success {
+    background: rgba(34, 197, 94, 0.2) !important;
+    border: 1px solid rgba(34, 197, 94, 0.5) !important;
+    color: #86efac !important;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 575.98px) {
+    .bc-auth-card,
+    .bc-login-card {
+        padding: 1.75rem 1.25rem !important;
+        border-radius: 18px !important;
+        margin: 1rem auto !important;
+    }
+    .bc-auth-title {
+        font-size: 1.45rem !important;
+    }
+    .bc-role-tabs {
+        font-size: 0.825rem !important;
+    }
+}
+
 
 /* Hero & Platform Landing Layout */
 .bc-hero-exact {
@@ -840,8 +1262,8 @@ h1, h2, h3, h4, h5, h6, .brand-font {
    ========================================================================== */
 
 .bc-dashboard-theme {
-    background-color: #f8fafc !important;
-    color: #1e293b !important;
+    background-color: var(--bc-bg, #071525) !important;
+    color: var(--bc-body, #CBD5E1) !important;
 }
 
 .bc-dashboard-theme h1,
@@ -850,7 +1272,7 @@ h1, h2, h3, h4, h5, h6, .brand-font {
 .bc-dashboard-theme h4,
 .bc-dashboard-theme h5,
 .bc-dashboard-theme h6 {
-    color: #0f172a !important;
+    color: var(--bc-heading, #F8FAFC) !important;
 }
 
 body:not(.dashboard-app) .bc-navbar-modern {
@@ -962,14 +1384,6 @@ body:not(.dashboard-app) .bc-global-search-input:focus {
     box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35) !important;
 }
 
-.bc-sidebar-weather-widget {
-    background: rgba(30, 41, 59, 0.7);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 12px;
-    padding: 10px 14px;
-    margin-top: auto;
-}
-
 /* BuildConnect Dark Navy SaaS Dashboard Components */
 .bc-header-banner {
     background: linear-gradient(135deg, #092642 0%, #061A31 100%);
@@ -1024,19 +1438,18 @@ body:not(.dashboard-app) .bc-global-search-input:focus {
 }
 
 .bc-surface-card, .bc-metric-card {
-    background: linear-gradient(145deg, rgba(30, 41, 59, 0.96) 0%, rgba(17, 24, 39, 0.93) 100%) !important;
-    border: 1px solid var(--bc-border) !important;
-    border-radius: 16px !important;
+    background: #FFFFFF !important;
+    border: 1px solid #E2E8F0 !important;
+    border-radius: 14px !important;
     padding: 1.35rem 1.25rem !important;
-    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.08);
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    color: #F8FAFC !important;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px -1px rgba(0, 0, 0, 0.05);
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    color: #334155 !important;
 }
 
 .bc-surface-card:hover, .bc-metric-card:hover {
-    transform: translateY(-4px);
-    border-color: rgba(245, 158, 11, 0.5) !important;
-    box-shadow: 0 18px 45px -10px rgba(0, 0, 0, 0.75), 0 0 25px rgba(245, 158, 11, 0.2);
+    border-color: #CBD5E1 !important;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.04);
 }
 
 .bc-quick-action-item {
@@ -1044,20 +1457,20 @@ body:not(.dashboard-app) .bc-global-search-input:focus {
     align-items: center;
     justify-content: space-between;
     padding: 12px 16px;
-    border-radius: 12px;
-    border: 1px solid var(--bc-border);
-    background: rgba(17, 24, 39, 0.85);
-    color: #F8FAFC !important;
+    border-radius: 10px;
+    border: 1px solid #E2E8F0;
+    background: #FFFFFF;
+    color: #0F172A !important;
     text-decoration: none !important;
-    transition: all 0.25s ease;
+    transition: all 0.2s ease;
     margin-bottom: 8px;
 }
 
 .bc-quick-action-item:hover {
-    background: rgba(30, 41, 59, 0.95);
-    border-color: rgba(245, 158, 11, 0.45);
-    transform: translateX(4px);
-    box-shadow: 0 4px 15px rgba(245, 158, 11, 0.18);
+    background: #F8FAFC;
+    border-color: #F97316;
+    transform: translateX(3px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 }
 
 .bc-banner-explore {
@@ -1086,7 +1499,6 @@ body:not(.dashboard-app) .bc-global-search-input:focus {
 
 .bc-sidebar-collapsed .bc-nav-header,
 .bc-sidebar-collapsed .bc-sidebar-tagline,
-.bc-sidebar-collapsed .bc-sidebar-weather-widget,
 .bc-sidebar-collapsed .bc-nav-item span,
 .bc-sidebar-collapsed .bc-brand-logo span {
     display: none !important;
@@ -1121,35 +1533,31 @@ body:not(.dashboard-app) .bc-global-search-input:focus {
     color: #F8FAFC !important;
 }
 
-/* Universal Dashboard Theme Enforcements */
+/* Universal Dashboard High-Contrast Typography */
+.dashboard-app .text-dark,
 .bc-dashboard-theme .text-dark {
-    color: #F8FAFC !important;
+    color: #0F172A !important;
 }
-.bc-dashboard-theme .text-slate-700,
-.bc-dashboard-theme .text-slate-800,
-.bc-dashboard-theme .text-slate-900 {
-    color: #E2E8F0 !important;
+.dashboard-app .text-slate-700,
+.dashboard-app .text-slate-800,
+.dashboard-app .text-slate-900 {
+    color: #0F172A !important;
 }
-.bc-dashboard-theme .text-slate-500,
-.bc-dashboard-theme .text-slate-600 {
-    color: #94A3B8 !important;
+.dashboard-app .text-slate-400,
+.dashboard-app .text-slate-500,
+.dashboard-app .text-slate-600 {
+    color: #475569 !important;
 }
+.dashboard-app .bg-white,
 .bc-dashboard-theme .bg-white {
-    background-color: #1E293B !important;
-    color: #F8FAFC !important;
-    border-color: #334155 !important;
+    background-color: #FFFFFF !important;
 }
-.bc-dashboard-theme .border-slate-200 {
-    border-color: #334155 !important;
-}
-.bc-dashboard-theme .table-light th,
-.bc-dashboard-theme .table-light td {
-    background: #111827 !important;
-    color: #F8FAFC !important;
-    border-color: #334155 !important;
+.dashboard-app .border-slate-200 {
+    border-color: #E2E8F0 !important;
 }
 
 /* Typography Hierarchy Enforcement */
+.dashboard-app,
 .bc-dashboard-theme body,
 .bc-dashboard-theme {
     font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif !important;
@@ -1200,3 +1608,168 @@ body:not(.dashboard-app) .bc-global-search-input:focus {
     border: 1px solid rgba(245, 158, 11, 0.35) !important;
     box-shadow: 0 14px 40px -10px rgba(0, 0, 0, 0.8), 0 0 30px rgba(245, 158, 11, 0.18) !important;
 }
+
+/* ==========================================================================
+   GLOBAL MULTILINGUAL LANGUAGE SELECTOR COMPONENT
+   Visible across all 4 dashboards (Admin, Client, Worker, Contractor)
+   and public pages (Login, Register, Landing, etc.)
+   ========================================================================== */
+.bc-lang-dropdown {
+    position: relative !important;
+    display: inline-block !important;
+    z-index: 1060 !important;
+}
+
+/* Button Appearance in Dark Dashboard Header (dashboard-app) */
+.dashboard-app .bc-lang-selector-btn {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 7px !important;
+    background: rgba(255, 255, 255, 0.14) !important;
+    color: #FFFFFF !important;
+    border: 1.5px solid rgba(255, 170, 22, 0.65) !important;
+    padding: 0.38rem 0.85rem !important;
+    border-radius: 50px !important;
+    font-size: 0.84rem !important;
+    font-weight: 700 !important;
+    cursor: pointer !important;
+    text-decoration: none !important;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    white-space: nowrap !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2) !important;
+}
+
+.dashboard-app .bc-lang-selector-btn:hover,
+.dashboard-app .bc-lang-selector-btn:focus,
+.dashboard-app .bc-lang-selector-btn[aria-expanded="true"] {
+    background: rgba(255, 170, 22, 0.25) !important;
+    border-color: #FFAA16 !important;
+    color: #FFAA16 !important;
+    box-shadow: 0 0 14px rgba(255, 170, 22, 0.5) !important;
+    transform: translateY(-1px) !important;
+}
+
+/* Button Appearance in Light Public Header (index, login, register, etc.) */
+body:not(.dashboard-app) .bc-lang-selector-btn {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 7px !important;
+    background: #FFFFFF !important;
+    color: #0F2740 !important;
+    border: 1.5px solid #CBD5E1 !important;
+    padding: 0.38rem 0.85rem !important;
+    border-radius: 50px !important;
+    font-size: 0.84rem !important;
+    font-weight: 700 !important;
+    cursor: pointer !important;
+    text-decoration: none !important;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    white-space: nowrap !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
+}
+
+body:not(.dashboard-app) .bc-lang-selector-btn:hover,
+body:not(.dashboard-app) .bc-lang-selector-btn:focus,
+body:not(.dashboard-app) .bc-lang-selector-btn[aria-expanded="true"] {
+    background: #FFF7ED !important;
+    border-color: #FFAA16 !important;
+    color: #D97706 !important;
+    box-shadow: 0 0 12px rgba(245, 158, 11, 0.3) !important;
+    transform: translateY(-1px) !important;
+}
+
+/* Dropdown Menu Styling */
+.bc-lang-dropdown .dropdown-menu {
+    z-index: 1090 !important;
+    min-width: 220px !important;
+    background: #FFFFFF !important;
+    border: 1px solid #CBD5E1 !important;
+    border-radius: 12px !important;
+    box-shadow: 0 14px 35px rgba(0, 0, 0, 0.25) !important;
+    padding: 0.5rem 0 !important;
+    margin-top: 8px !important;
+}
+
+.bc-lang-dropdown .dropdown-header {
+    font-size: 0.7rem !important;
+    letter-spacing: 0.06em !important;
+    font-weight: 700 !important;
+    color: #64748B !important;
+}
+
+.bc-lang-dropdown .dropdown-item {
+    font-size: 0.875rem !important;
+    color: #1E293B !important;
+    font-weight: 600 !important;
+    padding: 0.6rem 1rem !important;
+    transition: all 0.15s ease !important;
+}
+
+.bc-lang-dropdown .dropdown-item:hover,
+.bc-lang-dropdown .dropdown-item:focus {
+    background: #FFF7ED !important;
+    color: #D97706 !important;
+}
+
+.bc-lang-dropdown .dropdown-item.active {
+    background: #FEF3C7 !important;
+    color: #92400E !important;
+    font-weight: 700 !important;
+}
+
+.bc-lang-badge {
+    font-size: 0.72rem !important;
+    padding: 0.2rem 0.55rem !important;
+    font-weight: 700 !important;
+    border-radius: 20px !important;
+}
+
+.bc-lang-chevron {
+    font-size: 0.65rem !important;
+    opacity: 0.75;
+    transition: transform 0.2s ease;
+}
+
+.bc-lang-dropdown.show .bc-lang-chevron,
+.bc-lang-selector-btn[aria-expanded="true"] .bc-lang-chevron {
+    transform: rotate(180deg);
+}
+
+/* Multilingual Native Script Font Optimization (Devanagari & Gujarati) */
+html[lang="hi"] body,
+html[lang="hi"] button,
+html[lang="hi"] input,
+html[lang="hi"] select,
+html[lang="hi"] textarea,
+html[lang="hi"] .brand-font,
+html[lang="hi"] .bc-brand-text {
+    font-family: 'Noto Sans Devanagari', 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif !important;
+}
+
+html[lang="gu"] body,
+html[lang="gu"] button,
+html[lang="gu"] input,
+html[lang="gu"] select,
+html[lang="gu"] textarea,
+html[lang="gu"] .brand-font,
+html[lang="gu"] .bc-brand-text {
+    font-family: 'Noto Sans Gujarati', 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif !important;
+}
+
+/* Mobile Responsiveness for Language Selector */
+@media (max-width: 576px) {
+    .bc-lang-label {
+        display: none !important;
+    }
+    .bc-lang-selector-btn {
+        padding: 0.3rem 0.55rem !important;
+        font-size: 0.78rem !important;
+        gap: 4px !important;
+    }
+    .bc-lang-badge {
+        font-size: 0.68rem !important;
+        padding: 0.15rem 0.45rem !important;
+    }
+}
+
+

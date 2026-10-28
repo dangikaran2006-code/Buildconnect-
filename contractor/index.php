@@ -71,16 +71,19 @@ $recent_jobs = $stmt->fetchAll();
         <!-- Top Banner Header -->
         <div class="d-flex justify-content-between align-items-center mb-4">
             <div>
-                <h1 class="h2 fw-bold text-white mb-1">
-                    <i class="fa-solid fa-gauge-high text-warning me-2"></i>Contractor Dashboard
+                <h1 class="h2 fw-bold text-dark mb-1">
+                    <i class="fa-solid fa-gauge-high text-warning me-2"></i><?= __('role.contractor') ?> <?= __('sidebar.dashboard') ?>
                 </h1>
                 <p class="text-muted small mb-0">
-                    Welcome back, <strong class="text-white"><?= e($user['name']) ?></strong>. Monitor active developments, workforce, and jobs.
+                    <?= __('dash.welcome_back', ['name' => '<strong class="text-dark">' . e($user['name']) . '</strong>']) ?> <?= __('dash.contractor_subtitle') ?>
                 </p>
             </div>
             <div class="d-flex gap-2">
+                <a href="<?= BASE_URL ?>/contractor/quote-requests.php" class="btn btn-outline-info btn-sm fw-bold">
+                    <i class="fa-solid fa-file-invoice me-1"></i> <?= __('sidebar.quotation_requests') ?>
+                </a>
                 <a href="<?= BASE_URL ?>/contractor/create-project.php" class="btn btn-amber btn-sm fw-bold">
-                    <i class="fa-solid fa-plus me-1"></i> New Project
+                    <i class="fa-solid fa-plus me-1"></i> <?= __('sidebar.create_project') ?>
                 </a>
             </div>
         </div>
@@ -95,68 +98,68 @@ $recent_jobs = $stmt->fetchAll();
         <!-- Statistics Cards Grid -->
         <div class="row g-3 mb-4">
             <div class="col-xl-4 col-md-6">
-                <div class="bc-card p-3 h-100">
+                <div class="bc-card p-3 h-100 hover-card-lift">
                     <div class="d-flex justify-content-between align-items-center mb-2">
-                        <span class="text-muted extra-small text-uppercase fw-semibold">Total Projects</span>
-                        <div class="stat-icon amber p-2 rounded"><i class="fa-solid fa-building text-warning fs-5"></i></div>
+                        <span class="text-muted extra-small text-uppercase fw-semibold"><?= __('contractor.total_projects') ?></span>
+                        <div class="stat-icon bg-warning bg-opacity-10 text-warning p-2 rounded"><i class="fa-solid fa-building fs-5"></i></div>
                     </div>
-                    <div class="fs-3 fw-bold text-white"><?= number_format($total_projects) ?></div>
-                    <div class="text-muted extra-small mt-1">Managed by your company</div>
+                    <div class="fs-3 fw-bold text-dark"><?= number_format($total_projects) ?></div>
+                    <div class="text-muted extra-small mt-1"><?= __('contractor.managed_company') ?></div>
                 </div>
             </div>
 
             <div class="col-xl-4 col-md-6">
-                <div class="bc-card p-3 h-100">
+                <div class="bc-card p-3 h-100 hover-card-lift">
                     <div class="d-flex justify-content-between align-items-center mb-2">
-                        <span class="text-muted extra-small text-uppercase fw-semibold">Active Projects</span>
-                        <div class="stat-icon blue p-2 rounded"><i class="fa-solid fa-person-digging text-info fs-5"></i></div>
+                        <span class="text-muted extra-small text-uppercase fw-semibold"><?= __('contractor.active_projects') ?></span>
+                        <div class="stat-icon bg-info bg-opacity-10 text-info p-2 rounded"><i class="fa-solid fa-person-digging fs-5"></i></div>
                     </div>
                     <div class="fs-3 fw-bold text-info"><?= number_format($active_projects) ?></div>
-                    <div class="text-muted extra-small mt-1">Currently in progress</div>
+                    <div class="text-muted extra-small mt-1"><?= __('contractor.currently_in_progress') ?></div>
                 </div>
             </div>
 
             <div class="col-xl-4 col-md-6">
-                <div class="bc-card p-3 h-100">
+                <div class="bc-card p-3 h-100 hover-card-lift">
                     <div class="d-flex justify-content-between align-items-center mb-2">
-                        <span class="text-muted extra-small text-uppercase fw-semibold">Completed Projects</span>
-                        <div class="stat-icon emerald p-2 rounded"><i class="fa-solid fa-circle-check text-success fs-5"></i></div>
+                        <span class="text-muted extra-small text-uppercase fw-semibold"><?= __('contractor.completed_projects') ?></span>
+                        <div class="stat-icon bg-success bg-opacity-10 text-success p-2 rounded"><i class="fa-solid fa-circle-check fs-5"></i></div>
                     </div>
                     <div class="fs-3 fw-bold text-success"><?= number_format($completed_projects) ?></div>
-                    <div class="text-muted extra-small mt-1">Successfully delivered</div>
+                    <div class="text-muted extra-small mt-1"><?= __('contractor.successfully_delivered') ?></div>
                 </div>
             </div>
 
             <div class="col-xl-4 col-md-6">
-                <div class="bc-card p-3 h-100">
+                <div class="bc-card p-3 h-100 hover-card-lift">
                     <div class="d-flex justify-content-between align-items-center mb-2">
-                        <span class="text-muted extra-small text-uppercase fw-semibold">Workforce Assigned</span>
-                        <div class="stat-icon purple p-2 rounded"><i class="fa-solid fa-helmet-safety text-warning fs-5"></i></div>
+                        <span class="text-muted extra-small text-uppercase fw-semibold"><?= __('contractor.workforce_assigned') ?></span>
+                        <div class="stat-icon bg-warning bg-opacity-10 text-warning p-2 rounded"><i class="fa-solid fa-helmet-safety fs-5"></i></div>
                     </div>
                     <div class="fs-3 fw-bold text-warning"><?= number_format($workers_assigned) ?></div>
-                    <div class="text-muted extra-small mt-1">Active site workers</div>
+                    <div class="text-muted extra-small mt-1"><?= __('contractor.active_site_workers') ?></div>
                 </div>
             </div>
 
             <div class="col-xl-4 col-md-6">
-                <div class="bc-card p-3 h-100">
+                <div class="bc-card p-3 h-100 hover-card-lift">
                     <div class="d-flex justify-content-between align-items-center mb-2">
-                        <span class="text-muted extra-small text-uppercase fw-semibold">Active Jobs</span>
-                        <div class="stat-icon blue p-2 rounded"><i class="fa-solid fa-briefcase text-primary fs-5"></i></div>
+                        <span class="text-muted extra-small text-uppercase fw-semibold"><?= __('contractor.active_jobs') ?></span>
+                        <div class="stat-icon bg-primary bg-opacity-10 text-primary p-2 rounded"><i class="fa-solid fa-briefcase fs-5"></i></div>
                     </div>
                     <div class="fs-3 fw-bold text-primary"><?= number_format($active_jobs) ?></div>
-                    <div class="text-muted extra-small mt-1">Open recruitment postings</div>
+                    <div class="text-muted extra-small mt-1"><?= __('contractor.open_recruitment') ?></div>
                 </div>
             </div>
 
             <div class="col-xl-4 col-md-6">
-                <div class="bc-card p-3 h-100">
+                <div class="bc-card p-3 h-100 hover-card-lift">
                     <div class="d-flex justify-content-between align-items-center mb-2">
-                        <span class="text-muted extra-small text-uppercase fw-semibold">Pending Applications</span>
-                        <div class="stat-icon amber p-2 rounded"><i class="fa-solid fa-file-signature text-warning fs-5"></i></div>
+                        <span class="text-muted extra-small text-uppercase fw-semibold"><?= __('contractor.pending_applications') ?></span>
+                        <div class="stat-icon bg-warning bg-opacity-10 text-warning p-2 rounded"><i class="fa-solid fa-file-signature fs-5"></i></div>
                     </div>
-                    <div class="fs-3 fw-bold text-warning"><?= number_format($pending_applications) ?></div>
-                    <div class="text-muted extra-small mt-1">Worker applications to review</div>
+                    <div class="fs-3 fw-bold text-dark"><?= number_format($pending_applications) ?></div>
+                    <div class="text-muted extra-small mt-1"><?= __('contractor.applications_to_review') ?></div>
                 </div>
             </div>
         </div>
@@ -164,41 +167,41 @@ $recent_jobs = $stmt->fetchAll();
         <!-- Recent Projects Section -->
         <div class="bc-card p-4 mb-4">
             <div class="d-flex justify-content-between align-items-center mb-3">
-                <h2 class="h5 text-white fw-bold mb-0">
-                    <i class="fa-solid fa-list-check text-warning me-2"></i>Recent Projects
+                <h2 class="h5 fw-bold text-dark mb-0">
+                    <i class="fa-solid fa-list-check text-warning me-2"></i><?= __('contractor.recent_projects') ?>
                 </h2>
                 <a href="<?= BASE_URL ?>/contractor/projects.php" class="btn btn-outline-secondary btn-sm extra-small">
-                    View All Projects <i class="fa-solid fa-arrow-right ms-1"></i>
+                    <?= __('btn.view_all_projects') ?> <i class="fa-solid fa-arrow-right ms-1"></i>
                 </a>
             </div>
 
             <?php if (empty($recent_projects)): ?>
-                <div class="bc-empty-state py-4">
-                    <i class="fa-solid fa-building"></i>
-                    <p class="mb-2">No projects created yet.</p>
+                <div class="bc-empty-state py-4 text-center">
+                    <i class="fa-solid fa-building fs-1 text-muted mb-2"></i>
+                    <p class="mb-2 text-muted"><?= __('contractor.no_projects') ?></p>
                     <a href="<?= BASE_URL ?>/contractor/create-project.php" class="btn btn-amber btn-sm">
-                        <i class="fa-solid fa-plus me-1"></i> Create Your First Project
+                        <i class="fa-solid fa-plus me-1"></i> <?= __('contractor.create_first_project') ?>
                     </a>
                 </div>
             <?php else: ?>
                 <div class="table-responsive">
-                    <table class="table table-custom align-middle mb-0">
+                    <table class="table align-middle mb-0">
                         <thead>
                             <tr>
-                                <th>Project Name</th>
-                                <th>Location</th>
-                                <th>Budget</th>
-                                <th>Dates</th>
-                                <th>Status</th>
-                                <th>Progress</th>
-                                <th class="text-end">Action</th>
+                                <th><?= __('table.project_name') ?></th>
+                                <th><?= __('table.location') ?></th>
+                                <th><?= __('table.budget') ?></th>
+                                <th><?= __('table.dates') ?></th>
+                                <th><?= __('table.status') ?></th>
+                                <th><?= __('table.progress') ?></th>
+                                <th class="text-end"><?= __('table.action') ?></th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php foreach ($recent_projects as $p): ?>
                                 <tr>
                                     <td>
-                                        <a href="<?= BASE_URL ?>/contractor/project-details.php?id=<?= $p['id'] ?>" class="fw-bold text-white text-decoration-none">
+                                        <a href="<?= BASE_URL ?>/contractor/project-details.php?id=<?= $p['id'] ?>" class="fw-bold text-dark text-decoration-none hover-amber">
                                             <?= e($p['title']) ?>
                                         </a>
                                         <?php if (!empty($p['project_type'])): ?>
@@ -206,31 +209,31 @@ $recent_jobs = $stmt->fetchAll();
                                         <?php endif; ?>
                                     </td>
                                     <td>
-                                        <span class="text-light small"><i class="fa-solid fa-location-dot text-danger me-1"></i><?= e($p['location']) ?></span>
+                                        <span class="text-muted small"><i class="fa-solid fa-location-dot text-danger me-1"></i><?= e($p['location']) ?></span>
                                     </td>
                                     <td>
-                                        <span class="fw-bold text-warning font-monospace"><?= format_currency($p['budget']) ?></span>
+                                        <span class="fw-bold text-dark font-monospace"><?= format_currency($p['budget']) ?></span>
                                     </td>
                                     <td>
-                                        <div class="text-muted extra-small">Start: <?= format_date($p['start_date']) ?></div>
-                                        <div class="text-muted extra-small">End: <?= format_date($p['end_date']) ?></div>
+                                        <div class="text-muted extra-small"><?= __('contractor.start_date_label', ['date' => format_date($p['start_date'])]) ?></div>
+                                        <div class="text-muted extra-small"><?= __('contractor.end_date_label', ['date' => format_date($p['end_date'])]) ?></div>
                                     </td>
                                     <td>
                                         <span class="badge <?= get_status_badge_class($p['status']) ?>">
-                                            <?= e($p['status']) ?>
+                                            <?= e(translate_status($p['status'])) ?>
                                         </span>
                                     </td>
                                     <td style="min-width: 140px;">
                                         <div class="d-flex align-items-center gap-2">
-                                            <div class="progress flex-grow-1 bg-secondary" style="height: 6px;">
-                                                <div class="progress-bar bg-warning" style="width: <?= (int)$p['progress_percent'] ?>%;"></div>
+                                            <div class="progress flex-grow-1" style="height: 6px;">
+                                                <div class="progress-bar bg-amber" style="width: <?= (int)$p['progress_percent'] ?>%;"></div>
                                             </div>
-                                            <span class="extra-small fw-bold text-white font-monospace"><?= (int)$p['progress_percent'] ?>%</span>
+                                            <span class="extra-small fw-bold text-dark font-monospace"><?= (int)$p['progress_percent'] ?>%</span>
                                         </div>
                                     </td>
                                     <td class="text-end">
-                                        <a href="<?= BASE_URL ?>/contractor/project-details.php?id=<?= $p['id'] ?>" class="btn btn-outline-amber btn-sm extra-small">
-                                            View Project
+                                        <a href="<?= BASE_URL ?>/contractor/project-details.php?id=<?= $p['id'] ?>" class="btn btn-outline-warning btn-sm extra-small">
+                                            <?= __('contractor.view_project') ?>
                                         </a>
                                     </td>
                                 </tr>
@@ -244,41 +247,41 @@ $recent_jobs = $stmt->fetchAll();
         <!-- Recent Jobs Section -->
         <div class="bc-card p-4">
             <div class="d-flex justify-content-between align-items-center mb-3">
-                <h2 class="h5 text-white fw-bold mb-0">
-                    <i class="fa-solid fa-briefcase text-info me-2"></i>Active Project Job Postings
+                <h2 class="h5 fw-bold text-dark mb-0">
+                    <i class="fa-solid fa-briefcase text-info me-2"></i><?= __('contractor.active_job_postings') ?>
                 </h2>
                 <a href="<?= BASE_URL ?>/contractor/jobs.php" class="btn btn-outline-secondary btn-sm extra-small">
-                    View All Jobs <i class="fa-solid fa-arrow-right ms-1"></i>
+                    <?= __('btn.view_all_jobs') ?> <i class="fa-solid fa-arrow-right ms-1"></i>
                 </a>
             </div>
 
             <?php if (empty($recent_jobs)): ?>
-                <div class="bc-empty-state py-4">
-                    <i class="fa-solid fa-briefcase"></i>
-                    <p class="mb-0">No job postings active for your projects.</p>
+                <div class="bc-empty-state py-4 text-center">
+                    <i class="fa-solid fa-briefcase fs-1 text-muted mb-2"></i>
+                    <p class="mb-0 text-muted"><?= __('contractor.no_jobs') ?></p>
                 </div>
             <?php else: ?>
                 <div class="table-responsive">
-                    <table class="table table-custom align-middle mb-0">
+                    <table class="table align-middle mb-0">
                         <thead>
                             <tr>
-                                <th>Job Title</th>
-                                <th>Project</th>
-                                <th>Trade</th>
-                                <th>Pay Rate</th>
-                                <th>Spots</th>
-                                <th>Status</th>
+                                <th><?= __('table.job_title') ?></th>
+                                <th><?= __('table.project') ?></th>
+                                <th><?= __('table.trade') ?></th>
+                                <th><?= __('table.pay_rate') ?></th>
+                                <th><?= __('table.spots') ?></th>
+                                <th><?= __('table.status') ?></th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php foreach ($recent_jobs as $j): ?>
                                 <tr>
-                                    <td><strong class="text-white"><?= e($j['title']) ?></strong></td>
+                                    <td><strong class="text-dark"><?= e($j['title']) ?></strong></td>
                                     <td><span class="text-muted small"><?= e($j['project_title']) ?></span></td>
-                                    <td><span class="badge bg-dark border border-secondary"><?= e($j['trade_required']) ?></span></td>
-                                    <td><span class="text-warning font-monospace fw-bold"><?= format_currency($j['pay_rate']) ?> / <?= e($j['pay_type']) ?></span></td>
-                                    <td><span class="text-light small"><?= (int)$j['spots_filled'] ?> / <?= (int)$j['spots_available'] ?></span></td>
-                                    <td><span class="badge <?= get_status_badge_class($j['status']) ?>"><?= e($j['status']) ?></span></td>
+                                    <td><span class="badge bg-light text-secondary border"><?= e(translate_trade($j['trade_required'])) ?></span></td>
+                                    <td><span class="text-dark font-monospace fw-bold"><?= format_currency($j['pay_rate']) ?> / <?= e(translate_pay_type($j['pay_type'])) ?></span></td>
+                                    <td><span class="text-muted small"><?= (int)$j['spots_filled'] ?> / <?= (int)$j['spots_available'] ?></span></td>
+                                    <td><span class="badge <?= get_status_badge_class($j['status']) ?>"><?= e(translate_status($j['status'])) ?></span></td>
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>

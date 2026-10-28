@@ -58,7 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $payment_id = $db->lastInsertId();
 
                 log_activity($client_user_id, 'CLIENT_PAYMENT_DISBURSED', "Disbursed " . format_currency($amount) . " for project: " . $project['title'], 'payment', $payment_id);
-                create_notification($payee_id, 'Payment Received', "Client {$user['name']} disbursed " . format_currency($amount) . " for project {$project['title']}.", 'PAYMENT', "/contractor/payments.php", 'payment', $payment_id);
+                create_notification($payee_id, 'Payment Received', "Client {$user['name']} disbursed " . format_currency($amount) . " for project {$project['title']}.", 'PAYMENT', "/contractor/project-details.php?id=" . $project_id, 'payment', $payment_id);
 
                 $db->commit();
                 set_flash_message('Payment of ' . format_currency($amount) . ' recorded successfully!', 'success');

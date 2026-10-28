@@ -5,19 +5,21 @@ require_role(ROLE_CONTRACTOR);
 $page_title = "Smart Worker Finder - Contractor - BuildConnect";
 require_once __DIR__ . '/../includes/header.php';
 require_once __DIR__ . '/../includes/navbar.php';
+require_once __DIR__ . '/../includes/ai.php';
 
 $user = get_logged_user();
 $db = getDB();
 
 $trade_filter = sanitize($_GET['trade'] ?? 'all');
 
-$query = "SELECT wp.*, u.name, u.email, u.phone FROM worker_profiles wp JOIN users u ON wp.user_id = u.id WHERE u.status = 'active'";
+$query = "SELECT w.*, u.name, u.email, u.phone FROM workers w JOIN users u ON w.user_id = u.id WHERE u.status = 'active'";
 $params = [];
 if ($trade_filter !== 'all') {
-    $query .= " AND wp.trade_skills LIKE ?";
+    $query .= " AND (w.trade_title LIKE ? OR w.bio LIKE ?)";
+    $params[] = "%" . $trade_filter . "%";
     $params[] = "%" . $trade_filter . "%";
 }
-$query .= " ORDER BY wp.rating_avg DESC";
+$query .= " ORDER BY w.rating_avg DESC";
 
 $stmt = $db->prepare($query);
 $stmt->execute($params);
@@ -62,7 +64,7 @@ $workers = $stmt->fetchAll();
                             </div>
 
                             <div class="mb-3">
-                                <span class="badge bg-secondary me-1"><?= sanitize($w['trade_skills']) ?></span>
+                                <span class="badge bg-secondary me-1"><?= sanitize($w['trade_title'] ?: 'General Construction') ?></span>
                                 <?php if ($w['verification_status'] === 'approved'): ?>
                                     <span class="badge bg-success"><i class="fa-solid fa-shield-check me-1"></i>Verified</span>
                                 <?php endif; ?>

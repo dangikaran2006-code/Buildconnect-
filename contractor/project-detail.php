@@ -1,5 +1,7 @@
 <?php
 // Compatibility redirect wrapper for legacy references
+require_once __DIR__ . '/../includes/auth.php';
+requireRole('contractor');
 require_once __DIR__ . '/../includes/functions.php';
 $id = (int)($_GET['id'] ?? 0);
 if ($id > 0) {

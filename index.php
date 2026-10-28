@@ -24,35 +24,35 @@ $user = get_logged_user();
         <div class="row align-items-center mb-5 pb-lg-4">
             <div class="col-lg-7 text-start position-relative" style="z-index: 3;">
                 <span class="badge border border-warning text-warning bg-dark bg-opacity-75 rounded-pill px-3 py-2 fw-semibold small d-inline-flex align-items-center gap-2 mb-3.5">
-                    <i class="fa-solid fa-microchip text-warning"></i> AI Powered Construction Management
+                    <i class="fa-solid fa-microchip text-warning"></i> <?= __('home.hero_badge') ?>
                 </span>
                 <h1 class="display-3 fw-bold text-white mb-3 brand-font lh-sm">
-                    Connect People. Build Projects.<br>
-                    <span class="text-warning">Grow Together.</span>
+                    <?= __('home.hero_title_1') ?><br>
+                    <span class="text-warning"><?= __('home.hero_title_2') ?></span>
                 </h1>
                 <p class="lead text-slate-300 mb-4 me-lg-4" style="max-width: 580px; font-size: 1.05rem; line-height: 1.6;">
-                    BuildConnect brings contractors, clients and workers together on one smart platform. Manage your projects, hire skilled workers, find better opportunities and build a stronger future.
+                    <?= __('home.hero_desc') ?>
                 </p>
 
                 <div class="d-flex flex-wrap align-items-center gap-3 pt-2">
                     <?php if ($user): ?>
                         <a href="<?= BASE_URL ?>/<?= get_role_redirect_url($user['role']) ?>" class="btn btn-amber px-4 py-2.5 fw-bold rounded-3">
-                            <i class="fa-solid fa-user-plus me-2"></i> Go to Dashboard <i class="fa-solid fa-arrow-right ms-2"></i>
+                            <i class="fa-solid fa-user-plus me-2"></i> <?= __('home.go_dashboard') ?> <i class="fa-solid fa-arrow-right ms-2"></i>
                         </a>
                     <?php else: ?>
                         <a href="<?= BASE_URL ?>/register.php" class="btn btn-amber px-4 py-2.5 fw-bold rounded-3">
-                            <i class="fa-solid fa-user-plus me-2"></i> Get Started <i class="fa-solid fa-arrow-right ms-2"></i>
+                            <i class="fa-solid fa-user-plus me-2"></i> <?= __('home.get_started') ?> <i class="fa-solid fa-arrow-right ms-2"></i>
                         </a>
                     <?php endif; ?>
                     <a href="#platform" class="btn btn-outline-light px-4 py-2.5 fw-semibold rounded-3">
-                        <i class="fa-solid fa-circle-play me-2 text-warning"></i> Explore BuildConnect
+                        <i class="fa-solid fa-circle-play me-2 text-warning"></i> <?= __('home.explore_buildconnect') ?>
                     </a>
                 </div>
             </div>
 
             <!-- Sunset Handwritten Graphic Overlay -->
             <div class="bc-sunset-accent d-none d-xl-block">
-                <span class="bc-handwriting">Smarter Construction Together</span>
+                <span class="bc-handwriting"><?= __('home.smarter_construction') ?></span>
                 <div class="bc-swoosh"></div>
             </div>
         </div>
@@ -62,10 +62,10 @@ $user = get_logged_user();
             <div class="row align-items-center g-4">
                 <!-- Left Title Column -->
                 <div class="col-lg-4 text-start">
-                    <span class="badge border border-secondary text-slate-300 bg-dark rounded-pill px-3 py-1.5 extra-small fw-semibold mb-2">OUR PLATFORM</span>
-                    <h2 class="h1 fw-bold text-white mb-2 brand-font">One Central Hub for Every Construction Need</h2>
+                    <span class="badge border border-secondary text-slate-300 bg-dark rounded-pill px-3 py-1.5 extra-small fw-semibold mb-2"><?= __('home.our_platform') ?></span>
+                    <h2 class="h1 fw-bold text-white mb-2 brand-font"><?= __('home.platform_title') ?></h2>
                     <p class="text-slate-400 small mb-0" style="max-width: 360px; line-height: 1.6;">
-                        From workforce management to project tracking — everything you need, in one place.
+                        <?= __('home.platform_desc') ?>
                     </p>
                 </div>
 
@@ -79,9 +79,9 @@ $user = get_logged_user();
                                     <div class="stat-icon amber mb-3">
                                         <i class="fa-solid fa-users text-warning fs-5"></i>
                                     </div>
-                                    <h3 class="h6 text-white fw-bold mb-1.5 brand-font">Contractors</h3>
+                                    <h3 class="h6 text-white fw-bold mb-1.5 brand-font"><?= __('home.contractors_title') ?></h3>
                                     <p class="text-slate-400 extra-small mb-3" style="line-height: 1.5;">
-                                        Hire verified workers, manage projects and grow your business.
+                                        <?= __('home.contractors_desc') ?>
                                     </p>
                                 </div>
                                 <div class="text-end">
@@ -99,9 +99,9 @@ $user = get_logged_user();
                                     <div class="stat-icon blue mb-3">
                                         <i class="fa-solid fa-helmet-safety text-info fs-5"></i>
                                     </div>
-                                    <h3 class="h6 text-white fw-bold mb-1.5 brand-font">Workers</h3>
+                                    <h3 class="h6 text-white fw-bold mb-1.5 brand-font"><?= __('home.workers_title') ?></h3>
                                     <p class="text-slate-400 extra-small mb-3" style="line-height: 1.5;">
-                                        Find new job opportunities, showcase your skills and build your career.
+                                        <?= __('home.workers_desc') ?>
                                     </p>
                                 </div>
                                 <div class="text-end">
@@ -119,9 +119,9 @@ $user = get_logged_user();
                                     <div class="stat-icon purple mb-3">
                                         <i class="fa-solid fa-building text-purple fs-5"></i>
                                     </div>
-                                    <h3 class="h6 text-white fw-bold mb-1.5 brand-font">Clients</h3>
+                                    <h3 class="h6 text-white fw-bold mb-1.5 brand-font"><?= __('home.clients_title') ?></h3>
                                     <p class="text-slate-400 extra-small mb-3" style="line-height: 1.5;">
-                                        Track progress, communicate with your team and ensure quality work.
+                                        <?= __('home.clients_desc') ?>
                                     </p>
                                 </div>
                                 <div class="text-end">
@@ -142,10 +142,10 @@ $user = get_logged_user();
 <section id="how-it-works" class="py-5 border-top border-secondary border-opacity-25" style="background: rgba(15, 23, 42, 0.4);">
     <div class="container py-4">
         <div class="text-center mb-5">
-            <span class="bc-section-title-badge">HOW IT WORKS</span>
-            <h2 class="h1 fw-bold text-white mb-2 brand-font">From Connection to Completion</h2>
+            <span class="bc-section-title-badge"><?= __('home.how_it_works_badge') ?></span>
+            <h2 class="h1 fw-bold text-white mb-2 brand-font"><?= __('home.how_it_works_title') ?></h2>
             <p class="text-slate-400 small mx-auto" style="max-width: 560px;">
-                A simple 4-step workflow connecting workforce hiring with project execution.
+                <?= __('home.how_it_works_desc') ?>
             </p>
         </div>
 
@@ -153,29 +153,29 @@ $user = get_logged_user();
             <div class="col-lg-3 col-sm-6">
                 <div class="bc-step-card">
                     <div class="bc-step-number">01</div>
-                    <h3 class="h5 text-white fw-bold mb-2 brand-font">Create Your Profile</h3>
-                    <p class="text-slate-400 small mb-0" style="line-height: 1.5;">Register as a Worker, Contractor, or Client with role-specific verification details.</p>
+                    <h3 class="h5 text-white fw-bold mb-2 brand-font"><?= __('home.step1_title') ?></h3>
+                    <p class="text-slate-400 small mb-0" style="line-height: 1.5;"><?= __('home.step1_desc') ?></p>
                 </div>
             </div>
             <div class="col-lg-3 col-sm-6">
                 <div class="bc-step-card">
                     <div class="bc-step-number">02</div>
-                    <h3 class="h5 text-white fw-bold mb-2 brand-font">Connect With People</h3>
-                    <p class="text-slate-400 small mb-0" style="line-height: 1.5;">Contractors publish trade openings while skilled workers apply with proven credentials.</p>
+                    <h3 class="h5 text-white fw-bold mb-2 brand-font"><?= __('home.step2_title') ?></h3>
+                    <p class="text-slate-400 small mb-0" style="line-height: 1.5;"><?= __('home.step2_desc') ?></p>
                 </div>
             </div>
             <div class="col-lg-3 col-sm-6">
                 <div class="bc-step-card">
                     <div class="bc-step-number">03</div>
-                    <h3 class="h5 text-white fw-bold mb-2 brand-font">Manage Projects & Work</h3>
-                    <p class="text-slate-400 small mb-0" style="line-height: 1.5;">Formalize agreements using digital contracts, set milestones, and log daily QR attendance.</p>
+                    <h3 class="h5 text-white fw-bold mb-2 brand-font"><?= __('home.step3_title') ?></h3>
+                    <p class="text-slate-400 small mb-0" style="line-height: 1.5;"><?= __('home.step3_desc') ?></p>
                 </div>
             </div>
             <div class="col-lg-3 col-sm-6">
                 <div class="bc-step-card">
                     <div class="bc-step-number">04</div>
-                    <h3 class="h5 text-white fw-bold mb-2 brand-font">Track Progress & Grow</h3>
-                    <p class="text-slate-400 small mb-0" style="line-height: 1.5;">Monitor progress bars, review platform performance ratings, and expand operations.</p>
+                    <h3 class="h5 text-white fw-bold mb-2 brand-font"><?= __('home.step4_title') ?></h3>
+                    <p class="text-slate-400 small mb-0" style="line-height: 1.5;"><?= __('home.step4_desc') ?></p>
                 </div>
             </div>
         </div>
@@ -186,10 +186,10 @@ $user = get_logged_user();
 <section id="services" class="py-5 border-top border-secondary border-opacity-25 bg-dark">
     <div class="container py-4">
         <div class="text-center mb-5">
-            <span class="bc-section-title-badge">WHY BUILDCONNECT</span>
-            <h2 class="h1 fw-bold text-white mb-2 brand-font">Everything You Need to Build Smarter</h2>
+            <span class="bc-section-title-badge"><?= __('home.why_badge') ?></span>
+            <h2 class="h1 fw-bold text-white mb-2 brand-font"><?= __('home.why_title') ?></h2>
             <p class="text-slate-400 small mx-auto" style="max-width: 600px;">
-                Designed specifically to solve real-world construction operational challenges.
+                <?= __('home.why_subtitle') ?>
             </p>
         </div>
 
@@ -197,64 +197,64 @@ $user = get_logged_user();
             <div class="col-md-6 col-lg-3">
                 <div class="bc-feature-card">
                     <i class="fa-solid fa-diagram-project text-warning fs-3 mb-3"></i>
-                    <h3 class="h6 text-white fw-bold mb-2 brand-font">Project Management</h3>
-                    <p class="text-slate-400 extra-small mb-0">Define milestones, track task completion timelines, and monitor site progress.</p>
+                    <h3 class="h6 text-white fw-bold mb-2 brand-font"><?= __('home.feat_pm_title') ?></h3>
+                    <p class="text-slate-400 extra-small mb-0"><?= __('home.feat_pm_desc') ?></p>
                 </div>
             </div>
 
             <div class="col-md-6 col-lg-3">
                 <div class="bc-feature-card">
                     <i class="fa-solid fa-robot text-warning fs-3 mb-3"></i>
-                    <h3 class="h6 text-white fw-bold mb-2 brand-font">Job & Worker Matching</h3>
-                    <p class="text-slate-400 extra-small mb-0">AI-assisted trade matching connecting qualified masons and electricians with jobs.</p>
+                    <h3 class="h6 text-white fw-bold mb-2 brand-font"><?= __('home.feat_ai_title') ?></h3>
+                    <p class="text-slate-400 extra-small mb-0"><?= __('home.feat_ai_desc') ?></p>
                 </div>
             </div>
 
             <div class="col-md-6 col-lg-3">
                 <div class="bc-feature-card">
                     <i class="fa-solid fa-qrcode text-warning fs-3 mb-3"></i>
-                    <h3 class="h6 text-white fw-bold mb-2 brand-font">QR Attendance</h3>
-                    <p class="text-slate-400 extra-small mb-0">On-site QR code check-in and check-out logs with automated working hours calculation.</p>
+                    <h3 class="h6 text-white fw-bold mb-2 brand-font"><?= __('home.feat_qr_title') ?></h3>
+                    <p class="text-slate-400 extra-small mb-0"><?= __('home.feat_qr_desc') ?></p>
                 </div>
             </div>
 
             <div class="col-md-6 col-lg-3">
                 <div class="bc-feature-card">
                     <i class="fa-solid fa-file-contract text-warning fs-3 mb-3"></i>
-                    <h3 class="h6 text-white fw-bold mb-2 brand-font">Digital Contracts</h3>
-                    <p class="text-slate-400 extra-small mb-0">Standardized digital agreements, payment rates, and legally enforceable terms.</p>
+                    <h3 class="h6 text-white fw-bold mb-2 brand-font"><?= __('home.feat_contracts_title') ?></h3>
+                    <p class="text-slate-400 extra-small mb-0"><?= __('home.feat_contracts_desc') ?></p>
                 </div>
             </div>
 
             <div class="col-md-6 col-lg-3">
                 <div class="bc-feature-card">
                     <i class="fa-solid fa-bell text-warning fs-3 mb-3"></i>
-                    <h3 class="h6 text-white fw-bold mb-2 brand-font">Real-Time Notifications</h3>
-                    <p class="text-slate-400 extra-small mb-0">Instant alerts for application updates, milestone approvals, and contract reviews.</p>
+                    <h3 class="h6 text-white fw-bold mb-2 brand-font"><?= __('home.feat_notifs_title') ?></h3>
+                    <p class="text-slate-400 extra-small mb-0"><?= __('home.feat_notifs_desc') ?></p>
                 </div>
             </div>
 
             <div class="col-md-6 col-lg-3">
                 <div class="bc-feature-card">
                     <i class="fa-solid fa-chart-pie text-warning fs-3 mb-3"></i>
-                    <h3 class="h6 text-white fw-bold mb-2 brand-font">Project Analytics</h3>
-                    <p class="text-slate-400 extra-small mb-0">Live graphical dashboards tracking project completion percentages and metrics.</p>
+                    <h3 class="h6 text-white fw-bold mb-2 brand-font"><?= __('home.feat_analytics_title') ?></h3>
+                    <p class="text-slate-400 extra-small mb-0"><?= __('home.feat_analytics_desc') ?></p>
                 </div>
             </div>
 
             <div class="col-md-6 col-lg-3">
                 <div class="bc-feature-card">
                     <i class="fa-solid fa-map-location-dot text-warning fs-3 mb-3"></i>
-                    <h3 class="h6 text-white fw-bold mb-2 brand-font">Google Maps</h3>
-                    <p class="text-slate-400 extra-small mb-0">Interactive map mapping active project sites across Ahmedabad and Surat.</p>
+                    <h3 class="h6 text-white fw-bold mb-2 brand-font"><?= __('home.feat_maps_title') ?></h3>
+                    <p class="text-slate-400 extra-small mb-0"><?= __('home.feat_maps_desc') ?></p>
                 </div>
             </div>
 
             <div class="col-md-6 col-lg-3">
                 <div class="bc-feature-card">
                     <i class="fa-solid fa-brain text-warning fs-3 mb-3"></i>
-                    <h3 class="h6 text-white fw-bold mb-2 brand-font">AI-Powered Insights</h3>
-                    <p class="text-slate-400 extra-small mb-0">Centralized AI engine evaluating task deadline risks and project health diagnostics.</p>
+                    <h3 class="h6 text-white fw-bold mb-2 brand-font"><?= __('home.feat_insights_title') ?></h3>
+                    <p class="text-slate-400 extra-small mb-0"><?= __('home.feat_insights_desc') ?></p>
                 </div>
             </div>
         </div>
@@ -265,10 +265,10 @@ $user = get_logged_user();
 <section id="about" class="py-5 border-top border-secondary border-opacity-25" style="background: rgba(15, 23, 42, 0.4);">
     <div class="container py-4">
         <div class="text-center mb-5">
-            <span class="bc-section-title-badge">BUILT FOR EVERYONE</span>
-            <h2 class="h1 fw-bold text-white mb-2 brand-font">Built for Everyone in Construction</h2>
+            <span class="bc-section-title-badge"><?= __('home.built_for_everyone') ?></span>
+            <h2 class="h1 fw-bold text-white mb-2 brand-font"><?= __('home.built_title') ?></h2>
             <p class="text-slate-400 small mx-auto" style="max-width: 580px;">
-                Empowering all stakeholders with modern digital tools tailored to their unique role.
+                <?= __('home.built_subtitle') ?>
             </p>
         </div>
 
@@ -276,22 +276,22 @@ $user = get_logged_user();
             <div class="col-md-4">
                 <div class="bc-card p-4 h-100">
                     <i class="fa-solid fa-building-user text-warning fs-2 mb-3"></i>
-                    <h3 class="h5 text-white fw-bold mb-2 brand-font">For Contractors</h3>
-                    <p class="text-slate-400 small mb-0">Manage your workforce, publish job vacancies, track site tasks, and formalize digital agreements effortlessly.</p>
+                    <h3 class="h5 text-white fw-bold mb-2 brand-font"><?= __('home.for_contractors') ?></h3>
+                    <p class="text-slate-400 small mb-0"><?= __('home.for_contractors_desc') ?></p>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="bc-card p-4 h-100">
                     <i class="fa-solid fa-user-shield text-warning fs-2 mb-3"></i>
-                    <h3 class="h5 text-white fw-bold mb-2 brand-font">For Workers</h3>
-                    <p class="text-slate-400 small mb-0">Find reliable job opportunities, showcase your experience, record QR attendance, and build your trade reputation.</p>
+                    <h3 class="h5 text-white fw-bold mb-2 brand-font"><?= __('home.for_workers') ?></h3>
+                    <p class="text-slate-400 small mb-0"><?= __('home.for_workers_desc') ?></p>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="bc-card p-4 h-100">
                     <i class="fa-solid fa-chart-line text-warning fs-2 mb-3"></i>
-                    <h3 class="h5 text-white fw-bold mb-2 brand-font">For Clients</h3>
-                    <p class="text-slate-400 small mb-0">Monitor active project timelines, review completion milestones, inspect digital contracts, and verify quality work.</p>
+                    <h3 class="h5 text-white fw-bold mb-2 brand-font"><?= __('home.for_clients') ?></h3>
+                    <p class="text-slate-400 small mb-0"><?= __('home.for_clients_desc') ?></p>
                 </div>
             </div>
         </div>
@@ -302,22 +302,22 @@ $user = get_logged_user();
 <section class="py-5 bg-dark">
     <div class="container py-3">
         <div class="bc-cta-banner text-center">
-            <h2 class="display-5 fw-bold text-white mb-3 brand-font">Ready to Build Smarter?</h2>
+            <h2 class="display-5 fw-bold text-white mb-3 brand-font"><?= __('home.ready_title') ?></h2>
             <p class="lead text-slate-300 mx-auto mb-4" style="max-width: 600px; font-size: 1.1rem;">
-                Join BuildConnect and bring your construction work, workforce and projects together.
+                <?= __('home.ready_desc') ?>
             </p>
             <div class="d-flex justify-content-center flex-wrap gap-3">
                 <?php if ($user): ?>
                     <a href="<?= BASE_URL ?>/<?= get_role_redirect_url($user['role']) ?>" class="btn btn-amber px-4.5 py-3 fw-bold fs-6 rounded-3">
-                        <i class="fa-solid fa-user-plus me-2"></i> Go to Dashboard <i class="fa-solid fa-arrow-right ms-2"></i>
+                        <i class="fa-solid fa-user-plus me-2"></i> <?= __('home.go_dashboard') ?> <i class="fa-solid fa-arrow-right ms-2"></i>
                     </a>
                 <?php else: ?>
                     <a href="<?= BASE_URL ?>/register.php" class="btn btn-amber px-4.5 py-3 fw-bold fs-6 rounded-3">
-                        <i class="fa-solid fa-user-plus me-2"></i> Get Started <i class="fa-solid fa-arrow-right ms-2"></i>
+                        <i class="fa-solid fa-user-plus me-2"></i> <?= __('home.get_started') ?> <i class="fa-solid fa-arrow-right ms-2"></i>
                     </a>
                 <?php endif; ?>
                 <a href="<?= BASE_URL ?>/services.php" class="btn btn-outline-light px-4.5 py-3 fw-semibold fs-6 rounded-3">
-                    Explore BuildConnect
+                    <?= __('home.explore_buildconnect') ?>
                 </a>
             </div>
         </div>
@@ -335,38 +335,38 @@ $user = get_logged_user();
                 </a>
 
                 <p class="text-slate-400 small mt-2" style="max-width: 320px; line-height: 1.6;">
-                    Smart construction workforce and project management platform connecting contractors, workers, and clients.
+                    <?= __('home.footer_desc') ?>
                 </p>
             </div>
             <div class="col-6 col-lg-2">
-                <h4 class="text-white small fw-bold text-uppercase mb-3 brand-font">Quick Links</h4>
+                <h4 class="text-white small fw-bold text-uppercase mb-3 brand-font"><?= __('home.quick_links') ?></h4>
                 <ul class="list-unstyled text-slate-400 small mb-0 d-flex flex-column gap-2">
-                    <li><a href="<?= BASE_URL ?>/index.php" class="text-slate-400 text-decoration-none hover-warning">Home</a></li>
-                    <li><a href="<?= BASE_URL ?>/about.php" class="text-slate-400 text-decoration-none hover-warning">About</a></li>
-                    <li><a href="<?= BASE_URL ?>/services.php" class="text-slate-400 text-decoration-none hover-warning">Services</a></li>
-                    <li><a href="<?= BASE_URL ?>/how-it-works.php" class="text-slate-400 text-decoration-none hover-warning">How It Works</a></li>
-                    <li><a href="<?= BASE_URL ?>/index.php#contact" class="text-slate-400 text-decoration-none hover-warning">Contact</a></li>
+                    <li><a href="<?= BASE_URL ?>/index.php" class="text-slate-400 text-decoration-none hover-warning"><?= __('nav.home') ?></a></li>
+                    <li><a href="<?= BASE_URL ?>/about.php" class="text-slate-400 text-decoration-none hover-warning"><?= __('nav.about') ?></a></li>
+                    <li><a href="<?= BASE_URL ?>/services.php" class="text-slate-400 text-decoration-none hover-warning"><?= __('nav.services') ?></a></li>
+                    <li><a href="<?= BASE_URL ?>/how-it-works.php" class="text-slate-400 text-decoration-none hover-warning"><?= __('nav.how_it_works') ?></a></li>
+                    <li><a href="<?= BASE_URL ?>/index.php#contact" class="text-slate-400 text-decoration-none hover-warning"><?= __('nav.contact') ?></a></li>
                 </ul>
             </div>
             <div class="col-6 col-lg-3">
-                <h4 class="text-white small fw-bold text-uppercase mb-3 brand-font">Roles & Portals</h4>
+                <h4 class="text-white small fw-bold text-uppercase mb-3 brand-font"><?= __('home.roles_portals') ?></h4>
                 <ul class="list-unstyled text-slate-400 small mb-0 d-flex flex-column gap-2">
-                    <li><a href="<?= BASE_URL ?>/register.php?role=contractor" class="text-slate-400 text-decoration-none hover-warning">Contractors Portal</a></li>
-                    <li><a href="<?= BASE_URL ?>/register.php?role=worker" class="text-slate-400 text-decoration-none hover-warning">Workers Portal</a></li>
-                    <li><a href="<?= BASE_URL ?>/register.php?role=client" class="text-slate-400 text-decoration-none hover-warning">Clients Portal</a></li>
-                    <li><a href="<?= BASE_URL ?>/login.php" class="text-slate-400 text-decoration-none hover-warning">Admin Access</a></li>
+                    <li><a href="<?= BASE_URL ?>/register.php?role=contractor" class="text-slate-400 text-decoration-none hover-warning"><?= __('home.contractors_portal') ?></a></li>
+                    <li><a href="<?= BASE_URL ?>/register.php?role=worker" class="text-slate-400 text-decoration-none hover-warning"><?= __('home.workers_portal') ?></a></li>
+                    <li><a href="<?= BASE_URL ?>/register.php?role=client" class="text-slate-400 text-decoration-none hover-warning"><?= __('home.clients_portal') ?></a></li>
+                    <li><a href="<?= BASE_URL ?>/login.php" class="text-slate-400 text-decoration-none hover-warning"><?= __('home.admin_access') ?></a></li>
                 </ul>
             </div>
             <div class="col-lg-3">
-                <h4 class="text-white small fw-bold text-uppercase mb-3 brand-font">Contact Info</h4>
-                <p class="text-slate-400 small mb-2"><i class="fa-solid fa-location-dot me-2 text-warning"></i>Ahmedabad, Gujarat, India</p>
+                <h4 class="text-white small fw-bold text-uppercase mb-3 brand-font"><?= __('home.contact_info') ?></h4>
+                <p class="text-slate-400 small mb-2"><i class="fa-solid fa-location-dot me-2 text-warning"></i><?= __('home.location_val') ?></p>
                 <p class="text-slate-400 small mb-2"><i class="fa-solid fa-envelope me-2 text-warning"></i>contact@buildconnect.demo</p>
                 <p class="text-slate-400 small mb-0"><i class="fa-solid fa-phone me-2 text-warning"></i>+91 98765 43210</p>
             </div>
         </div>
 
         <div class="pt-4 border-top border-secondary border-opacity-25 text-center text-slate-400 small">
-            &copy; <?= date('Y') ?> BuildConnect. All rights reserved.
+            &copy; <?= date('Y') ?> BuildConnect. <?= __('home.all_rights_reserved') ?>
         </div>
     </div>
 </footer>

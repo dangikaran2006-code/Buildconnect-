@@ -1,0 +1,59 @@
+graph TD
+    %% Entities
+    Worker[Worker]
+    Contractor[Contractor]
+    Client[Client]
+    Admin[Admin]
+
+    %% Data Stores
+    D1[(D1: Users & Profiles)]
+    D2[(D2: Projects & Milestones)]
+    D3[(D3: Jobs & Applications)]
+    D4[(D4: Attendance & Sessions)]
+    D5[(D5: Contracts & Payments)]
+    D6[(D6: Dual Bookings & Quotes)]
+    D7[(D7: Reviews & Activity Logs)]
+
+    %% Processes
+    P1((1.0<br/>Authentication<br/>& Governance))
+    P2((2.0<br/>Project & Task<br/>Management))
+    P3((3.0<br/>Job Marketplace<br/>& Hiring))
+    P4((4.0<br/>QR Attendance<br/>Tracking))
+    P5((5.0<br/>Digital Contract<br/>Lifecycle))
+    P6((6.0<br/>Dual Booking<br/>Engine))
+    P7((7.0<br/>Feedback & Audit<br/>Logging))
+
+    %% Data Flows
+    Worker -->|Registration & Skills| P1
+    Contractor -->|Company Profile| P1
+    Client -->|Account Data| P1
+    Admin -->|Verify Documents| P1
+    P1 <--> D1
+
+    Contractor -->|Create Project & Milestones| P2
+    Client -->|View Milestone Progress| P2
+    P2 <--> D2
+
+    Contractor -->|Post Job| P3
+    Worker -->|Apply for Job| P3
+    Contractor -->|Hire Applicant| P3
+    P3 <--> D3
+
+    Contractor -->|Generate QR Session| P4
+    Worker -->|Scan QR Check-In/Out| P4
+    P4 <--> D4
+
+    Contractor -->|Issue Contract| P5
+    Worker -->|Sign Contract| P5
+    P5 <--> D5
+
+    Client -->|Instant Booking / Quote Request| P6
+    Worker -->|Accept Instant Booking| P6
+    Contractor -->|Submit Competitive Quote| P6
+    Client -->|Select Winning Quote| P6
+    P6 <--> D6
+
+    Client -->|Rate Provider| P7
+    Contractor -->|Review Worker| P7
+    Admin -->|Inspect Audit Logs| P7
+    P7 <--> D7

@@ -1,0 +1,22 @@
+graph TD
+    %% External Entities
+    Worker[Construction Worker]
+    Contractor[Contractor / Builder]
+    Client[Real Estate Client]
+    Admin[System Administrator]
+
+    %% Level 0 Process
+    BuildConnectSystem((0.0<br/>BuildConnect<br/>Platform))
+
+    %% Data Flows
+    Worker -- "Profile, Skills, Job Applications, QR Scan, Contract Acceptance" --> BuildConnectSystem
+    BuildConnectSystem -- "Job Matches, Task Assignments, Contract Copies, Notifications" --> Worker
+
+    Contractor -- "Projects, Jobs, Hires, Tasks, QR Sessions, Contracts, Bids" --> BuildConnectSystem
+    BuildConnectSystem -- "Applications, Worker Profiles, Attendance Records, AI Risk Insights" --> Contractor
+
+    Client -- "Project Posts, Instant Bookings, Quote Requests, Reviews" --> BuildConnectSystem
+    BuildConnectSystem -- "Milestone Status, Contractor Quotes, Maps, Provider Profiles" --> Client
+
+    Admin -- "Verification Approvals, System Config, Review Moderation" --> BuildConnectSystem
+    BuildConnectSystem -- "Audit Logs, System Metrics, Global Reports, AI Usage Stats" --> Admin

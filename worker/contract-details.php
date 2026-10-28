@@ -98,7 +98,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 } catch (Exception $e) {
                     $db->rollBack();
-                    $errors[] = "Failed to accept contract: " . $e->getMessage();
+                    error_log("Worker contract accept error: " . $e->getMessage());
+                    $errors[] = "An unexpected error occurred while accepting this contract. Please try again.";
                 }
             }
         } elseif ($action === 'reject') {
@@ -143,7 +144,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 } catch (Exception $e) {
                     $db->rollBack();
-                    $errors[] = "Failed to reject contract: " . $e->getMessage();
+                    error_log("Worker contract reject error: " . $e->getMessage());
+                    $errors[] = "An unexpected error occurred while rejecting this contract. Please try again.";
                 }
             }
         }

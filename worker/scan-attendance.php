@@ -105,7 +105,8 @@ if (!empty($token)) {
                     if ($ex->getCode() == 23000) {
                         $error = "Duplicate Check-In: You are already checked in for this project today.";
                     } else {
-                        $error = "Database Error: " . $ex->getMessage();
+                        error_log("Check-in error: " . $ex->getMessage());
+                        $error = "A database error occurred while processing check-in. Please try again.";
                     }
                 }
             }

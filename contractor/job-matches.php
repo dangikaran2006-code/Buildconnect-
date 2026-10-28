@@ -38,7 +38,8 @@ if ($selected_job_id > 0) {
         try {
             $matches = ai_match_workers_for_job($selected_job_id, $user['id'], $force_refresh);
         } catch (Exception $e) {
-            $error_msg = $e->getMessage();
+            error_log("Job matching error: " . $e->getMessage());
+            $error_msg = "Unable to fetch AI worker matches at this time. Please try again.";
         }
     }
 }

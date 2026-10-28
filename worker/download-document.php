@@ -40,13 +40,13 @@ if (!$document) {
     redirect($user['role'] === 'admin' ? 'admin/verification.php' : 'worker/documents.php');
 }
 
-// Prevent path traversal and check physical file existence
+// Prevent path traversal and enforce uploads boundary
 $file_relative = ltrim($document['file_path'], '/\\');
 $full_path = ROOT_PATH . '/' . $file_relative;
 $real_path = realpath($full_path);
-$real_root = realpath(ROOT_PATH);
+$real_uploads = realpath(ROOT_PATH . '/uploads');
 
-if (!$real_path || strpos($real_path, $real_root) !== 0 || !file_exists($real_path)) {
+if (!$real_path || !$real_uploads || strpos($real_path, $real_uploads) !== 0 || !file_exists($real_path)) {
     log_activity($user['id'], 'Identity Document View Attempted', "Attempted view for document ID {$doc_id} ('{$document['document_type']}')", 'worker_document', $doc_id);
 
     header('Content-Type: text/plain');

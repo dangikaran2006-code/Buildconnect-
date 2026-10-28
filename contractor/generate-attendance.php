@@ -104,13 +104,13 @@ if ($selected_project_id > 0) {
     <main class="bc-main-content">
         <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
             <div>
-                <h1 class="h2 fw-bold text-white mb-1">
-                    <i class="fa-solid fa-qrcode text-warning me-2"></i>Generate Site Attendance QR
+                <h1 class="h2 fw-bold text-dark mb-1">
+                    <i class="fa-solid fa-qrcode text-amber me-2"></i>Generate Site Attendance QR
                 </h1>
                 <p class="text-muted small mb-0">Start a secure, time-limited attendance QR session for site workers to check in using their mobile devices.</p>
             </div>
             <div>
-                <a href="<?= BASE_URL ?>/contractor/attendance.php" class="btn btn-outline-light btn-sm fw-bold">
+                <a href="<?= BASE_URL ?>/contractor/attendance.php" class="btn btn-outline-secondary btn-sm fw-bold">
                     <i class="fa-solid fa-clipboard-user me-1"></i> Attendance Dashboard
                 </a>
             </div>
@@ -133,8 +133,8 @@ if ($selected_project_id > 0) {
         <div class="bc-card p-4 mb-4">
             <form action="<?= BASE_URL ?>/contractor/generate-attendance.php" method="GET" class="row g-3 align-items-end">
                 <div class="col-md-8">
-                    <label class="form-label text-light fw-bold small mb-1">Select Construction Site Project</label>
-                    <select name="project_id" class="form-select bg-dark border-secondary text-light" onchange="this.form.submit()">
+                    <label class="form-label text-dark fw-semibold small mb-1">Select Construction Site Project</label>
+                    <select name="project_id" class="form-select" onchange="this.form.submit()">
                         <?php foreach ($projects as $p): ?>
                             <option value="<?= $p['id'] ?>" <?= $selected_project_id == $p['id'] ? 'selected' : '' ?>>
                                 <?= e($p['title']) ?> (<?= e($p['location']) ?>)
@@ -162,29 +162,29 @@ if ($selected_project_id > 0) {
             $remaining_secs = max(0, (int)$active_session['seconds_remaining']);
             ?>
             <div class="bc-card p-5 text-center border-warning mb-4">
-                <div class="badge bg-success py-2 px-3 fs-6 mb-3">
+                <div class="badge bg-success-subtle text-success border border-success-subtle py-2 px-3 fs-6 mb-3">
                     <i class="fa-solid fa-signal-stream me-1"></i> ATTENDANCE SESSION ACTIVE
                 </div>
 
-                <h2 class="h3 text-white fw-bold mb-1"><?= e($project_info['title']) ?></h2>
+                <h2 class="h3 text-dark fw-bold mb-1"><?= e($project_info['title']) ?></h2>
                 <p class="text-muted small mb-4"><i class="fa-solid fa-location-dot text-danger me-1"></i><?= e($project_info['location']) ?></p>
 
                 <!-- QR Code Container -->
-                <div class="d-inline-block p-4 bg-white rounded-4 shadow-lg mb-4">
+                <div class="d-inline-block p-4 bg-white rounded-4 shadow-sm border mb-4">
                     <div id="qrcode"></div>
                 </div>
 
                 <!-- Live Countdown Timer -->
                 <div class="mb-4">
                     <div class="text-muted extra-small uppercase mb-1">Session Expires In</div>
-                    <div id="countdown" class="display-5 font-monospace text-warning fw-bold">
+                    <div id="countdown" class="display-5 font-monospace text-amber fw-bold">
                         <?= sprintf('%02d:%02d', floor($remaining_secs / 60), $remaining_secs % 60) ?>
                     </div>
                 </div>
 
-                <div class="p-3 bg-dark rounded-3 border border-secondary d-inline-block text-start mb-4" style="max-width: 550px;">
+                <div class="p-3 bg-light rounded-3 border d-inline-block text-start mb-4" style="max-width: 550px;">
                     <div class="extra-small text-muted mb-1 fw-bold">Direct Scan / Check-In URL:</div>
-                    <a href="<?= e($scan_url) ?>" target="_blank" class="text-info font-monospace extra-small text-break">
+                    <a href="<?= e($scan_url) ?>" target="_blank" class="text-primary font-monospace extra-small text-break">
                         <?= e($scan_url) ?>
                     </a>
                 </div>
@@ -236,7 +236,7 @@ if ($selected_project_id > 0) {
         <?php else: ?>
             <div class="bc-card p-5 text-center my-4">
                 <i class="fa-solid fa-qrcode fs-1 text-muted mb-3"></i>
-                <h3 class="h5 text-white fw-bold">No Active Attendance Session</h3>
+                <h3 class="h5 text-dark fw-bold">No Active Attendance Session</h3>
                 <p class="text-muted small mb-4">Click below to generate a new 5-minute QR session for <?= e($project_info['title'] ?? 'the selected project') ?>.</p>
                 <form action="<?= BASE_URL ?>/contractor/generate-attendance.php" method="POST">
                     <?= csrf_field() ?>

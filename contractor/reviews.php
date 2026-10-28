@@ -119,7 +119,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 } catch (Exception $e) {
                     $db->rollBack();
-                    $errors[] = "Failed to submit review: " . $e->getMessage();
+                    error_log("Contractor submit review error: " . $e->getMessage());
+                    $errors[] = "An unexpected error occurred while submitting your review. Please try again.";
                 }
             }
         } elseif ($action_type === 'edit') {
@@ -162,7 +163,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 } catch (Exception $e) {
                     $db->rollBack();
-                    $errors[] = "Failed to update review: " . $e->getMessage();
+                    error_log("Contractor update review error: " . $e->getMessage());
+                    $errors[] = "An unexpected error occurred while updating your review. Please try again.";
                 }
             }
         } elseif ($action_type === 'report') {

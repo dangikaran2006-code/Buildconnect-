@@ -1,0 +1,153 @@
+erDiagram
+    users ||--o| workers : "has profile"
+    users ||--o| contractors : "has profile"
+    users ||--o| clients : "has profile"
+    users ||--o{ projects : "creates/owns"
+    users ||--o{ jobs : "posts"
+    users ||--o{ job_applications : "applies"
+    users ||--o{ attendance : "logs attendance"
+    users ||--o{ contracts : "signs contract"
+    users ||--o{ reviews : "authors/receives"
+    users ||--o{ notifications : "receives"
+    users ||--o{ activity_logs : "triggers"
+    users ||--o{ bookings : "client/provider"
+    users ||--o{ booking_quotes : "submits quote"
+
+    workers ||--o{ worker_skills : "has skill"
+    skills ||--o{ worker_skills : "mapped to"
+    workers ||--o{ worker_experience : "has experience"
+    workers ||--o{ worker_documents : "uploads"
+
+    projects ||--o{ milestones : "contains"
+    projects ||--o{ tasks : "divided into"
+    projects ||--o{ project_members : "enrolls"
+    projects ||--o{ project_documents : "stores"
+    projects ||--o{ attendance_sessions : "hosts session"
+    projects ||--o{ attendance : "tracks on site"
+    projects ||--o{ jobs : "originates"
+    projects ||--o{ contracts : "formalizes"
+    projects ||--o{ payments : "disburses"
+
+    attendance_sessions ||--o{ attendance : "verifies"
+    jobs ||--o{ job_applications : "receives"
+    jobs ||--o{ ai_match_results : "evaluated by"
+    contracts ||--o{ payments : "pays"
+    contracts ||--o{ reviews : "assesses"
+
+    bookings ||--o{ booking_quotes : "collects quotes"
+
+    users {
+        int id PK
+        string name
+        string email UK
+        string password
+        string role
+        string phone
+        string status
+    }
+
+    workers {
+        int id PK
+        int user_id FK
+        string trade_title
+        int experience_years
+        decimal daily_rate
+        decimal location_lat
+        decimal location_lng
+        string verification_status
+        decimal rating_avg
+    }
+
+    contractors {
+        int id PK
+        int user_id FK
+        string company_name
+        string license_no
+        string city
+        decimal rating_avg
+    }
+
+    clients {
+        int id PK
+        int user_id FK
+        string company_name
+        string client_type
+        string city
+    }
+
+    projects {
+        int id PK
+        int contractor_id FK
+        int client_id FK
+        string title
+        string location
+        decimal location_lat
+        decimal location_lng
+        decimal budget
+        string status
+        int progress_percent
+        string qr_code_token UK
+    }
+
+    jobs {
+        int id PK
+        int project_id FK
+        int contractor_id FK
+        string title
+        string trade_required
+        decimal pay_rate
+        string status
+    }
+
+    job_applications {
+        int id PK
+        int job_id FK
+        int worker_id FK
+        int match_score
+        string status
+    }
+
+    attendance {
+        int id PK
+        int project_id FK
+        int worker_id FK
+        date attendance_date
+        datetime check_in_time
+        datetime check_out_time
+        tinyint verified_by_qr
+        string status
+    }
+
+    contracts {
+        int id PK
+        int project_id FK
+        int contractor_id FK
+        int worker_id FK
+        string contract_number UK
+        decimal payment_amount
+        string status
+    }
+
+    bookings {
+        int id PK
+        string booking_number UK
+        int client_id FK
+        int provider_id FK
+        string booking_mode
+        string category
+        string title
+        decimal location_lat
+        decimal location_lng
+        decimal price
+        string status
+    }
+
+    booking_quotes {
+        int id PK
+        int booking_id FK
+        int provider_id FK
+        string provider_role
+        decimal proposed_price
+        string estimated_duration
+        string status
+    }

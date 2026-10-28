@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initMapIfPresent();
     initSignaturePadIfPresent();
     initNavbarToggle();
+    initLanguageDropdown();
 });
 
 // Navbar Mobile Toggle Helper
@@ -165,3 +166,37 @@ function initTooltips() {
         });
     }
 }
+
+// Robust Language Selector Dropdown Handler
+function initLanguageDropdown() {
+    // If Bootstrap 5 is loaded, Bootstrap handles data-bs-toggle="dropdown" natively.
+    // We only attach a pure JS toggle fallback if Bootstrap is absent.
+    if (typeof bootstrap === 'undefined' || !bootstrap.Dropdown) {
+        document.addEventListener('click', (e) => {
+            const btn = e.target.closest('#bcLangDropdown');
+            const parent = btn ? btn.closest('.bc-lang-dropdown') : null;
+            if (btn && parent) {
+                e.preventDefault();
+                const menu = parent.querySelector('.dropdown-menu');
+                if (menu) {
+                    const isShown = menu.classList.contains('show');
+                    document.querySelectorAll('.bc-lang-dropdown .dropdown-menu.show').forEach(m => m.classList.remove('show'));
+                    if (!isShown) {
+                        menu.classList.add('show');
+                        btn.setAttribute('aria-expanded', 'true');
+                    } else {
+                        btn.setAttribute('aria-expanded', 'false');
+                    }
+                }
+            } else if (!e.target.closest('.bc-lang-dropdown')) {
+                document.querySelectorAll('.bc-lang-dropdown .dropdown-menu.show').forEach(m => {
+                    m.classList.remove('show');
+                    const b = m.closest('.bc-lang-dropdown')?.querySelector('#bcLangDropdown');
+                    if (b) b.setAttribute('aria-expanded', 'false');
+                });
+            }
+        });
+    }
+}
+
+

@@ -24,6 +24,9 @@ if (ob_get_level() === 0) {
     ob_start();
 }
 
+// Load Internationalization (i18n) Engine
+require_once __DIR__ . '/i18n.php';
+
 /**
  * Sanitize text input safely
  */
@@ -148,19 +151,164 @@ function formatCurrencyINR($amount, $decimals = 2) {
 }
 
 /**
- * Format date display
+ * Localize formatted date/time strings (months and AM/PM) into active language
  */
-function format_date($date_string, $format = 'M d, Y') {
-    if (!$date_string) return 'N/A';
-    return date($format, strtotime($date_string));
+function localize_date_string($str) {
+    if (empty($str)) return $str;
+    $lang = function_exists('current_lang') ? current_lang() : 'en';
+    if ($lang === 'hi') {
+        $months = [
+            'January' => 'जनवरी', 'February' => 'फ़रवरी', 'March' => 'मार्च', 'April' => 'अप्रैल',
+            'May' => 'मई', 'June' => 'जून', 'July' => 'जुलाई', 'August' => 'अगस्त',
+            'September' => 'सितंबर', 'October' => 'अक्टूबर', 'November' => 'नवंबर', 'December' => 'दिसंबर',
+            'Jan' => 'जनवरी', 'Feb' => 'फ़रवरी', 'Mar' => 'मार्च', 'Apr' => 'अप्रैल',
+            'Jun' => 'जून', 'Jul' => 'जुलाई', 'Aug' => 'अगस्त', 'Sep' => 'सितंबर',
+            'Oct' => 'अक्टूबर', 'Nov' => 'नवंबर', 'Dec' => 'दिसंबर',
+            'AM' => 'पूर्वाह्न', 'PM' => 'अपराह्न'
+        ];
+        return strtr($str, $months);
+    } elseif ($lang === 'gu') {
+        $months = [
+            'January' => 'જાન્યુઆરી', 'February' => 'ફેબ્રુઆરી', 'March' => 'માર્ચ', 'April' => 'એપ્રિલ',
+            'May' => 'મે', 'June' => 'જૂન', 'July' => 'જુલાઈ', 'August' => 'ઓગસ્ટ',
+            'September' => 'સપ્ટેમ્બર', 'October' => 'ઓક્ટોબર', 'November' => 'નવેમ્બર', 'December' => 'ડિસેમ્બર',
+            'Jan' => 'જાન્યુઆરી', 'Feb' => 'ફેબ્રુઆરી', 'Mar' => 'માર્ચ', 'Apr' => 'એપ્રિલ',
+            'Jun' => 'જૂન', 'Jul' => 'જુલાઈ', 'Aug' => 'ઓગસ્ટ', 'Sep' => 'સપ્ટેમ્બર',
+            'Oct' => 'ઓક્ટોબર', 'Nov' => 'નવેમ્બર', 'Dec' => 'ડિસેમ્બર',
+            'AM' => 'સવારે', 'PM' => 'સાંજે'
+        ];
+        return strtr($str, $months);
+    }
+    return $str;
 }
 
 /**
- * Format date & time display
+ * Format date display with full multilingual localization
+ */
+function format_date($date_string, $format = 'M d, Y') {
+    if (!$date_string) return function_exists('__') ? __('common.not_applicable', 'N/A') : 'N/A';
+    $ts = is_numeric($date_string) ? (int)$date_string : strtotime($date_string);
+    if (!$ts) return function_exists('__') ? __('common.not_applicable', 'N/A') : 'N/A';
+    return localize_date_string(date($format, $ts));
+}
+
+/**
+ * Format date & time display with full multilingual localization
  */
 function format_datetime($datetime_string, $format = 'M d, Y h:i A') {
-    if (!$datetime_string) return 'N/A';
-    return date($format, strtotime($datetime_string));
+    if (!$datetime_string) return function_exists('__') ? __('common.not_applicable', 'N/A') : 'N/A';
+    $ts = is_numeric($datetime_string) ? (int)$datetime_string : strtotime($datetime_string);
+    if (!$ts) return function_exists('__') ? __('common.not_applicable', 'N/A') : 'N/A';
+    return localize_date_string(date($format, $ts));
+}
+
+/**
+ * Translate trade or role in project/site
+ */
+function translate_trade($trade) {
+    $t = trim((string)$trade);
+    if ($t === '') return '';
+    $key = 'trade.' . strtolower(preg_replace('/[^a-zA-Z0-9]+/', '_', $t));
+    if (function_exists('__')) {
+        $trans = __($key);
+        if ($trans !== $key) return $trans;
+    }
+    return $t;
+}
+
+/**
+ * Translate pay type (hourly, daily, monthly, fixed)
+ */
+function translate_pay_type($pay_type) {
+    $pt = strtolower(trim((string)$pay_type));
+    $key = 'pay_type.' . $pt;
+    if (function_exists('__')) {
+        $trans = __($key);
+        if ($trans !== $key) return $trans;
+    }
+    return $pay_type;
+}
+
+/**
+ * Translate notification titles into active language
+ */
+function translate_notification_title($title) {
+    $t = trim((string)$title);
+    if ($t === '') return '';
+    
+    // Check for "Booking Status: X" pattern
+    if (preg_match('/^Booking Status:\s*(.+)$/i', $t, $m)) {
+        $prefix = function_exists('__') ? __('notif.booking_status_prefix', 'Booking Status:') : 'Booking Status:';
+        $status_label = function_exists('translate_status') ? translate_status($m[1]) : $m[1];
+        return $prefix . ' ' . $status_label;
+    }
+    
+    $clean_t = preg_replace('/^🔔\s*/u', '', $t);
+    $key = 'notif_title.' . strtolower(preg_replace('/[^a-zA-Z0-9]+/', '_', trim($clean_t)));
+    if (function_exists('__')) {
+        $trans = __($key);
+        if ($trans !== $key) {
+            return (strpos($t, '🔔') !== false ? '🔔 ' : '') . $trans;
+        }
+    }
+    return $t;
+}
+
+/**
+ * Translate notification messages into active language
+ */
+function translate_notification_message($msg) {
+    $m = trim((string)$msg);
+    if ($m === '') return '';
+    $lang = function_exists('current_lang') ? current_lang() : 'en';
+    if ($lang === 'en') return $m;
+    
+    // Pattern 1: Booking #... status was updated to '...'
+    if (preg_match('/^Booking\s+(#?[A-Z0-9\-]+)\s+status was updated to\s+[\'"]?([^\'".]+)[\'"]?\b/i', $m, $matches)) {
+        $booking_no = $matches[1];
+        $st = function_exists('translate_status') ? translate_status($matches[2]) : $matches[2];
+        if ($lang === 'hi') {
+            return "बुकिंग {$booking_no} की स्थिति '{$st}' में अपडेट की गई।";
+        } elseif ($lang === 'gu') {
+            return "બુકિંગ {$booking_no} ની સ્થિતિ '{$st}' માં અપડેટ કરવામાં આવી.";
+        }
+    }
+    
+    // Pattern 2: Another quotation was selected for booking #... Thank you for your submission.
+    if (preg_match('/^Another quotation was selected for booking\s+(#?[A-Z0-9\-]+)/i', $m, $matches)) {
+        $booking_no = $matches[1];
+        if ($lang === 'hi') {
+            return "बुकिंग {$booking_no} के लिए अन्य भावपत्र चुना गया था। आपके आवेदन के लिए धन्यवाद।";
+        } elseif ($lang === 'gu') {
+            return "બુકિંગ {$booking_no} માટે અન્ય ભાવપત્રક પસંદ કરવામાં આવ્યું હતું. તમારી રજૂઆત માટે આભાર.";
+        }
+    }
+
+    // Pattern 3: Your instant booking has been accepted by ...
+    if (preg_match('/^Your instant booking has been accepted by\s+(.+)$/i', $m, $matches)) {
+        $name = $matches[1];
+        if ($lang === 'hi') {
+            return "आपकी त्वरित बुकिंग {$name} द्वारा स्वीकार कर ली गई है।";
+        } elseif ($lang === 'gu') {
+            return "તમારી ત્વરિત બુકિંગ {$name} દ્વારા સ્વીકારવામાં આવી છે.";
+        }
+    }
+    
+    return $m;
+}
+
+/**
+ * Translate system activity log actions
+ */
+function translate_activity_action($action) {
+    $a = trim((string)$action);
+    if ($a === '') return '';
+    $key = 'act.' . strtolower(preg_replace('/[^a-zA-Z0-9]+/', '_', $a));
+    if (function_exists('__')) {
+        $trans = __($key);
+        if ($trans !== $key) return $trans;
+    }
+    return $a;
 }
 
 /**
@@ -511,7 +659,7 @@ function render_star_rating($rating, $show_number = true) {
     }
     $html .= '</div>';
     if ($show_number) {
-        $html .= '<span class="fw-bold text-white small">' . number_format($rating, 1) . '</span>';
+        $html .= '<span class="fw-bold text-dark small ms-1">' . number_format($rating, 1) . '</span>';
     }
     return $html;
 }

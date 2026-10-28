@@ -1,0 +1,81 @@
+graph LR
+    %% Actors
+    Admin((System Administrator))
+    Contractor((Contractor / Builder))
+    Worker((Construction Worker))
+    Client((Real Estate Client))
+
+    %% Admin Subgraph
+    subgraph AdminActions [Admin Governance]
+        UC_A1[Manage Users & Account Status]
+        UC_A2[Verify Worker ID & Trade Documents]
+        UC_A3[Oversee All Projects & Jobs]
+        UC_A4[Moderate Reviews & Disputes]
+        UC_A5[Monitor Security Audit Logs & AI Usage]
+        UC_A6[Inspect Service Bookings & Quotes]
+    end
+
+    %% Contractor Subgraph
+    subgraph ContractorActions [Contractor Portfolio & Workforce]
+        UC_C1[Create Construction Projects & Milestones]
+        UC_C2[Post Trade Job Listings]
+        UC_C3[Review Applications & Hire Workers]
+        UC_C4[Assign Daily Work Tasks]
+        UC_C5[Generate Dynamic QR Attendance Sessions]
+        UC_C6[Issue Binding Digital Contracts]
+        UC_C7[Submit Quotes for Client Construction Requests]
+        UC_C8[Run AI Worker Matching & Project Risk Analysis]
+    end
+
+    %% Worker Subgraph
+    subgraph WorkerActions [Worker Professional Lifecycle]
+        UC_W1[Maintain Trade Skills & Document Portfolio]
+        UC_W2[Browse Jobs & Submit Applications]
+        UC_W3[Scan QR Code Site Attendance Check-In/Out]
+        UC_W4[Review & Sign Digital Contracts Electronically]
+        UC_W5[Receive & Accept/Reject Instant Bookings]
+        UC_W6[Update Assigned Task Progress]
+        UC_W7[View Earnings & Work History]
+    end
+
+    %% Client Subgraph
+    subgraph ClientActions [Client Project & Service Booking]
+        UC_CL1[Post Large Projects for Contractor Quotes]
+        UC_CL2[Book Instant Emergency Repairs Mode A]
+        UC_CL3[Compare Multi-Contractor Bids Mode B]
+        UC_CL4[Monitor Milestone Progress & Site Coordinates]
+        UC_CL5[Review Project Documents & Blueprints]
+        UC_CL6[Submit Two-Way Star Ratings & Reviews]
+    end
+
+    %% Connectors
+    Admin --> UC_A1
+    Admin --> UC_A2
+    Admin --> UC_A3
+    Admin --> UC_A4
+    Admin --> UC_A5
+    Admin --> UC_A6
+
+    Contractor --> UC_C1
+    Contractor --> UC_C2
+    Contractor --> UC_C3
+    Contractor --> UC_C4
+    Contractor --> UC_C5
+    Contractor --> UC_C6
+    Contractor --> UC_C7
+    Contractor --> UC_C8
+
+    Worker --> UC_W1
+    Worker --> UC_W2
+    Worker --> UC_W3
+    Worker --> UC_W4
+    Worker --> UC_W5
+    Worker --> UC_W6
+    Worker --> UC_W7
+
+    Client --> UC_CL1
+    Client --> UC_CL2
+    Client --> UC_CL3
+    Client --> UC_CL4
+    Client --> UC_CL5
+    Client --> UC_CL6

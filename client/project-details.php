@@ -89,7 +89,7 @@ $documents = $docs_stmt->fetchAll();
         <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
             <div>
                 <div class="d-flex align-items-center gap-2 mb-1">
-                    <h1 class="h2 fw-bold text-white mb-0"><?= e($project['title']) ?></h1>
+                    <h1 class="h2 fw-bold text-dark mb-0"><?= e($project['title']) ?></h1>
                     <span class="badge <?= get_status_badge_class($project['status']) ?> fs-6"><?= e(ucfirst(str_replace('_', ' ', $project['status']))) ?></span>
                 </div>
                 <p class="text-muted small mb-0">
@@ -98,7 +98,7 @@ $documents = $docs_stmt->fetchAll();
                 </p>
             </div>
             <div class="d-flex gap-2">
-                <a href="<?= BASE_URL ?>/client/projects.php" class="btn btn-outline-light btn-sm fw-bold">
+                <a href="<?= BASE_URL ?>/client/projects.php" class="btn btn-outline-secondary btn-sm fw-bold">
                     <i class="fa-solid fa-arrow-left me-1"></i> Back to Projects
                 </a>
                 <a href="<?= BASE_URL ?>/client/progress.php?project_id=<?= $proj_id ?>" class="btn btn-amber btn-sm fw-bold">
@@ -130,7 +130,7 @@ $documents = $docs_stmt->fetchAll();
             <div class="col-md-3 col-6">
                 <div class="bc-card p-3">
                     <div class="text-muted extra-small uppercase">Timeline & Completion</div>
-                    <div class="fw-bold text-light my-1" style="font-size: 0.95rem;"><?= format_date($project['start_date']) ?></div>
+                    <div class="fw-bold text-dark my-1" style="font-size: 0.95rem;"><?= format_date($project['start_date']) ?></div>
                     <div class="extra-small text-muted">Exp Finish: <?= format_date($project['end_date']) ?></div>
                 </div>
             </div>
@@ -148,8 +148,8 @@ $documents = $docs_stmt->fetchAll();
             <!-- Left Column: Description & Milestones -->
             <div class="col-lg-8">
                 <div class="bc-card p-4 mb-4">
-                    <h2 class="h5 text-white fw-bold mb-3"><i class="fa-solid fa-circle-info text-warning me-2"></i>Project Overview</h2>
-                    <div class="text-light lead-sm" style="white-space: pre-line;">
+                    <h2 class="h5 fw-bold text-dark mb-3"><i class="fa-solid fa-circle-info text-warning me-2"></i>Project Overview</h2>
+                    <div class="text-secondary lead-sm" style="white-space: pre-line;">
                         <?= e($project['description'] ?: 'No detailed project description available.') ?>
                     </div>
                 </div>
@@ -157,7 +157,7 @@ $documents = $docs_stmt->fetchAll();
                 <!-- Milestones List -->
                 <div class="bc-card p-4">
                     <div class="d-flex justify-content-between align-items-center mb-3">
-                        <h2 class="h5 text-white fw-bold mb-0">
+                        <h2 class="h5 fw-bold text-dark mb-0">
                             <i class="fa-solid fa-flag-checkered text-warning me-2"></i>Milestone Progress Monitor
                         </h2>
                         <a href="<?= BASE_URL ?>/client/milestones.php?project_id=<?= $proj_id ?>" class="extra-small text-info text-decoration-none">
@@ -173,10 +173,10 @@ $documents = $docs_stmt->fetchAll();
                         <div class="vstack gap-3">
                             <?php foreach ($milestones as $ms): ?>
                                 <?php $deadline = get_deadline_status($ms['target_date'], $ms['status']); ?>
-                                <div class="p-3 bg-dark rounded-3 border border-secondary">
+                                <div class="p-3 bg-light rounded-3 border">
                                     <div class="d-flex justify-content-between align-items-start mb-1">
                                         <div>
-                                            <h3 class="h6 text-white fw-bold mb-0"><?= e($ms['title']) ?></h3>
+                                            <h3 class="h6 fw-bold text-dark mb-0"><?= e($ms['title']) ?></h3>
                                             <span class="text-muted extra-small"><?= e($ms['description']) ?></span>
                                         </div>
                                         <span class="badge <?= get_status_badge_class($ms['status']) ?>"><?= e(ucfirst($ms['status'])) ?></span>
@@ -207,7 +207,7 @@ $documents = $docs_stmt->fetchAll();
                 <!-- Project Site Map Card (Read Only) -->
                 <div class="bc-card p-4 mb-4">
                     <div class="d-flex justify-content-between align-items-center mb-3">
-                        <h3 class="h6 text-white fw-bold mb-0"><i class="fa-solid fa-map-location-dot text-warning me-2"></i>Project Site Location</h3>
+                        <h3 class="h6 fw-bold text-dark mb-0"><i class="fa-solid fa-map-location-dot text-warning me-2"></i>Project Site Location</h3>
                         <?php if ($project['location_lat'] && $project['location_lng']): ?>
                             <a href="https://www.google.com/maps/dir/?api=1&destination=<?= $project['location_lat'] ?>,<?= $project['location_lng'] ?>" target="_blank" rel="noopener" class="btn btn-outline-warning btn-sm extra-small">
                                 <i class="fa-solid fa-route me-1"></i> Directions
@@ -220,7 +220,7 @@ $documents = $docs_stmt->fetchAll();
                     </div>
 
                     <?php if ($project['location_lat'] && $project['location_lng']): ?>
-                        <div id="clientProjectMap" style="height: 220px; width: 100%;" class="rounded border border-secondary bg-dark mb-2"></div>
+                        <div id="clientProjectMap" style="height: 220px; width: 100%;" class="rounded border mb-2"></div>
                         <script>
                         document.addEventListener('DOMContentLoaded', function () {
                             if (window.BC_Maps) {
@@ -232,7 +232,7 @@ $documents = $docs_stmt->fetchAll();
                         });
                         </script>
                     <?php else: ?>
-                        <div class="p-3 bg-dark rounded text-center text-muted extra-small border border-secondary">
+                        <div class="p-3 bg-light rounded text-center text-muted extra-small border">
                             Project location has not been mapped yet.
                         </div>
                     <?php endif; ?>
@@ -240,10 +240,10 @@ $documents = $docs_stmt->fetchAll();
 
                 <!-- Managing Contractor Info Card -->
                 <div class="bc-card p-4 mb-4">
-                    <h3 class="h6 text-white fw-bold mb-3"><i class="fa-solid fa-user-gear text-info me-2"></i>Managing Contractor</h3>
-                    <div class="fw-bold text-white mb-1"><?= e($project['contractor_company'] ?: $project['contractor_name']) ?></div>
+                    <h3 class="h6 fw-bold text-dark mb-3"><i class="fa-solid fa-user-gear text-info me-2"></i>Managing Contractor</h3>
+                    <div class="fw-bold text-dark mb-1"><?= e($project['contractor_company'] ?: $project['contractor_name']) ?></div>
                     <?php if ($project['license_no']): ?>
-                        <div class="extra-small text-muted mb-2">License: <span class="text-light"><?= e($project['license_no']) ?></span></div>
+                        <div class="extra-small text-muted mb-2">License: <span class="text-dark fw-bold"><?= e($project['license_no']) ?></span></div>
                     <?php endif; ?>
                     <div class="extra-small text-muted"><i class="fa-solid fa-envelope me-1"></i><?= e($project['contractor_email']) ?></div>
                     <div class="extra-small text-muted"><i class="fa-solid fa-phone me-1"></i><?= e($project['contractor_phone']) ?></div>
@@ -251,18 +251,18 @@ $documents = $docs_stmt->fetchAll();
 
                 <!-- Documents Card -->
                 <div class="bc-card p-4">
-                    <h3 class="h6 text-white fw-bold mb-3"><i class="fa-solid fa-file-pdf text-danger me-2"></i>Project Documents</h3>
+                    <h3 class="h6 fw-bold text-dark mb-3"><i class="fa-solid fa-file-pdf text-danger me-2"></i>Project Documents</h3>
                     <?php if (empty($documents)): ?>
                         <p class="text-muted small mb-0">No documents uploaded.</p>
                     <?php else: ?>
                         <div class="vstack gap-2 extra-small">
                             <?php foreach ($documents as $doc): ?>
-                                <div class="p-2 bg-dark rounded-3 border border-secondary d-flex justify-content-between align-items-center">
+                                <div class="p-2 bg-light rounded-3 border d-flex justify-content-between align-items-center">
                                     <div>
-                                        <div class="fw-bold text-light"><?= e($doc['title']) ?></div>
+                                        <div class="fw-bold text-dark"><?= e($doc['title']) ?></div>
                                         <div class="text-muted"><?= format_date($doc['created_at']) ?></div>
                                     </div>
-                                    <span class="badge bg-secondary"><?= e($doc['file_type']) ?></span>
+                                    <span class="badge bg-light text-secondary border"><?= e($doc['file_type']) ?></span>
                                 </div>
                             <?php endforeach; ?>
                         </div>

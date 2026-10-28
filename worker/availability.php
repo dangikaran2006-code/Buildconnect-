@@ -60,7 +60,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             set_flash_message("Availability settings updated successfully!", "success");
             redirect('worker/availability.php');
         } catch (PDOException $e) {
-            $errors[] = "Database update error: " . $e->getMessage();
+            error_log("Worker availability update error: " . $e->getMessage());
+            $errors[] = "An unexpected error occurred while updating your availability settings. Please try again.";
         }
     }
 }

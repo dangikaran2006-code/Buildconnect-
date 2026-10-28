@@ -9,7 +9,7 @@ require_once __DIR__ . '/../includes/auth.php';
 require_once __DIR__ . '/../includes/functions.php';
 require_once __DIR__ . '/../includes/analytics-functions.php';
 
-require_auth();
+require_login();
 
 $user = get_logged_user();
 $db = getDB();

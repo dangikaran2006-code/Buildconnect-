@@ -5,35 +5,95 @@
    ========================================================================== */
 
 @media (max-width: 991.98px) {
-    .dashboard-app .dashboard-layout {
-        flex-direction: column;
+    .dashboard-app .dashboard-layout,
+    .dashboard-app .bc-layout {
+        flex-direction: column !important;
     }
 
-    .dashboard-app .dashboard-sidebar {
+    .dashboard-app .dashboard-sidebar,
+    .dashboard-app .bc-sidebar {
         width: 100% !important;
         position: relative !important;
         top: 0 !important;
         height: auto !important;
         max-height: none !important;
         border-right: none !important;
-        border-bottom: 1px solid var(--bc-border) !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+        padding: 1rem 1rem !important;
     }
 
-    .dashboard-app .dashboard-content {
-        padding: 1.25rem 1rem;
+    .dashboard-app .dashboard-content,
+    .dashboard-app .bc-main-content {
+        padding: 1.5rem 1rem !important;
+        width: 100% !important;
     }
 
-    .dashboard-app .dashboard-header {
-        padding: 0 1rem;
+    .dashboard-app .dashboard-header,
+    .dashboard-app .bc-navbar {
+        padding: 0.65rem 1rem !important;
+    }
+
+    .dashboard-app .bc-nav-dropdown.is-open > .bc-dropdown-menu {
+        max-height: 800px;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .dashboard-app .dashboard-content,
+    .dashboard-app .bc-main-content {
+        padding: 1.25rem 0.85rem !important;
+    }
+
+    .dashboard-app .bc-header-banner {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 1rem !important;
+    }
+
+    .dashboard-app .bc-header-banner > div:last-child {
+        width: 100% !important;
+        justify-content: flex-start !important;
+    }
+
+    .dashboard-app .bc-greeting-title {
+        font-size: 1.5rem !important;
+    }
+
+    .dashboard-app .bc-metric-card {
+        padding: 1.1rem 1.15rem !important;
+    }
+
+    .dashboard-app .bc-metric-value {
+        font-size: 1.65rem !important;
+    }
+
+    .dashboard-app .profile-info {
+        display: none !important;
+    }
+
+    .dashboard-app .table-responsive {
+        font-size: 0.8125rem;
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch;
     }
 }
 
 @media (max-width: 575.98px) {
-    .dashboard-app .dashboard-content {
-        padding: 1rem 0.75rem;
+    .dashboard-app .dashboard-content,
+    .dashboard-app .bc-main-content {
+        padding: 1rem 0.75rem !important;
     }
 
     .dashboard-app .dashboard-search-box {
-        display: none;
+        display: none !important;
+    }
+
+    .dashboard-app .bc-header-banner .bc-date-range-control {
+        width: 100% !important;
+        justify-content: center !important;
+    }
+
+    .dashboard-app .bc-header-banner .btn {
+        flex: 1 1 auto !important;
     }
 }

@@ -1,7 +1,9 @@
 <?php
+require_once __DIR__ . '/../includes/auth.php';
+require_role([ROLE_CONTRACTOR, ROLE_ADMIN]);
+
 $page_title = "AI Project Risk Insights - BuildConnect";
 require_once __DIR__ . '/../includes/header.php';
-require_auth();
 require_once __DIR__ . '/../includes/ai.php';
 require_once __DIR__ . '/../includes/navbar.php';
 
@@ -26,7 +28,8 @@ if ($selected_project_id > 0) {
     try {
         $insights = ai_analyze_project_insights($selected_project_id, $user['id'], $is_admin);
     } catch (Exception $e) {
-        $error_msg = $e->getMessage();
+        error_log("Project insights analysis error: " . $e->getMessage());
+        $error_msg = "Unable to analyze project insights at this time. Please try again.";
     }
 }
 ?>

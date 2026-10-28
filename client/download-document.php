@@ -32,13 +32,13 @@ if (!$document) {
     redirect('client/documents.php');
 }
 
-// 3. Prevent Path Traversal & Check Disk File Existence
+// 3. Prevent Path Traversal & Enforce Uploads Boundary
 $file_relative = ltrim($document['file_path'], '/\\');
 $full_path = ROOT_PATH . '/' . $file_relative;
 $real_path = realpath($full_path);
-$real_root = realpath(ROOT_PATH);
+$real_uploads = realpath(ROOT_PATH . '/uploads');
 
-if (!$real_path || strpos($real_path, $real_root) !== 0 || !file_exists($real_path)) {
+if (!$real_path || !$real_uploads || strpos($real_path, $real_uploads) !== 0 || !file_exists($real_path)) {
     // If physical demo file doesn't exist on disk, serve a dynamic safe fallback text response
     log_activity($client_user_id, 'Document View Attempted', "Attempted download for document ID {$doc_id} ('{$document['title']}')", 'document', $doc_id);
 

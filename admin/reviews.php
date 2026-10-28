@@ -50,7 +50,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 } catch (Exception $e) {
                     $db->rollBack();
-                    $errors[] = "Failed to update review status: " . $e->getMessage();
+                    error_log("Admin review status update error: " . $e->getMessage());
+                    $errors[] = "An unexpected error occurred while updating the review status. Please try again.";
                 }
             }
         } elseif (in_array($action, ['resolve_report', 'dismiss_report'])) {

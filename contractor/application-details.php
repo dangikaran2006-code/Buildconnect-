@@ -148,7 +148,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 } catch (Exception $ex) {
                     $db->rollBack();
-                    $error = "Hiring Transaction Failed: " . $ex->getMessage();
+                    error_log("Hiring transaction error: " . $ex->getMessage());
+                    $error = "An unexpected error occurred during the hiring transaction. Please try again.";
                 }
             }
 

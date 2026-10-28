@@ -1,0 +1,50 @@
+graph TD
+    subgraph ClientLayer [Client Presentation Layer]
+        B[Web Browser: Chrome / Edge / Safari / Mobile]
+        UI[Responsive UI: HTML5 + CSS3 Variables + Bootstrap 5.3 + FontAwesome 6]
+        Map[Leaflet.js Map Visualizer: Geolocation Coordinates & Service Radius]
+    end
+
+    subgraph GatewayLayer [Routing & Application Security Layer]
+        Router[Centralized URL Routing & Session Guard]
+        RBAC[Role-Based Access Control: Admin, Contractor, Worker, Client]
+        CSRF[CSRF Token Verification Engine: 64-char Hex]
+        Sanitizer[Input Sanitization: htmlspecialchars + FILTER_SANITIZE]
+    end
+
+    subgraph ModuleLayer [Business Logic & Controllers Layer]
+        AdminMod[Admin Module: User Governance, Worker Verification, Bookings, Audit Logs]
+        ContractorMod[Contractor Module: Projects, Jobs, QR Attendance Sessions, Contracts]
+        WorkerMod[Worker Module: Profile, Skills, Job Applications, QR Scan Check-In, Dispatches]
+        ClientMod[Client Module: Project Oversight, Dual Booking Engine, Milestones, Reviews]
+        ApiMod[RESTful API Endpoints: QR Attendance, AI Match Scoring, CSV Export, Push Web API]
+        AiEngine[AI Engine: Skill Proximity Matching & Project Schedule Risk Analysis]
+    end
+
+    subgraph DataLayer [Persistence & Database Layer]
+        PDO[PHP Data Objects: 100% Prepared Statements]
+        MySQL[(MySQL 8.0 / MariaDB 10.4: 29 Relational InnoDB Tables)]
+        Filesystem[(Secure File System: uploads/documents/ & uploads/avatars/)]
+    end
+
+    B --> UI
+    UI --> Map
+    UI --> Router
+    Router --> RBAC
+    RBAC --> CSRF
+    CSRF --> Sanitizer
+    Sanitizer --> AdminMod
+    Sanitizer --> ContractorMod
+    Sanitizer --> WorkerMod
+    Sanitizer --> ClientMod
+    Sanitizer --> ApiMod
+    ContractorMod --> AiEngine
+    AdminMod --> AiEngine
+    AdminMod --> PDO
+    ContractorMod --> PDO
+    WorkerMod --> PDO
+    ClientMod --> PDO
+    ApiMod --> PDO
+    WorkerMod --> Filesystem
+    ClientMod --> Filesystem
+    PDO --> MySQL

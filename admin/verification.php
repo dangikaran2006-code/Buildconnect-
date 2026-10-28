@@ -107,13 +107,13 @@ $pending_workers = $stmt->fetchAll();
                             <?php foreach ($pending_workers as $pw): ?>
                                 <tr>
                                     <td>
-                                        <div class="fw-bold text-white"><?= e($pw['name']) ?></div>
+                                        <div class="fw-bold text-dark"><?= e($pw['name']) ?></div>
                                         <div class="text-muted extra-small"><?= e($pw['email']) ?> | <?= e($pw['phone'] ?: 'N/A') ?></div>
                                     </td>
                                     <td>
-                                        <span class="badge bg-secondary"><?= e($pw['trade_title']) ?></span>
+                                        <span class="badge bg-primary-subtle text-primary"><?= e($pw['trade_title']) ?></span>
                                     </td>
-                                    <td class="fw-bold text-warning"><?= $pw['experience_years'] ?> Years</td>
+                                    <td class="fw-bold text-dark"><?= $pw['experience_years'] ?> Years</td>
                                     <td class="text-muted small"><?= e($pw['city']) ?></td>
                                     <td class="text-muted extra-small"><?= format_date($pw['joined_at']) ?></td>
                                     <td class="text-end">

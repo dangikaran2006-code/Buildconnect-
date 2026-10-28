@@ -135,7 +135,7 @@ $flash = get_flash_message();
     <main class="bc-main-content">
         <div class="d-flex justify-content-between align-items-center mb-4">
             <div>
-                <h1 class="h2 fw-bold text-white mb-1">
+                <h1 class="h2 fw-bold text-dark mb-1">
                     <i class="fa-solid fa-screwdriver-wrench text-warning me-2"></i>Trade Skills & Specializations
                 </h1>
                 <p class="text-muted small mb-0">Manage verified trade skills and proficiency levels to improve job matching.</p>
@@ -156,14 +156,14 @@ $flash = get_flash_message();
 
         <!-- Active Worker Skills Card -->
         <div class="bc-card p-4">
-            <h2 class="h5 text-white fw-bold mb-3">
+            <h2 class="h5 fw-bold text-dark mb-3">
                 <i class="fa-solid fa-list-check text-info me-2"></i>My Skill Inventory
             </h2>
 
             <?php if (empty($my_skills)): ?>
                 <div class="bc-empty-state py-5 text-center">
                     <i class="fa-solid fa-screwdriver-wrench fs-1 text-warning mb-3"></i>
-                    <h3 class="h5 text-white fw-bold">No Trade Skills Added Yet</h3>
+                    <h3 class="h5 text-dark fw-bold">No Trade Skills Added Yet</h3>
                     <p class="text-muted small mb-3">
                         Add trade skills to your profile so contractors can discover your expertise for project assignments.
                     </p>
@@ -173,7 +173,7 @@ $flash = get_flash_message();
                 </div>
             <?php else: ?>
                 <div class="table-responsive">
-                    <table class="table table-custom align-middle mb-0">
+                    <table class="table align-middle mb-0">
                         <thead>
                             <tr>
                                 <th>Skill Name</th>
@@ -192,14 +192,14 @@ $flash = get_flash_message();
                                 <tr>
                                     <td>
                                         <div class="d-flex align-items-center">
-                                            <i class="fa-solid fa-check-circle text-info me-2"></i>
-                                            <span class="fw-bold text-white fs-6">
+                                            <i class="fa-solid fa-check-circle text-success me-2"></i>
+                                            <span class="fw-bold text-dark fs-6">
                                                 <?= e($display_name) ?>
                                             </span>
                                         </div>
                                     </td>
                                     <td>
-                                        <span class="badge bg-dark border border-secondary text-info"><?= e($display_cat) ?></span>
+                                        <span class="badge bg-light text-secondary border"><?= e($display_cat) ?></span>
                                     </td>
                                     <td>
                                         <span class="badge bg-warning text-dark text-capitalize font-monospace"><?= e($display_prof) ?></span>
@@ -230,10 +230,10 @@ $flash = get_flash_message();
 <!-- Add Skill Modal -->
 <div class="modal fade" id="addSkillModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content bg-dark border-secondary text-light">
-            <div class="modal-header border-secondary">
-                <h5 class="modal-title fw-bold text-white"><i class="fa-solid fa-screwdriver-wrench me-2 text-warning"></i>Add Trade Skill</h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div class="modal-content bg-white border-0 shadow-lg">
+            <div class="modal-header border-bottom">
+                <h5 class="modal-title fw-bold text-dark"><i class="fa-solid fa-screwdriver-wrench me-2 text-warning"></i>Add Trade Skill</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form action="<?= BASE_URL ?>/worker/skills.php" method="POST">
                 <?= csrf_field() ?>
@@ -261,13 +261,14 @@ $flash = get_flash_message();
                     </div>
                 </div>
 
-                <div class="modal-footer border-secondary">
+                <div class="modal-footer border-top">
                     <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-dismiss="modal">Cancel</button>
                     <button type="submit" class="btn btn-amber btn-sm fw-bold"><i class="fa-solid fa-plus me-1"></i> Add Skill</button>
                 </div>
             </form>
         </div>
     </div>
+</div>
 </div>
 
 <?php require_once __DIR__ . '/../includes/footer.php'; ?>

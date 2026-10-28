@@ -106,7 +106,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             redirect('client/profile.php');
         } catch (PDOException $e) {
             $db->rollBack();
-            $errors[] = "Database update error: " . $e->getMessage();
+            error_log("Client edit profile error: " . $e->getMessage());
+            $errors[] = "An unexpected error occurred while updating your profile. Please try again.";
         }
     }
 }

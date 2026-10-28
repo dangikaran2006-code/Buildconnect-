@@ -539,3 +539,60 @@ function ai_suggest_worker_profile_improvements($worker_user_id) {
         'suggestions' => $suggestions
     ];
 }
+
+/**
+ * Calculate heuristic/AI match score for a worker against job requirements.
+ * Returns an integer percentage score (50% - 99%).
+ */
+function calculate_ai_match_score($worker_user_id, $job_id = null) {
+    static $score_cache = [];
+    $cache_key = "{$worker_user_id}_{$job_id}";
+    if (isset($score_cache[$cache_key])) {
+        return $score_cache[$cache_key];
+    }
+
+    try {
+        $db = getDB();
+        $stmt = $db->prepare("
+            SELECT w.*, 
+                   (SELECT COUNT(*) FROM worker_skills ws WHERE ws.worker_id = w.id) as skills_cnt,
+                   (SELECT COUNT(*) FROM worker_experience we WHERE we.worker_id = w.id) as exp_cnt
+            FROM workers w 
+            WHERE w.user_id = ?
+        ");
+        $stmt->execute([(int)$worker_user_id]);
+        $w = $stmt->fetch();
+
+        if (!$w) {
+            return 75;
+        }
+
+        // Base score
+        $score = 55;
+
+        // Rating bonus (up to 20 points)
+        $rating = (float)($w['rating_avg'] ?? 4.0);
+        $score += (int)min(20, round(($rating / 5.0) * 20));
+
+        // Verification bonus (12 points)
+        if (($w['verification_status'] ?? '') === 'approved') {
+            $score += 12;
+        }
+
+        // Skills bonus (up to 8 points)
+        $skills_cnt = (int)($w['skills_cnt'] ?? 0);
+        $score += (int)min(8, $skills_cnt * 2);
+
+        // Availability bonus (5 points)
+        if (($w['availability_status'] ?? '') === 'available') {
+            $score += 5;
+        }
+
+        $final_score = max(50, min(99, $score));
+        $score_cache[$cache_key] = $final_score;
+        return $final_score;
+    } catch (Exception $e) {
+        return 75;
+    }
+}
+

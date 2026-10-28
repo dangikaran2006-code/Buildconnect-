@@ -84,23 +84,10 @@ function initExportReport() {
 
     exportBtn.addEventListener('click', (e) => {
         e.preventDefault();
-        const csvContent = "data:text/csv;charset=utf-8," 
-            + "Metric,Value,Status\n"
-            + "Total Users,12,Active\n"
-            + "Total Companies,5,Active\n"
-            + "Total Contractors,4,Active\n"
-            + "Total Clients,3,Active\n"
-            + "Pending Verifications,1,Pending\n";
-        const encodedUri = encodeURI(csvContent);
-        const link = document.createElement("a");
-        link.setAttribute("href", encodedUri);
-        link.setAttribute("download", `BuildConnect_Executive_Report_${new Date().toISOString().slice(0,10)}.csv`);
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
         if (typeof showNotification === 'function') {
-            showNotification('Executive CSV Report downloaded successfully!', 'success');
+            showNotification('Generating real CSV report from platform database...', 'info');
         }
+        window.location.href = window.location.origin + '/BuildConnect/api/export-report.php?report=projects';
     });
 }
 
@@ -174,7 +161,8 @@ function initFormHelpers() {
             if (submitBtn && !submitBtn.disabled) {
                 submitBtn.disabled = true;
                 const originalHtml = submitBtn.innerHTML;
-                submitBtn.innerHTML = `<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span> Processing...`;
+                const procText = (typeof window.__ === 'function') ? window.__('common.processing', 'Processing...') : 'Processing...';
+                submitBtn.innerHTML = `<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span> ${procText}`;
                 // Restore button after 8s fallback in case of aborted submit
                 setTimeout(() => {
                     submitBtn.disabled = false;

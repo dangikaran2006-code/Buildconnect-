@@ -138,7 +138,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && empty($error)) {
                 if ($ex->getCode() == 23000) {
                     $error = "You have already submitted an application for this job posting.";
                 } else {
-                    $error = "Database Error: " . $ex->getMessage();
+                    error_log("Job application error: " . $ex->getMessage());
+                    $error = "A database error occurred while submitting your application. Please try again.";
                 }
             }
         }

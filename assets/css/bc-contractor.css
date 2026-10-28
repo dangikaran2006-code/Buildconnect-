@@ -1,0 +1,46 @@
+/* ==========================================================================
+   BuildConnect Contractor Dashboard Custom UI
+   File: assets/css/bc-contractor.css
+   Scope: .contractor-app Only
+   ========================================================================== */
+
+.contractor-app {
+    background-color: var(--bc-bg);
+}
+
+.contractor-app .contractor-banner-card {
+    background: #FFFFFF;
+    border: 1px solid var(--bc-border);
+    border-radius: var(--bc-radius);
+    padding: 1.5rem 1.75rem;
+    box-shadow: var(--bc-card-shadow);
+}
+
+.contractor-app .contractor-kpi-card {
+    background: var(--bc-card-bg) !important;
+    border: 1px solid var(--bc-card-border) !important;
+    border-radius: var(--bc-radius) !important;
+    padding: 1.25rem !important;
+    box-shadow: var(--bc-card-shadow);
+    transition: all 0.2s ease;
+}
+
+.contractor-app .contractor-kpi-card:hover {
+    border-color: var(--bc-card-border-hover) !important;
+    box-shadow: var(--bc-card-shadow-hover);
+    transform: translateY(-1px);
+}
+
+.contractor-app .contractor-rfq-card {
+    background: #FFFFFF;
+    border: 1px solid var(--bc-card-border);
+    border-radius: var(--bc-radius);
+    padding: 1.25rem;
+    box-shadow: var(--bc-card-shadow);
+    transition: all 0.2s ease;
+}
+
+.contractor-app .contractor-rfq-card:hover {
+    border-color: var(--bc-orange);
+    box-shadow: var(--bc-card-shadow-hover);
+}

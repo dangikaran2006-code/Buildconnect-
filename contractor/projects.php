@@ -86,7 +86,7 @@ unset($proj);
     <main class="bc-main-content">
         <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
             <div>
-                <h1 class="h2 fw-bold text-white mb-1">
+                <h1 class="h2 fw-bold text-dark mb-1">
                     <i class="fa-solid fa-building text-warning me-2"></i>Construction Projects
                 </h1>
                 <p class="text-muted small mb-0">Overview of active site developments, workforce allocation, and milestone progress.</p>
@@ -110,13 +110,13 @@ unset($proj);
             <form action="<?= BASE_URL ?>/contractor/projects.php" method="GET" class="row g-2 align-items-center">
                 <div class="col-md-5">
                     <div class="input-group input-group-sm">
-                        <span class="input-group-text bg-dark border-secondary text-muted"><i class="fa-solid fa-magnifying-glass"></i></span>
-                        <input type="text" name="q" value="<?= e($search) ?>" class="form-control bg-dark border-secondary text-light" placeholder="Search project name, location, or client...">
+                        <span class="input-group-text bg-light text-muted border-end-0"><i class="fa-solid fa-magnifying-glass"></i></span>
+                        <input type="text" name="q" value="<?= e($search) ?>" class="form-control border-start-0" placeholder="Search project name, location, or client...">
                     </div>
                 </div>
 
                 <div class="col-md-4">
-                    <select name="status" class="form-select form-select-sm bg-dark border-secondary text-light">
+                    <select name="status" class="form-select form-select-sm">
                         <option value="all" <?= $status_filter === 'all' ? 'selected' : '' ?>>All Statuses</option>
                         <option value="active" <?= $status_filter === 'active' ? 'selected' : '' ?>>Active / In Progress</option>
                         <option value="planning" <?= $status_filter === 'planning' ? 'selected' : '' ?>>Planning</option>
@@ -139,7 +139,7 @@ unset($proj);
             <?php if (empty($projects)): ?>
                 <div class="bc-empty-state py-5 text-center">
                     <i class="fa-solid fa-building-circle-exclamation fs-1 text-muted mb-3"></i>
-                    <h3 class="h5 text-white fw-bold">No Projects Found</h3>
+                    <h3 class="h5 text-dark fw-bold">No Projects Found</h3>
                     <p class="text-muted small mb-4">No construction projects match your search query.</p>
                     <a href="<?= BASE_URL ?>/contractor/create-project.php" class="btn btn-amber btn-sm fw-bold">
                         <i class="fa-solid fa-plus me-1"></i> Create First Project
@@ -147,24 +147,24 @@ unset($proj);
                 </div>
             <?php else: ?>
                 <div class="table-responsive">
-                    <table class="table table-custom align-middle mb-0">
-                        <thead>
+                    <table class="table align-middle mb-0">
+                        <thead class="table-light">
                             <tr>
-                                <th>Project Name & Client</th>
-                                <th>Location</th>
-                                <th>Budget</th>
-                                <th>Timeline</th>
-                                <th>Progress</th>
-                                <th>Workforce & Tasks</th>
-                                <th>Status</th>
-                                <th class="text-end">Actions</th>
+                                <th class="text-muted small text-uppercase fw-semibold">Project Name & Client</th>
+                                <th class="text-muted small text-uppercase fw-semibold">Location</th>
+                                <th class="text-muted small text-uppercase fw-semibold">Budget</th>
+                                <th class="text-muted small text-uppercase fw-semibold">Timeline</th>
+                                <th class="text-muted small text-uppercase fw-semibold">Progress</th>
+                                <th class="text-muted small text-uppercase fw-semibold">Workforce & Tasks</th>
+                                <th class="text-muted small text-uppercase fw-semibold">Status</th>
+                                <th class="text-end text-muted small text-uppercase fw-semibold">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php foreach ($projects as $p): ?>
                                 <tr>
                                     <td>
-                                        <a href="<?= BASE_URL ?>/contractor/project-details.php?id=<?= $p['id'] ?>" class="fw-bold text-white text-decoration-none hover-amber">
+                                        <a href="<?= BASE_URL ?>/contractor/project-details.php?id=<?= $p['id'] ?>" class="fw-bold text-dark text-decoration-none hover-amber">
                                             <?= e($p['title']) ?>
                                         </a>
                                         <div class="extra-small text-muted">
@@ -175,7 +175,7 @@ unset($proj);
                                         <span class="text-muted small"><i class="fa-solid fa-location-dot text-danger me-1"></i><?= e($p['location']) ?></span>
                                     </td>
                                     <td>
-                                        <span class="font-monospace text-warning fw-bold"><?= format_currency($p['budget']) ?></span>
+                                        <span class="font-monospace text-dark fw-bold"><?= format_currency($p['budget']) ?></span>
                                     </td>
                                     <td class="text-muted extra-small">
                                         <?= format_date($p['start_date']) ?> - <?= format_date($p['end_date']) ?>
@@ -183,7 +183,7 @@ unset($proj);
                                     <td style="min-width: 140px;">
                                         <div class="d-flex justify-content-between extra-small mb-1">
                                             <span class="text-muted">Progress</span>
-                                            <span class="font-monospace text-warning fw-bold"><?= (int)$p['progress_percent'] ?>%</span>
+                                            <span class="font-monospace text-dark fw-bold"><?= (int)$p['progress_percent'] ?>%</span>
                                         </div>
                                         <div class="progress" style="height: 6px;">
                                             <div class="progress-bar bg-amber" style="width: <?= (int)$p['progress_percent'] ?>%"></div>
@@ -191,8 +191,8 @@ unset($proj);
                                     </td>
                                     <td>
                                         <div class="extra-small">
-                                            <span class="badge bg-dark border border-secondary text-info me-1"><i class="fa-solid fa-users me-1"></i><?= (int)$p['active_workers_count'] ?> Workers</span>
-                                            <span class="badge bg-dark border border-secondary text-warning"><i class="fa-solid fa-list-check me-1"></i><?= (int)$p['pending_tasks_count'] ?> Tasks</span>
+                                            <span class="badge bg-light text-secondary border me-1"><i class="fa-solid fa-users me-1 text-primary"></i><?= (int)$p['active_workers_count'] ?> Workers</span>
+                                            <span class="badge bg-light text-secondary border"><i class="fa-solid fa-list-check me-1 text-warning"></i><?= (int)$p['pending_tasks_count'] ?> Tasks</span>
                                         </div>
                                     </td>
                                     <td>
@@ -200,11 +200,11 @@ unset($proj);
                                     </td>
                                     <td class="text-end">
                                         <div class="btn-group btn-group-sm">
-                                            <a href="<?= BASE_URL ?>/contractor/project-details.php?id=<?= $p['id'] ?>" class="btn btn-outline-light" title="View Details">
-                                                <i class="fa-solid fa-eye text-info"></i>
+                                            <a href="<?= BASE_URL ?>/contractor/project-details.php?id=<?= $p['id'] ?>" class="btn btn-outline-secondary" title="View Details">
+                                                <i class="fa-solid fa-eye text-primary"></i>
                                             </a>
-                                            <a href="<?= BASE_URL ?>/contractor/edit-project.php?id=<?= $p['id'] ?>" class="btn btn-outline-light" title="Edit Project">
-                                                <i class="fa-solid fa-pen text-warning"></i>
+                                            <a href="<?= BASE_URL ?>/contractor/edit-project.php?id=<?= $p['id'] ?>" class="btn btn-outline-secondary" title="Edit Project">
+                                                <i class="fa-solid fa-pen text-amber"></i>
                                             </a>
                                         </div>
                                     </td>
@@ -216,19 +216,19 @@ unset($proj);
 
                 <!-- Pagination Nav -->
                 <?php if ($total_pages > 1): ?>
-                    <div class="d-flex justify-content-between align-items-center pt-3 border-top border-secondary mt-3">
+                    <div class="d-flex justify-content-between align-items-center pt-3 border-top mt-3">
                         <span class="text-muted extra-small">Showing Page <?= $page ?> of <?= $total_pages ?> (Total <?= $total_projects ?> Projects)</span>
                         <ul class="pagination pagination-sm mb-0">
                             <li class="page-item <?= $page <= 1 ? 'disabled' : '' ?>">
-                                <a class="page-link bg-dark border-secondary text-light" href="<?= BASE_URL ?>/contractor/projects.php?page=<?= $page - 1 ?>&q=<?= urlencode($search) ?>&status=<?= urlencode($status_filter) ?>">Prev</a>
+                                <a class="page-link" href="<?= BASE_URL ?>/contractor/projects.php?page=<?= $page - 1 ?>&q=<?= urlencode($search) ?>&status=<?= urlencode($status_filter) ?>">Prev</a>
                             </li>
                             <?php for ($i = 1; $i <= $total_pages; $i++): ?>
                                 <li class="page-item <?= $i === $page ? 'active' : '' ?>">
-                                    <a class="page-link <?= $i === $page ? 'bg-amber text-dark border-amber fw-bold' : 'bg-dark border-secondary text-light' ?>" href="<?= BASE_URL ?>/contractor/projects.php?page=<?= $i ?>&q=<?= urlencode($search) ?>&status=<?= urlencode($status_filter) ?>"><?= $i ?></a>
+                                    <a class="page-link <?= $i === $page ? 'bg-amber text-white border-amber fw-bold' : 'text-secondary' ?>" href="<?= BASE_URL ?>/contractor/projects.php?page=<?= $i ?>&q=<?= urlencode($search) ?>&status=<?= urlencode($status_filter) ?>"><?= $i ?></a>
                                 </li>
                             <?php endfor; ?>
                             <li class="page-item <?= $page >= $total_pages ? 'disabled' : '' ?>">
-                                <a class="page-link bg-dark border-secondary text-light" href="<?= BASE_URL ?>/contractor/projects.php?page=<?= $page + 1 ?>&q=<?= urlencode($search) ?>&status=<?= urlencode($status_filter) ?>">Next</a>
+                                <a class="page-link" href="<?= BASE_URL ?>/contractor/projects.php?page=<?= $page + 1 ?>&q=<?= urlencode($search) ?>&status=<?= urlencode($status_filter) ?>">Next</a>
                             </li>
                         </ul>
                     </div>

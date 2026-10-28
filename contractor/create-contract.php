@@ -155,7 +155,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             } catch (Exception $e) {
                 $db->rollBack();
-                $errors[] = "Failed to create contract: " . $e->getMessage();
+                error_log("Contractor create contract error: " . $e->getMessage());
+                $errors[] = "An unexpected error occurred while creating the contract. Please try again.";
             }
         }
     }

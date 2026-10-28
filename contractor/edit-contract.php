@@ -116,7 +116,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $is_editable) {
 
             } catch (Exception $e) {
                 $db->rollBack();
-                $errors[] = "Failed to update contract: " . $e->getMessage();
+                error_log("Contractor edit contract error: " . $e->getMessage());
+                $errors[] = "An unexpected error occurred while updating the contract. Please try again.";
             }
         }
     }

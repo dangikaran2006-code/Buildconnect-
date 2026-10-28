@@ -262,34 +262,35 @@ const BuildConnectPush = {
         const tokenEl = document.getElementById('bc-push-token-display');
 
         if (!badgeEl) return;
+        const t = (k, fallback) => (typeof window.__ === 'function') ? window.__(k, fallback) : fallback;
 
         if (permission === 'granted') {
             badgeEl.className = 'badge bg-success text-white py-1.5 px-3 rounded-pill fs-7';
-            badgeEl.innerHTML = '<i class="fa-solid fa-circle-check me-1"></i> Push Active (Localhost)';
-            if (descEl) descEl.textContent = 'Browser Web Push notifications are active. You will receive instant desktop popups & audio alerts.';
+            badgeEl.innerHTML = '<i class="fa-solid fa-circle-check me-1"></i> ' + t('notif.push_active', 'Push Active (Localhost)');
+            if (descEl) descEl.textContent = t('notif.push_active_desc', 'Browser Web Push notifications are active. You will receive instant desktop popups & audio alerts.');
             if (enableBtn) {
                 enableBtn.className = 'btn btn-outline-success btn-sm me-2 fw-semibold disabled';
-                enableBtn.innerHTML = '<i class="fa-solid fa-check me-1"></i> Web Push Enabled';
+                enableBtn.innerHTML = '<i class="fa-solid fa-check me-1"></i> ' + t('notif.push_enabled', 'Web Push Enabled');
             }
             if (tokenEl && tokenEl.textContent === 'localhost-push-active') {
                 tokenEl.textContent = 'active-' + Math.random().toString(36).substring(2, 10);
             }
         } else if (permission === 'denied') {
             badgeEl.className = 'badge bg-danger text-white py-1.5 px-3 rounded-pill fs-7';
-            badgeEl.innerHTML = '<i class="fa-solid fa-circle-xmark me-1"></i> Push Blocked';
-            if (descEl) descEl.textContent = 'Notifications are blocked in browser settings. Click the lock icon 🔒 next to URL in browser address bar to allow Notifications.';
+            badgeEl.innerHTML = '<i class="fa-solid fa-circle-xmark me-1"></i> ' + t('notif.push_blocked', 'Push Blocked');
+            if (descEl) descEl.textContent = t('notif.push_blocked_desc', 'Notifications are blocked in browser settings. Click the lock icon 🔒 next to URL in browser address bar to allow Notifications.');
             if (enableBtn) {
                 enableBtn.className = 'btn btn-outline-secondary btn-sm me-2 fw-semibold';
-                enableBtn.innerHTML = '<i class="fa-solid fa-lock me-1"></i> Reset Browser Lock';
+                enableBtn.innerHTML = '<i class="fa-solid fa-lock me-1"></i> ' + t('notif.reset_browser_lock', 'Reset Browser Lock');
                 enableBtn.onclick = () => alert('Notifications are currently blocked by browser security.\n\nTo unblock:\n1. Click the lock 🔒 or site settings icon in your browser address bar.\n2. Set Notifications to "Allow".\n3. Refresh this page.');
             }
         } else {
             badgeEl.className = 'badge bg-warning text-dark py-1.5 px-3 rounded-pill fs-7';
-            badgeEl.innerHTML = '<i class="fa-solid fa-triangle-exclamation me-1"></i> Action Required';
-            if (descEl) descEl.textContent = statusText || 'Enable Web Push notifications to receive instant desktop alerts on localhost.';
+            badgeEl.innerHTML = '<i class="fa-solid fa-triangle-exclamation me-1"></i> ' + t('notif.action_required', 'Action Required');
+            if (descEl) descEl.textContent = statusText || t('notif.enable_desc', 'Enable Web Push notifications to receive instant desktop alerts on localhost.');
             if (enableBtn) {
                 enableBtn.className = 'btn btn-amber btn-sm me-2 fw-bold shadow-sm';
-                enableBtn.innerHTML = '<i class="fa-solid fa-bell me-1"></i> Enable Localhost Push';
+                enableBtn.innerHTML = '<i class="fa-solid fa-bell me-1"></i> ' + t('notif.enable_push', 'Enable Localhost Push');
                 enableBtn.onclick = () => BuildConnectPush.requestPermission();
             }
         }

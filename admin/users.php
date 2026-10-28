@@ -231,10 +231,10 @@ $flash = get_flash_message();
                                 <!-- Modal Edit User -->
                                 <div class="modal fade" id="editUserModal<?= $u['id'] ?>" tabindex="-1" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered">
-                                        <div class="modal-content bg-dark border-secondary text-light">
-                                            <div class="modal-header border-secondary">
-                                                <h5 class="modal-title fw-bold text-white"><i class="fa-solid fa-user-pen me-2 text-warning"></i>Edit User #<?= $u['id'] ?></h5>
-                                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title fs-6"><i class="fa-solid fa-user-pen me-2 text-warning"></i>Edit User #<?= $u['id'] ?></h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                                             </div>
                                             <form action="<?= BASE_URL ?>/admin/users.php" method="POST">
                                                 <?= csrf_field() ?>
@@ -242,20 +242,20 @@ $flash = get_flash_message();
                                                 <input type="hidden" name="target_user_id" value="<?= $u['id'] ?>">
                                                 <div class="modal-body">
                                                     <div class="mb-3">
-                                                        <label class="form-label text-muted small fw-semibold">Full Name</label>
+                                                        <label class="form-label extra-small fw-bold">Full Name</label>
                                                         <input type="text" class="form-control" name="name" required value="<?= e($u['name']) ?>">
                                                     </div>
                                                     <div class="mb-3">
-                                                        <label class="form-label text-muted small fw-semibold">Email Address</label>
+                                                        <label class="form-label extra-small fw-bold">Email Address</label>
                                                         <input type="email" class="form-control" name="email" required value="<?= e($u['email']) ?>">
                                                     </div>
                                                     <div class="mb-3">
-                                                        <label class="form-label text-muted small fw-semibold">Phone Number</label>
+                                                        <label class="form-label extra-small fw-bold">Phone Number</label>
                                                         <input type="text" class="form-control" name="phone" value="<?= e($u['phone']) ?>">
                                                     </div>
                                                     <div class="row g-2 mb-3">
                                                         <div class="col-6">
-                                                            <label class="form-label text-muted small fw-semibold">Role</label>
+                                                            <label class="form-label extra-small fw-bold">Role</label>
                                                             <select class="form-select" name="role" <?= (int)$u['id'] === (int)$current_user['id'] ? 'disabled' : '' ?>>
                                                                 <option value="admin" <?= $u['role'] === 'admin' ? 'selected' : '' ?>>Admin</option>
                                                                 <option value="contractor" <?= $u['role'] === 'contractor' ? 'selected' : '' ?>>Contractor</option>
@@ -264,7 +264,7 @@ $flash = get_flash_message();
                                                             </select>
                                                         </div>
                                                         <div class="col-6">
-                                                            <label class="form-label text-muted small fw-semibold">Account Status</label>
+                                                            <label class="form-label extra-small fw-bold">Account Status</label>
                                                             <select class="form-select" name="status" <?= (int)$u['id'] === (int)$current_user['id'] ? 'disabled' : '' ?>>
                                                                 <option value="active" <?= $u['status'] === 'active' ? 'selected' : '' ?>>Active</option>
                                                                 <option value="inactive" <?= $u['status'] === 'inactive' ? 'selected' : '' ?>>Inactive</option>
@@ -273,8 +273,8 @@ $flash = get_flash_message();
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="modal-footer border-secondary">
-                                                    <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-dismiss="modal">Cancel</button>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Cancel</button>
                                                     <button type="submit" class="btn btn-amber btn-sm fw-bold">Save Changes</button>
                                                 </div>
                                             </form>

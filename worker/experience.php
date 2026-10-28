@@ -85,7 +85,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     }
                     redirect('worker/experience.php');
                 } catch (PDOException $e) {
-                    $errors[] = "Database error: " . $e->getMessage();
+                    error_log("Worker experience update error: " . $e->getMessage());
+                    $errors[] = "An unexpected database error occurred while saving your experience record.";
                 }
             }
         } elseif ($action === 'delete') {
@@ -107,7 +108,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         $errors[] = "Access denied or record not found.";
                     }
                 } catch (PDOException $e) {
-                    $errors[] = "Error deleting experience record: " . $e->getMessage();
+                    error_log("Worker experience delete error: " . $e->getMessage());
+                    $errors[] = "An unexpected database error occurred while deleting your experience record.";
                 }
             }
         }
